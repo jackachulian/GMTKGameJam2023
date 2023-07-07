@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class BattlerDisplay : MonoBehaviour
 {
     /// <summary>
-    /// True to show player side (left), false to show enemy side (right)
+    /// Index of player to initially show.
+    /// Will be offset by the current player index of battle manager.
     /// </summary>
-    public bool showPlayer;
+    public int playerIndex;
 
     private BattleManager battleManager;
 
@@ -27,7 +28,7 @@ public class BattlerDisplay : MonoBehaviour
 
     public void Refresh()
     {
-        displayedBattler = showPlayer ? battleManager.CurrentPlayer : battleManager.CurrentEnemy;
+        displayedBattler = battleManager.battlers[(battleManager.currentPlayerIndex + playerIndex) % battleManager.battlers.Length];
 
         portraitImage.sprite = displayedBattler.portraitSprite;
 
