@@ -568,6 +568,7 @@ MonoBehaviour:
   - {fileID: 2524660354551558510}
   - {fileID: 1240661236}
   currentPlayerIndex: 0
+  moveGrid: {fileID: 158574431}
 --- !u!4 &1002012837
 Transform:
   m_ObjectHideFlags: 0
@@ -1126,7 +1127,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
