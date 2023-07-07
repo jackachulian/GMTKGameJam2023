@@ -14,7 +14,7 @@ public class MoveButton : MonoBehaviour, IPointerClickHandler
     private Move displayedMove;
 
 
-    [SerializeField] private TMPro.TextMeshProUGUI label;
+    [SerializeField] private TMPro.TextMeshProUGUI usesLabel, nameLabel;
 
     // Use this for initialization
     void Start()
@@ -37,11 +37,12 @@ public class MoveButton : MonoBehaviour, IPointerClickHandler
     public void Refresh()
     {
         displayedMove = battleManager.CurrentPlayer.moves[moveIndex];
-        label.text = displayedMove.name;
+        usesLabel.text = battleManager.CurrentPlayer.moveUsesRemaining[moveIndex]+"";
+        nameLabel.text = displayedMove.name;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        battleManager.SubmitMove(displayedMove);
+        battleManager.SubmitMove(moveIndex);
     }
 }

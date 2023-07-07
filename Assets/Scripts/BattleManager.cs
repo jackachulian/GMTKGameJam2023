@@ -58,15 +58,18 @@ public class BattleManager : MonoBehaviour
     /// <param name="attacker"></param>
     /// <param name="move"></param>
     /// <returns>true if move was used successfully, false if use conditions not met (mana cost)</returns>
-    public bool SubmitMove(Move move) {
-        if (move.manaCost > CurrentPlayer.mp) return false;
+    public bool SubmitMove(int moveIndex) {
+        // if (move.manaCost > CurrentPlayer.mp) return false;
 
-        UseMove(CurrentPlayer, CurrentEnemy, move);
+        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return false;
 
-        UseMove(CurrentEnemy, CurrentPlayer, CurrentEnemy.moves[Random.Range(0, 4)]);
+        UseMove(CurrentPlayer, CurrentEnemy, moveIndex);
+
+        // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
+
+        UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
 
         // === SWAP BEGINS HERE ===
-        Debug.Log("Swapping players!");
         // Swap which battler is controlled by the character
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
@@ -88,7 +91,9 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void UseMove(Battler attacker, Battler target, Move move) {
+    void UseMove(Battler attacker, Battler target, int moveIndex) {
+        attacker.moveUsesRemaining[moveIndex]--;
+        Move move = attacker.moves[moveIndex];
         Debug.Log($"{attacker.name} uses {move.name} on {target.name}");
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;

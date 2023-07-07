@@ -16,6 +16,11 @@ public class Battler : MonoBehaviour
 
     public StatusEffect[] statusEffects;
 
+    /// <summary>
+    /// Index corresponds to index in moves[]
+    /// </summary>
+    [HideInInspector] public int[] moveUsesRemaining;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +31,20 @@ public class Battler : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnValidate()
+    {
+        ResetMoveUses();
+    }
+
+    void ResetMoveUses()
+    {
+        moveUsesRemaining = new int[moves.Length];
+
+        for (int i=0; i<moves.Length; i++)
+        {
+            moveUsesRemaining[i] = moves[i].baseUses;
+        }
     }
 }

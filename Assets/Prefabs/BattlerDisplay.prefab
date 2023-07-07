@@ -71,7 +71,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.625
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP 25/40
+  m_text: HP 40/40
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
   m_sharedMaterial: {fileID: 282903032932308437, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
@@ -305,7 +305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7947234454774218308
 RectTransform:
   m_ObjectHideFlags: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.6
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -479,8 +479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 52.5, y: 45}
-  m_SizeDelta: {x: -135, y: 25}
+  m_AnchoredPosition: {x: 52.5, y: 10}
+  m_SizeDelta: {x: -135, y: 30}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4878886843428025588
 CanvasRenderer:
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f448a0a913712ff4b87c64e55536e662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showPlayer: 1
+  playerIndex: 0
   hpLabel: {fileID: 1175792978139688664}
   mpLabel: {fileID: 8114253360040197661}
   portraitImage: {fileID: 4570172621240857695}
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c8454f8d3df24442b2ce8066d598340, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 686f3989d8b368b40adfd19645b48333, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -760,7 +760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MP 12/20
+  m_text: MP 20/20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
   m_sharedMaterial: {fileID: 282903032932308437, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
