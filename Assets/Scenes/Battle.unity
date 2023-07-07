@@ -661,6 +661,7 @@ MonoBehaviour:
   battlerDisplays:
   - {fileID: 5763099096526659115}
   - {fileID: 1381427822}
+  platformRotationAnimator: {fileID: 2068895912}
 --- !u!4 &1002012837
 Transform:
   m_ObjectHideFlags: 0
