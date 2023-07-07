@@ -121,9 +121,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portraitSprite: {fileID: 21300000, guid: 8c8454f8d3df24442b2ce8066d598340, type: 3}
   maxHp: 40
-  hp: 25
+  hp: 40
   maxMp: 20
-  mp: 12
+  mp: 20
   moves:
   - {fileID: 11400000, guid: fa483c01ff58e0f418ceb56aa22167ec, type: 2}
   - {fileID: 11400000, guid: 51f27ca10dbb6fa44a59fc71db3a019a, type: 2}
