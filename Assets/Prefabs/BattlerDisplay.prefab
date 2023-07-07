@@ -532,6 +532,7 @@ GameObject:
   - component: {fileID: 3633466766475628683}
   - component: {fileID: 4410935217224796737}
   - component: {fileID: 4349350439457305748}
+  - component: {fileID: 3896940491172500849}
   m_Layer: 5
   m_Name: BattlerDisplay
   m_TagString: Untagged
@@ -618,6 +619,18 @@ MonoBehaviour:
   portraitImage: {fileID: 4570172621240857695}
   hpImage: {fileID: 1161824365973363541}
   mpImage: {fileID: 7759900007062531838}
+--- !u!225 &3896940491172500849
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8234775319633523762}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8851741538218107609
 GameObject:
   m_ObjectHideFlags: 0
