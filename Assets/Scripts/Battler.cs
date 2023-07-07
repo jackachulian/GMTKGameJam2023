@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Battler : MonoBehaviour
 {
+    public Sprite portraitSprite;
+
     public int maxHp;
     public int hp;
-
 
     public int maxMp;
     public int mp;

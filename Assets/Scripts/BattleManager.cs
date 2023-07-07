@@ -24,10 +24,12 @@ public class BattleManager : MonoBehaviour
 
     private List<MoveButton> moveButtons;
 
+    [SerializeField] private BattlerDisplay[] battlerDisplays;
+
     // Start is called before the first frame update
     void Start()
     {
-        RefreshMoveButtons();
+        Refresh();
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class BattleManager : MonoBehaviour
             moveButtons.Add(child.GetComponent<MoveButton>());
         }
 
-        RefreshMoveButtons();
+        Refresh();
     }
 
     /// <summary>
@@ -68,14 +70,19 @@ public class BattleManager : MonoBehaviour
         // Swap which battler is controlled by the character
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
-        RefreshMoveButtons();
+        Refresh();
 
         return true;
     }
 
-    void RefreshMoveButtons()
+    void Refresh()
     {
         foreach (var moveButton in moveButtons) moveButton.Refresh();
+
+        foreach (var battlerDisplay in battlerDisplays)
+        {
+            if (battlerDisplay) battlerDisplay.Refresh();
+        }
     }
 
     void UseMove(Battler attacker, Battler target, Move move) {
