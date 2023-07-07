@@ -26,6 +26,9 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private BattlerDisplay[] battlerDisplays;
 
+
+    [SerializeField] private Animator platformRotationAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +75,9 @@ public class BattleManager : MonoBehaviour
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
+
+        // may need to change this ode once more than 1 enemy is added
+        platformRotationAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
 
         Refresh();
 
