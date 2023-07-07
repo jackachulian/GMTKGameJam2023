@@ -821,6 +821,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CloseButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4995238728902572012, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b9ff48ab3c8829548ba274490d7109ee, type: 3}
     - target: {fileID: 6128002335096784062, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.36336923
