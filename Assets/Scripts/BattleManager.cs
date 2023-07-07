@@ -44,6 +44,8 @@ public class BattleManager : MonoBehaviour
         {
             moveButtons.Add(child.GetComponent<MoveButton>());
         }
+
+        RefreshMoveButtons();
     }
 
     /// <summary>
