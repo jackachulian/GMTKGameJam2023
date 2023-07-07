@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7400de60e0fa12f4cae3c5e2343dc41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portraitSprite: {fileID: 21300000, guid: 8c8454f8d3df24442b2ce8066d598340, type: 3}
+  portraitSprite: {fileID: 21300000, guid: 686f3989d8b368b40adfd19645b48333, type: 3}
   maxHp: 40
   hp: 40
   maxMp: 20
