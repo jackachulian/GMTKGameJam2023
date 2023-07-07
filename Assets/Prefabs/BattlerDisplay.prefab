@@ -71,7 +71,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.625
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HP 40/40
+  m_text: HP 25/40
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
   m_sharedMaterial: {fileID: 282903032932308437, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.6
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -612,13 +612,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f448a0a913712ff4b87c64e55536e662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showPlayer: 0
+  showPlayer: 1
   hpLabel: {fileID: 1175792978139688664}
   mpLabel: {fileID: 8114253360040197661}
   portraitImage: {fileID: 4570172621240857695}
   hpImage: {fileID: 1161824365973363541}
   mpImage: {fileID: 7759900007062531838}
-  displayedBattler: {fileID: 0}
 --- !u!1 &8851741538218107609
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MP 40/40
+  m_text: MP 12/20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}
   m_sharedMaterial: {fileID: 282903032932308437, guid: a516e60d7f6610e45b3718f883a81d2b, type: 2}

@@ -77,7 +77,10 @@ public class BattleManager : MonoBehaviour
 
     void Refresh()
     {
-        foreach (var moveButton in moveButtons) moveButton.Refresh();
+        foreach (var moveButton in moveButtons)
+        {
+            if (moveButton) moveButton.Refresh();
+        }
 
         foreach (var battlerDisplay in battlerDisplays)
         {
