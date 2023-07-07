@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveIndex: 0
+  label: {fileID: 3010140862690558183}
 --- !u!1 &8984197331285489595
 GameObject:
   m_ObjectHideFlags: 0

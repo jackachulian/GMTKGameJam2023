@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -19,18 +20,30 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Transform that holds all the move button children to be updated when swapping battlers
     /// </summary>
-    public Transform moveButtonsTransform;
+    public Transform moveGrid; 
+
+    private List<MoveButton> moveButtons;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        RefreshMoveButtons();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnValidate()
+    {
+        moveButtons = new List<MoveButton>();
+
+        foreach (Transform child in moveGrid)
+        {
+            moveButtons.Add(child.GetComponent<MoveButton>());
+        }
     }
 
     /// <summary>
@@ -48,15 +61,23 @@ public class BattleManager : MonoBehaviour
 
         UseMove(CurrentEnemy, CurrentPlayer, CurrentEnemy.moves[Random.Range(0, 4)]);
 
+        // === SWAP BEGINS HERE ===
+        Debug.Log("Swapping players!");
         // Swap which battler is controlled by the character
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
-
+        RefreshMoveButtons();
 
         return true;
     }
 
+    void RefreshMoveButtons()
+    {
+        foreach (var moveButton in moveButtons) moveButton.Refresh();
+    }
+
     void UseMove(Battler attacker, Battler target, Move move) {
+        Debug.Log($"{attacker.name} uses {move.name} on {target.name}");
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;
     }

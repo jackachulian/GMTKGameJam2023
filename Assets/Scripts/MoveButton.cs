@@ -11,7 +11,7 @@ public class MoveButton : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Move that is displayed as of the last refresh, which is called when swapping battlers.
     /// </summary>
-    public Move displayedMove;
+    private Move displayedMove;
 
 
     [SerializeField] private TMPro.TextMeshProUGUI label;
@@ -29,7 +29,7 @@ public class MoveButton : MonoBehaviour, IPointerClickHandler
     }
 
     // Re-display info about the player's current battler's move at this MoveButton's index.
-    void Refresh()
+    public void Refresh()
     {
         displayedMove = battleManager.CurrentPlayer.moves[moveIndex];
         label.text = displayedMove.name;
