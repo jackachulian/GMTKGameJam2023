@@ -76,12 +76,12 @@ public class SoundManager : MonoBehaviour
     // button sfx stuff
     public void ButtonHoverSFX(AudioClip clip)
     {
-        PlaySound(clip, 0.5f, Random.Range(0.9f,1.1f));
+        PlaySound(clip, 0.25f, Random.Range(0.9f,1.1f));
     }
 
     public void ButtonClickSFX(AudioClip clip)
     {
-        PlaySound(clip, 0.75f, Random.Range(0.9f,1.1f));
+        PlaySound(clip, 0.4f, Random.Range(0.9f,1.1f));
     }
 
 }
