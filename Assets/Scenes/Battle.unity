@@ -570,6 +570,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 714533986025574547, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.81
+      objectReference: {fileID: 0}
     - target: {fileID: 1803211835999990025, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_Name
       value: Battler2
@@ -841,6 +845,7 @@ MonoBehaviour:
   moveGridTransform: {fileID: 158574431}
   battleLogTransform: {fileID: 15410803}
   logMessagePrefab: {fileID: 942351946584679350, guid: c034be1d3180d224bb6e5d3232023f44, type: 3}
+  battlerColors: []
   battlerDisplays:
   - {fileID: 5763099096526659115}
   - {fileID: 1381427822}
@@ -940,7 +945,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051585115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 412, y: 423.9501, z: 50}
+  m_LocalPosition: {x: 393, y: 422, z: 50}
   m_LocalScale: {x: 6.836246, y: 6.836246, z: 6.836246}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2123,6 +2128,10 @@ PrefabInstance:
     - target: {fileID: 714533986025574547, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_LocalScale.y
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 714533986025574547, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.81
       objectReference: {fileID: 0}
     - target: {fileID: 1803211835999990025, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_Name
