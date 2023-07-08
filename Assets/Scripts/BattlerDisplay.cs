@@ -25,6 +25,8 @@ public class BattlerDisplay : MonoBehaviour
 
     public GameObject statusEffectPrefab;
 
+    [SerializeField] private GameObject targetDisp;
+
     void OnValidate()
     {
         battleManager = FindObjectOfType<BattleManager>();
@@ -38,6 +40,8 @@ public class BattlerDisplay : MonoBehaviour
         displayedBattler = battleManager.battlers[playerIndex];
 
         portraitImage.sprite = displayedBattler.portraitSprite;
+
+        targetDisp.SetActive(displayedBattler.isTarget);
 
         hpLabel.text = $"HP {displayedBattler.hp}/{displayedBattler.maxHp}";
         // mpLabel.text = $"MP {displayedBattler.mp}/{displayedBattler.maxMp}";

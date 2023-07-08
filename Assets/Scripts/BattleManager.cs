@@ -61,6 +61,8 @@ public class BattleManager : MonoBehaviour
             Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
             battlers[i] = battler;
             battler.StatsSetup(battlerStats);
+            // sets all battlers above playerAmount as a target
+            if (i > level.playerAmount - 1) battler.isTarget = true;
         }
 
 

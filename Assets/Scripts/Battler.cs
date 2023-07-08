@@ -32,6 +32,11 @@ public class Battler : MonoBehaviour
     /// </summary>
     [HideInInspector] public int[] moveUsesRemaining;
 
+    /// <summary>
+    /// When true, this battler must be killed to win the level
+    /// </summary>
+    public bool isTarget = false;
+
     // Start is called before the first frame update
     void Start()
     {
