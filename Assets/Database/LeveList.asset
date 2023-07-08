@@ -25,12 +25,14 @@ MonoBehaviour:
     levelEndDialogue: 'woah
 
       i slayed myself :o'
+    bgm: {fileID: 8300000, guid: 5c113b892d6354343a4e07883eab8e8f, type: 3}
   - battlers:
     - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
     - {fileID: 11400000, guid: c6a57255bf9cf324b894be9bf7779270, type: 2}
     playerAmount: 1
     levelStartDialogue: this is level 2
     levelEndDialogue: i beat level 2
+    bgm: {fileID: 0}
   - battlers:
     - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
     - {fileID: 11400000, guid: c6a57255bf9cf324b894be9bf7779270, type: 2}
@@ -39,3 +41,4 @@ MonoBehaviour:
     levelEndDialogue: 'I beat the game
 
       neat'
+    bgm: {fileID: 0}

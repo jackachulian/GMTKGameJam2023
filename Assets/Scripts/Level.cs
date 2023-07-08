@@ -17,5 +17,8 @@ public class Level
     // Lines of dialogue to display before the level begins
     [TextArea]
     public string levelEndDialogue;
+
+    // music played during battle
+    public AudioClip bgm;
 }
 

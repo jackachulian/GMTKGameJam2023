@@ -10,6 +10,9 @@ public class BattleManager : MonoBehaviour
 {
     public LevelList levelList;
 
+    // current level
+    public Level level;
+
     public PostgameManager postgameManager;
 
     [SerializeField] AudioClip messageSFX;
@@ -59,7 +62,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Level level = levelList.levels[Storage.currentLevel];
+        level = levelList.levels[Storage.currentLevel];
 
         battlers = new Battler[level.battlers.Length];
         for (int i=0; i<level.battlers.Length; i++)
@@ -116,6 +119,8 @@ public class BattleManager : MonoBehaviour
         Refresh();
         battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
         selectingMove = true;
+
+        SoundManager.Instance.SetBGM(level.bgm);
     }
 
     /// <summary>
@@ -433,6 +438,7 @@ public class BattleManager : MonoBehaviour
         // StopAllCoroutines();
         BattleMessage("YOU WON!");
         isPostgame = true;
+        SoundManager.Instance.StopBGM();
 
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
@@ -454,9 +460,9 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator Lose()
     {
-        
         BattleMessage("You were slain...");
         isPostgame = true;
+        SoundManager.Instance.StopBGM();
 
         postgameManager.Lose();
 
