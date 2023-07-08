@@ -433,6 +433,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2068895911}
     m_Modifications:
+    - target: {fileID: 607089826180944442, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c59cd48202d038542bbbf2d7156c57bd, type: 3}
     - target: {fileID: 714533986025574547, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_LocalScale.y
       value: 4
@@ -445,6 +449,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 375598bd57b85d047b59278aad6b1269, type: 3}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: portraitSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 946c13fd0dc30a84daa102c8955f0655, type: 3}
     - target: {fileID: 5946640065057139876, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_RootOrder
       value: -1
