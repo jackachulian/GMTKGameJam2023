@@ -412,7 +412,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
 
-        postgameManager.Win();
+        StartCoroutine(postgameManager.Win());
     }
 
     private IEnumerator Lose()
@@ -424,6 +424,6 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
 
-        postgameManager.Lose();
+        StartCoroutine(postgameManager.Lose());
     }
 }
