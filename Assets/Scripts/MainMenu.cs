@@ -22,13 +22,13 @@ public class MainMenu : MonoBehaviour
     public void SelectAbout()
     {
         ToggleWindows();
-        EventSystem.current.SetSelectedGameObject(aboutCloseButton);
+        // EventSystem.current.SetSelectedGameObject(aboutCloseButton);
     }
 
     public void CloseAbout()
     {
         ToggleWindows();
-        EventSystem.current.SetSelectedGameObject(aboutButton);
+        // EventSystem.current.SetSelectedGameObject(aboutButton);
     }
 
     public void ToggleWindows()
@@ -37,11 +37,10 @@ public class MainMenu : MonoBehaviour
         aboutWindow.SetActive(!aboutWindow.activeSelf);
     }
 
-    public void UpdateCursor()
+    public void UpdateCursor(GameObject hovered)
     {
-        GameObject selected = EventSystem.current.currentSelectedGameObject;
         // move cursor to button y value
-        cursor.transform.position = new Vector2(cursor.transform.position.x, selected.transform.position.y);
-        Debug.Log("cursor function call");
+        cursor.SetActive(true);
+        cursor.transform.position = new Vector2(cursor.transform.position.x, hovered.transform.position.y);
     }
 }
