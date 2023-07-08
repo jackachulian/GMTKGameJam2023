@@ -861,7 +861,6 @@ MonoBehaviour:
   moveGridTransform: {fileID: 158574431}
   battleLogTransform: {fileID: 15410803}
   logMessagePrefab: {fileID: 942351946584679350, guid: c034be1d3180d224bb6e5d3232023f44, type: 3}
-  battlerColors: []
   battlerDisplays:
   - {fileID: 5763099096526659115}
   - {fileID: 1381427822}
@@ -1793,7 +1792,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694327397}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.269431, y: -1.0067878, z: 0}
+  m_LocalPosition: {x: -2.269431, y: -1.006789, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
