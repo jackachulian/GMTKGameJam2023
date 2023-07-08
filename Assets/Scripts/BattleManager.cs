@@ -51,6 +51,8 @@ public class BattleManager : MonoBehaviour
     // True while moves are shown and waiting for player to choose move
     public bool selectingMove;
 
+    public bool isPostgame = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -135,8 +137,8 @@ public class BattleManager : MonoBehaviour
     }
 
     void UseMove(Battler attacker, Battler target, int moveIndex) {
-        // don't move if dead
-        if (attacker.isDead)
+        // don't move if dead or postgame
+        if (attacker.isDead || isPostgame)
         {
             Refresh();
             return;
@@ -177,6 +179,9 @@ public class BattleManager : MonoBehaviour
             CheckForDeaths();
             Refresh();
         }
+
+        // stop if in postgame
+        if (isPostgame) yield break;
 
         // Inflict status effect on self
         if (move.selfEffect.duration > 0)
@@ -243,8 +248,8 @@ public class BattleManager : MonoBehaviour
             if (!battler.isTarget && !battler.isDead) lost = false;
         }
 
-        if (won) Win();
-        if (lost) Lose();
+        if (won) StartCoroutine(Win());
+        if (lost) StartCoroutine(Lose());
     }
 
     void AddStatus(Battler target, StatusType statusType, int duration)
@@ -398,15 +403,27 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void Win()
+    private IEnumerator Win()
     {
+        // StopAllCoroutines();
         BattleMessage("YOU WON!");
+        isPostgame = true;
+
+        yield return new WaitForSeconds(1f);
+        StopAllCoroutines();
+
         postgameManager.Win();
     }
 
-    void Lose()
+    private IEnumerator Lose()
     {
+        
         BattleMessage("You were defeated...");
+        isPostgame = true;
+        
+        yield return new WaitForSeconds(1f);
+        StopAllCoroutines();
+
         postgameManager.Lose();
     }
 }
