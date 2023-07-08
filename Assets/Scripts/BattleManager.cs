@@ -7,10 +7,16 @@ using static UnityEngine.GraphicsBuffer;
 
 public class BattleManager : MonoBehaviour
 {
+    public LevelList levelList;
+
     /// <summary>
     /// Holds the two battlers
     /// </summary>
     public Battler[] battlers;
+
+    public GameObject battlerPrefab;
+
+    public Transform battlerTransform;
 
     /// <summary>
     /// Index in battlers[] of the battler the player is currently playing as, other battler will be computer controlled
@@ -46,10 +52,20 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Level level = levelList.levels[Storage.currentLevel];
+
+        // Instantiate all battlers and set up values from level
+        foreach (Transform child in battlerTransform) Destroy(child.gameObject);
+        foreach (BattlerStats battlerStats in level.battlers)
+        {
+            GameObject battlerObject = Instantiate(battlerPrefab, battlerTransform);
+            battlerObject.name = "Battler" + battlerTransform.childCount;
+            battlerObject.GetComponent<Battler>().StatsSetup(battlerStats);
+        }
+
+
         Refresh();
-
         battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
-
         selectingMove = true;
     }
 
@@ -123,10 +139,10 @@ public class BattleManager : MonoBehaviour
         // Only say "used on {opponent}" if dealing damage or inflicting a status effect onto them
         if (move.damage > 0 || move.opponentEffect.duration > 0)
         {
-            BattleMessage($"{attacker.coloredName} uses {move.name} on {target.coloredName}");
+            BattleMessage($"{attacker.coloredName} uses {move} on {target.coloredName}");
         } else
         {
-            BattleMessage($"{attacker.coloredName} uses {move.name}");
+            BattleMessage($"{attacker.coloredName} uses {move.displayName}");
         }
 
         StartCoroutine(DamageAfterAnimation(attacker, target, move));
@@ -136,7 +152,7 @@ public class BattleManager : MonoBehaviour
     {
         yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
 
-        attacker.mp -= move.manaCost;
+        // attacker.mp -= move.manaCost;
         
         // only play hit animation and dispaly damage in battle log if this deals any damage
         if (move.damage > 0)

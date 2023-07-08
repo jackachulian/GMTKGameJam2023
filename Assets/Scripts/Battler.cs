@@ -11,10 +11,10 @@ public class Battler : MonoBehaviour
     public int maxHp;
     public int hp;
 
-    public int maxMp;
-    public int mp;
+    // public int maxMp;
+    // public int mp;
 
-    public string displayName {  get { return name; } }
+    public string displayName;
 
     public string coloredName { get { return $"<color=#{nameColor.ToHexString()}>{displayName}</color>"; } }
 
@@ -47,6 +47,17 @@ public class Battler : MonoBehaviour
     private void OnValidate()
     {
         ResetMoveUses();
+    }
+
+    public void StatsSetup(BattlerStats stats)
+    {
+        displayName = stats.displayName;
+        hp = stats.hp;
+        maxHp = stats.hp;
+        moves = stats.moves;
+        nameColor = stats.nameColor;
+
+        spriteAnimator.runtimeAnimatorController = stats.controller;
     }
 
     void ResetMoveUses()

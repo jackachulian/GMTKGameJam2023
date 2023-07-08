@@ -38,6 +38,6 @@ public class MoveButton : MonoBehaviour
     {
         displayedMove = battleManager.CurrentPlayer.moves[moveIndex];
         usesLabel.text = battleManager.CurrentPlayer.moveUsesRemaining[moveIndex]+"";
-        nameLabel.text = displayedMove.name;
+        nameLabel.text = displayedMove.displayName;
     }
 }

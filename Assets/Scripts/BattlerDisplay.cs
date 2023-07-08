@@ -40,10 +40,10 @@ public class BattlerDisplay : MonoBehaviour
         portraitImage.sprite = displayedBattler.portraitSprite;
 
         hpLabel.text = $"HP {displayedBattler.hp}/{displayedBattler.maxHp}";
-        mpLabel.text = $"MP {displayedBattler.mp}/{displayedBattler.maxMp}";
+        // mpLabel.text = $"MP {displayedBattler.mp}/{displayedBattler.maxMp}";
 
         hpImage.fillAmount = displayedBattler.hp * 1f / displayedBattler.maxHp;
-        mpImage.fillAmount = displayedBattler.mp * 1f / displayedBattler.maxMp;
+        // mpImage.fillAmount = displayedBattler.mp * 1f / displayedBattler.maxMp;
 
         if (Application.isPlaying)
         {
