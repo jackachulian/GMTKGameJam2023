@@ -32,7 +32,7 @@ Transform:
   - {fileID: 2967945262872162654}
   - {fileID: 714533986025574547}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3677334577628287832
 MonoBehaviour:
@@ -46,18 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7400de60e0fa12f4cae3c5e2343dc41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portraitSprite: {fileID: 21300000, guid: 686f3989d8b368b40adfd19645b48333, type: 3}
+  portraitSprite: {fileID: 21300000, guid: 8c8454f8d3df24442b2ce8066d598340, type: 3}
   spriteAnimator: {fileID: 6326506780730526019}
   maxHp: 40
   hp: 40
-  maxMp: 20
-  mp: 20
+  displayName: 
+  nameColor: {r: 0, g: 0, b: 0, a: 0}
   moves:
   - {fileID: 11400000, guid: fa483c01ff58e0f418ceb56aa22167ec, type: 2}
   - {fileID: 11400000, guid: 51f27ca10dbb6fa44a59fc71db3a019a, type: 2}
   - {fileID: 11400000, guid: 19defb78b107db348bf0abde3826cc87, type: 2}
   - {fileID: 11400000, guid: d74929fedc6d23f4ba543f457af5a65c, type: 2}
-  moveUsesRemaining: 0a000000050000000500000005000000
+  statusEffects: []
+  moveUsesRemaining: 0a000000050000000a00000005000000
 --- !u!1 &6914898561341869842
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +238,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 375598bd57b85d047b59278aad6b1269, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

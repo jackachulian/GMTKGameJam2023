@@ -99,7 +99,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hero
+  m_Name: Red Hero
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

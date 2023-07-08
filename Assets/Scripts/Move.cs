@@ -2,6 +2,8 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Move", menuName = "GMTKGameJam2023/Move", order = 0)]
 public class Move : ScriptableObject {
+    public string displayName;
+
     /// <summary>
     /// Required mana to use
     /// (UNUSED FOR NOW in favor of uses remaining system)

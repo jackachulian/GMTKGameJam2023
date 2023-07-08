@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f944b6cde3faf42bb5c08c2a591770, type: 3}
+  m_Name: LeveList
+  m_EditorClassIdentifier: 
+  levels:
+  - battlers:
+    - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
+    - {fileID: 11400000, guid: c6a57255bf9cf324b894be9bf7779270, type: 2}
+  - battlers:
+    - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
+    - {fileID: 11400000, guid: c6a57255bf9cf324b894be9bf7779270, type: 2}
+  - battlers:
+    - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
+    - {fileID: 11400000, guid: c6a57255bf9cf324b894be9bf7779270, type: 2}
