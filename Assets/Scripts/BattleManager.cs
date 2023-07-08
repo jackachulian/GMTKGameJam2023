@@ -100,14 +100,14 @@ public class BattleManager : MonoBehaviour
         UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
 
         // Wait for player animation
-        yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+        yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
 
         // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
 
         UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
 
         // Wait for enemy animation
-        yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+        yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.IsInTransition(0));
 
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character

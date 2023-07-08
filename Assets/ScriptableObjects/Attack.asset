@@ -15,3 +15,4 @@ MonoBehaviour:
   manaCost: 0
   damage: 5
   baseUses: 10
+  animStateName: Cast
