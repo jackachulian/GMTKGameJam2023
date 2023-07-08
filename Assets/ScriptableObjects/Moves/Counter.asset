@@ -10,9 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Magic
+  m_Name: Counter
   m_EditorClassIdentifier: 
-  manaCost: 5
+  manaCost: 0
   damage: 10
+  selfEffect:
+    type: {fileID: 11400000, guid: 11dc3c9221353aa4e95c67cc3fd9bc30, type: 2}
+    duration: 1
+  opponentEffect:
+    type: {fileID: 0}
+    duration: 0
   baseUses: 5
-  animStateName: Cast
+  useAnimState: Defend
+  hitAnimState: Hit

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,10 @@ public class BattlerDisplay : MonoBehaviour
 
     private Battler displayedBattler;
 
+    public Transform statusEffectsTransform;
+
+    public GameObject statusEffectPrefab;
+
     void OnValidate()
     {
         battleManager = FindObjectOfType<BattleManager>();
@@ -39,5 +44,18 @@ public class BattlerDisplay : MonoBehaviour
 
         hpImage.fillAmount = displayedBattler.hp * 1f / displayedBattler.maxHp;
         mpImage.fillAmount = displayedBattler.mp * 1f / displayedBattler.maxMp;
+
+        if (Application.isPlaying)
+        {
+            foreach (Transform child in statusEffectsTransform) Destroy(child.gameObject);
+
+            foreach (StatusEffect statusEffect in displayedBattler.statusEffects)
+            {
+                GameObject statusEffectObject = Instantiate(statusEffectPrefab, statusEffectsTransform);
+
+                statusEffectObject.transform.GetChild(0).GetComponent<Image>().sprite = statusEffect.type.icon;
+                statusEffectObject.GetComponentInChildren<TextMeshProUGUI>().text = statusEffect.duration + "";
+            }
+        }
     }
 }

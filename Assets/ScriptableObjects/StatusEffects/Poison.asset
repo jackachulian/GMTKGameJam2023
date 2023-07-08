@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Attack
+  m_Script: {fileID: 11500000, guid: 586c43c55123e164a82d5a6854612fac, type: 3}
+  m_Name: Poison
   m_EditorClassIdentifier: 
-  manaCost: 0
-  damage: 5
-  baseUses: 10
-  animStateName: Cast
+  icon: {fileID: 21300000, guid: 93aef3306be23a64bb9432a106f1f2d0, type: 3}

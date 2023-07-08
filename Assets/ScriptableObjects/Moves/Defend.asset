@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaCost: 0
   damage: 0
-  baseUses: 5
-  animStateName: Cast
+  selfEffect:
+    type: {fileID: 0}
+    duration: 0
+  opponentEffect:
+    type: {fileID: 0}
+    duration: 0
+  baseUses: 10
+  useAnimState: Defend
+  hitAnimState: 
