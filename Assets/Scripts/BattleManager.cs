@@ -197,7 +197,11 @@ public class BattleManager : MonoBehaviour
             } else
             {
                 // Play hit animation on target when damaged
-                if (move.hitAnimState.Length > 0) target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
+                if (move.hitAnimState.Length > 0)
+                {
+                    target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
+                    if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
+                }
             }
 
             BattleMessage($"{target.coloredName} took {move.damage} damage!");
