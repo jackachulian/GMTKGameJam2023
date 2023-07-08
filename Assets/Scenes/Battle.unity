@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 158574432}
   - component: {fileID: 158574433}
   - component: {fileID: 158574434}
+  - component: {fileID: 158574435}
   m_Layer: 5
   m_Name: MovesGrid
   m_TagString: Untagged
@@ -291,6 +292,19 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &158574435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158574430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a33c0de5580b014780359183dc55be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battleManager: {fileID: 0}
 --- !u!1 &362977267
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,6 +779,7 @@ MonoBehaviour:
   - {fileID: 1381427822}
   platformRotationAnimator: {fileID: 2068895912}
   battlerDisplaysAnimator: {fileID: 1677845628}
+  movesGridAnimator: {fileID: 158574433}
 --- !u!4 &1002012837
 Transform:
   m_ObjectHideFlags: 0

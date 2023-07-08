@@ -28,7 +28,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattlerDisplay[] battlerDisplays;
 
 
-    [SerializeField] private Animator platformRotationAnimator, battlerDisplaysAnimator;
+    [SerializeField] private Animator platformRotationAnimator, battlerDisplaysAnimator, movesGridAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -70,7 +70,7 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(EvaluateTurn(moveIndex));
     }
 
-    void Refresh()
+    public void Refresh()
     {
         foreach (var moveButton in moveButtons)
         {
@@ -103,7 +103,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
 
         // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-
+        movesGridAnimator.SetBool("ShowMoves", false);
         UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
 
         // Wait for enemy animation
@@ -116,7 +116,11 @@ public class BattleManager : MonoBehaviour
         // may need to change this ode once more than 1 enemy is added
         platformRotationAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
         battlerDisplaysAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
-
+        
         Refresh();
+
+        // Wait until a lil bit through the animation to re show the moves
+        yield return new WaitForSeconds(0.5f);
+        movesGridAnimator.SetBool("ShowMoves", true);
     }
 }
