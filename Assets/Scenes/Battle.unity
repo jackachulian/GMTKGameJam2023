@@ -2633,6 +2633,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftBattlerDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 8234775319633523762, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9221006708305656208, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
