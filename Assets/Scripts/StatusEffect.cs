@@ -7,5 +7,5 @@ public class StatusEffect
 {
     public StatusType type;
 
-    public int remainingDuration;
+    public int duration;
 }

@@ -85,6 +85,11 @@ public class BattleManager : MonoBehaviour
             if (moveButton) moveButton.Refresh();
         }
 
+        RefreshBattlerDisplays();
+    }
+
+    public void RefreshBattlerDisplays()
+    {
         foreach (var battlerDisplay in battlerDisplays)
         {
             if (battlerDisplay) battlerDisplay.Refresh();
@@ -95,9 +100,16 @@ public class BattleManager : MonoBehaviour
         attacker.moveUsesRemaining[moveIndex]--;
         Move move = attacker.moves[moveIndex];
 
-        BattleMessage($"{attacker.coloredName} uses {move.name} on {target.coloredName}");
+        attacker.spriteAnimator.Play("Base Layer." + move.useAnimState, 0);
 
-        attacker.spriteAnimator.Play("Base Layer." + move.animStateName, 0);
+        // Only say "used on {opponent}" if dealing damage or inflicting a status effect onto them
+        if (move.damage > 0 || move.opponentEffect.duration > 0)
+        {
+            BattleMessage($"{attacker.coloredName} uses {move.name} on {target.coloredName}");
+        } else
+        {
+            BattleMessage($"{attacker.coloredName} uses {move.name}");
+        }
 
         StartCoroutine(DamageAfterAnimation(attacker, target, move));
     }
@@ -107,15 +119,50 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
 
         attacker.mp -= move.manaCost;
-        target.hp -= move.damage;
-        BattleMessage($"{target.coloredName} took {move.damage} damage!");
-
-        if (move.name == "Magic")
+        
+        // only play hit animation and dispaly damage in battle log if this deals any damage
+        if (move.damage > 0)
         {
-            AddStatus(target, burnStatusType, 2);
+            target.hp -= move.damage;
+
+            // Play hit animation on target when damaged
+            if (move.hitAnimState.Length > 0) target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
+
+            BattleMessage($"{target.coloredName} took {move.damage} damage!");
+            Refresh();
         }
 
-        Refresh();
+        // Inflict status effect on self
+        if (move.selfEffect.duration > 0)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            string turnsStr = move.selfEffect.duration == 1 ? "turn" : "turns";
+            switch (move.selfEffect.type.name)
+            {
+                case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
+                case "Fire": BattleMessage($"{target.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
+            }
+
+            AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
+            Refresh();
+        }
+
+        // Inflict status effect on opponent
+        if (move.opponentEffect.duration > 0)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            string turnsStr = move.opponentEffect.duration == 1 ? "turn" : "turns";
+            switch (move.opponentEffect.type.name)
+            {
+                case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.opponentEffect.duration} {turnsStr}!"); break;
+                case "Fire": BattleMessage($"{target.coloredName} was burned for {move.opponentEffect.duration} {turnsStr}!"); break;
+            }
+
+            AddStatus(target, move.opponentEffect.type, move.opponentEffect.duration);
+            Refresh();
+        }
     }
 
     void AddStatus(Battler target, StatusType statusType, int duration)
@@ -124,14 +171,14 @@ public class BattleManager : MonoBehaviour
         {
             if (statusEffect.type == statusType)
             {
-                statusEffect.remainingDuration += duration;
+                statusEffect.duration += duration;
                 return;
             }
         }
 
         StatusEffect newStatusEffect = new StatusEffect();
         newStatusEffect.type = statusType;
-        newStatusEffect.remainingDuration = duration;
+        newStatusEffect.duration = duration;
 
         target.statusEffects.Add(newStatusEffect);
     }
@@ -170,6 +217,11 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.IsInTransition(0));
         yield return new WaitForSeconds(1.33f);
 
+        // Tick down status effects
+        yield return TickStatusEffects(CurrentPlayer);
+        yield return TickStatusEffects(CurrentEnemy);
+        yield return new WaitForSeconds(1.25f);
+
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
@@ -181,7 +233,7 @@ public class BattleManager : MonoBehaviour
         Refresh();
 
         // Wait until a lil bit through the animation to re show the moves
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 
         battleLogAnimator.SetBool("ShowLog", false);
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
@@ -203,5 +255,49 @@ public class BattleManager : MonoBehaviour
         GameObject logMessage = Instantiate(logMessagePrefab, battleLogTransform);
 
         logMessage.GetComponentInChildren<TextMeshProUGUI>().text = text;
+    }
+
+    /// <summary>
+    /// Take damage from poison, burn, etc..., then reduce all status duration by 1
+    /// </summary>
+    IEnumerator TickStatusEffects(Battler battler)
+    {
+        for (int i=0; i<battler.statusEffects.Count; i++)
+        {
+            StatusEffect statusEffect = battler.statusEffects[i];
+            bool delayAfter = true;
+            Debug.Log(statusEffect.type.name);
+            switch (statusEffect.type.name)
+            {
+                case "Poison": StatusDamage(battler, statusEffect, 1); break;
+                case "Fire": StatusDamage(battler, statusEffect, statusEffect.duration); break;
+                default: delayAfter = false; break;
+            }
+
+            statusEffect.duration--;
+            if (statusEffect.duration <= 0)
+            {
+                battler.statusEffects.RemoveAt(i);
+                i--;
+            }
+
+            RefreshBattlerDisplays();
+            if (delayAfter) yield return new WaitForSeconds(0.8f);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+    }
+
+    void StatusDamage(Battler battler, StatusEffect statusEffect, int damage)
+    {
+        battler.hp -= damage;
+        RefreshBattlerDisplays();
+        battler.spriteAnimator.Play("Base Layer.Hit", 0);
+        
+        switch(statusEffect.type.name)
+        {
+            case "Poison": BattleMessage($"{battler.coloredName} took {damage} poison damage"); break;
+            case "Fire": BattleMessage($"{battler.coloredName} took {damage} burn damage"); break;
+        }
     }
 }
