@@ -678,6 +678,7 @@ MonoBehaviour:
   - {fileID: 5763099096526659115}
   - {fileID: 1381427822}
   platformRotationAnimator: {fileID: 2068895912}
+  battlerDisplaysAnimator: {fileID: 1677845628}
 --- !u!4 &1002012837
 Transform:
   m_ObjectHideFlags: 0
@@ -705,13 +706,9 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 3896940491172500849, guid: b05e915892f479c479709190a9ebeab1, type: 3}
-      propertyPath: m_Alpha
-      value: 0.6
-      objectReference: {fileID: 0}
     - target: {fileID: 4239573937417345045, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -150
+      value: -115
       objectReference: {fileID: 0}
     - target: {fileID: 4239573937417345045, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -719,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4239573937417345045, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -45
+      value: -42.5
       objectReference: {fileID: 0}
     - target: {fileID: 4349350439457305748, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: showPlayer
@@ -1013,6 +1010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677845627}
+  - component: {fileID: 1677845628}
   m_Layer: 5
   m_Name: BattlerDisplays
   m_TagString: Untagged
@@ -1042,6 +1040,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1677845628
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677845626}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3b687c3761b43e54ba338423849312c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1694327397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,6 +1695,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1677845627}
     m_Modifications:
+    - target: {fileID: 4239573937417345045, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -115
+      objectReference: {fileID: 0}
+    - target: {fileID: 4239573937417345045, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 42.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1705,8 +1732,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 325
+      objectReference: {fileID: 0}
+    - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 120
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1755,6 +1786,10 @@ PrefabInstance:
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5239693057809569668, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8234775319633523762, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_Name

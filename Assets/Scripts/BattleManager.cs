@@ -27,7 +27,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private BattlerDisplay[] battlerDisplays;
 
 
-    [SerializeField] private Animator platformRotationAnimator;
+    [SerializeField] private Animator platformRotationAnimator, battlerDisplaysAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -78,6 +78,7 @@ public class BattleManager : MonoBehaviour
 
         // may need to change this ode once more than 1 enemy is added
         platformRotationAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
+        battlerDisplaysAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
 
         Refresh();
 
