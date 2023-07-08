@@ -15,6 +15,7 @@ MonoBehaviour:
   displayName: Counter
   manaCost: 0
   damage: 10
+  defense: 0
   selfEffect:
     type: {fileID: 11400000, guid: 11dc3c9221353aa4e95c67cc3fd9bc30, type: 2}
     duration: 1
@@ -23,4 +24,7 @@ MonoBehaviour:
     duration: 0
   baseUses: 5
   useAnimState: Defend
+  useSFX: {fileID: 0}
   hitAnimState: Hit
+  hitSFX: {fileID: 8300000, guid: 01606aedcda16f3498367b27b94323ee, type: 3}
+  priority: 0

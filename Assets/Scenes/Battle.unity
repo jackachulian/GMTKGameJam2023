@@ -1511,6 +1511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelList: {fileID: 11400000, guid: f62570895312631458ea7711d78b9dd8, type: 2}
   postgameManager: {fileID: 1321345102}
+  messageSFX: {fileID: 8300000, guid: 66a412fcb2bb75b41b8b4da79c2d7fbc, type: 3}
   battlers:
   - {fileID: 2618600499431604195}
   - {fileID: 690288458}

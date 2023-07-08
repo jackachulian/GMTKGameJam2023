@@ -38,11 +38,13 @@ public class Move : ScriptableObject {
     /// Name of the anim state to set to in the animator controller of the battler. ("Cast", etc.)
     /// </summary>
     public string useAnimState = "Cast";
+    public AudioClip useSFX;
 
     /// <summary>
     /// Name of the anim state of the target of this move when hit by it
     /// </summary>
     public string hitAnimState = "Hit";
+    public AudioClip hitSFX;
 
     /// <summary>
     /// Will allow this move to activate before other moves with a lower priority
