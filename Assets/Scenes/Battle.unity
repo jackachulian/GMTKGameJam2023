@@ -1518,6 +1518,7 @@ MonoBehaviour:
     bgm: {fileID: 0}
   postgameManager: {fileID: 1321345102}
   messageSFX: {fileID: 8300000, guid: 66a412fcb2bb75b41b8b4da79c2d7fbc, type: 3}
+  swapSFX: {fileID: 8300000, guid: 9704abcba738598489556d8c3bfc7b80, type: 3}
   battlers:
   - {fileID: 2618600499431604195}
   - {fileID: 690288458}

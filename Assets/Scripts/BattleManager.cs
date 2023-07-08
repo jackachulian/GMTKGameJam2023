@@ -15,7 +15,7 @@ public class BattleManager : MonoBehaviour
 
     public PostgameManager postgameManager;
 
-    [SerializeField] AudioClip messageSFX;
+    [SerializeField] AudioClip messageSFX, swapSFX;
 
     /// <summary>
     /// Holds the two battlers
@@ -347,6 +347,7 @@ public class BattleManager : MonoBehaviour
 
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
+        SoundManager.Instance.PlaySound(swapSFX, pitch:1.05f);
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
         // may need to change this ode once more than 1 enemy is added
