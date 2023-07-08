@@ -25,7 +25,7 @@ public class Battler : MonoBehaviour
 
     public Move[] moves;
 
-    public StatusEffect[] statusEffects;
+    public List<StatusEffect> statusEffects;
 
     /// <summary>
     /// Index corresponds to index in moves[]

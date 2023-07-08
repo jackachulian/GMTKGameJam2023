@@ -868,6 +868,8 @@ MonoBehaviour:
   battlerDisplaysAnimator: {fileID: 1677845628}
   movesGridAnimator: {fileID: 158574433}
   battleLogAnimator: {fileID: 1653285202}
+  poisonStatusType: {fileID: 11400000, guid: 11dc3c9221353aa4e95c67cc3fd9bc30, type: 2}
+  burnStatusType: {fileID: 11400000, guid: db50dde17b9ec3c4b86113067f3107d7, type: 2}
 --- !u!4 &1002012837
 Transform:
   m_ObjectHideFlags: 0
@@ -1193,6 +1195,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912810428069296332, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912810428069296332, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912810428069296332, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5004957570345237336, guid: b05e915892f479c479709190a9ebeab1, type: 3}
@@ -2619,6 +2633,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912810428069296332, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912810428069296332, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912810428069296332, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5004957570345237336, guid: b05e915892f479c479709190a9ebeab1, type: 3}

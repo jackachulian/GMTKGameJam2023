@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Counter
   m_EditorClassIdentifier: 
   manaCost: 0
-  damage: 0
+  damage: 10
   baseUses: 5
   animStateName: Cast
