@@ -4,12 +4,15 @@ using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using Random=UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
     public LevelList levelList;
 
     public PostgameManager postgameManager;
+
+    [SerializeField] AudioClip messageSFX;
 
     /// <summary>
     /// Holds the two battlers
@@ -163,6 +166,7 @@ public class BattleManager : MonoBehaviour
         Move move = attacker.moves[moveIndex];
 
         attacker.spriteAnimator.Play("Base Layer." + move.useAnimState, 0);
+        if (move.useSFX != null) SoundManager.Instance.PlaySound(move.useSFX);
 
         // Only say "used on {opponent}" if dealing damage or inflicting a status effect onto them
         if (move.damage > 0 || move.opponentEffect.duration > 0)
@@ -372,6 +376,8 @@ public class BattleManager : MonoBehaviour
         {
             battleLogTargetPos += Vector2.up * 48f;
         }
+
+        SoundManager.Instance.PlaySound(messageSFX, volume: 0.25f, pitch: Random.Range(0.9f,1.1f));
     }
 
     /// <summary>
