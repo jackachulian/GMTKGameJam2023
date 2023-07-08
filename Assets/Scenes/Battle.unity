@@ -152,7 +152,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 958619515}
   - {fileID: 1244710918}
   - {fileID: 101801572}
   m_Father: {fileID: 1559162040}
@@ -1393,11 +1392,6 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3968295787248356898, guid: f28632de9b283da4280ee9861c89e966, type: 3}
   m_PrefabInstance: {fileID: 912428971}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &958619515 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 211592310909590820, guid: c034be1d3180d224bb6e5d3232023f44, type: 3}
-  m_PrefabInstance: {fileID: 904396902}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1002012835
 GameObject:

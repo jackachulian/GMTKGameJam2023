@@ -165,6 +165,7 @@ public class BattleManager : MonoBehaviour
             if (move.hitAnimState.Length > 0) target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
 
             BattleMessage($"{target.coloredName} took {move.damage} damage!");
+            CheckForDeaths();
             Refresh();
         }
 
@@ -198,6 +199,18 @@ public class BattleManager : MonoBehaviour
 
             AddStatus(target, move.opponentEffect.type, move.opponentEffect.duration);
             Refresh();
+        }
+    }
+
+    void CheckForDeaths()
+    {
+        foreach (Battler battler in battlers)
+        {
+            // battler has died
+            if (battler.hp <= 0)
+            {
+                BattleMessage($"{battler.coloredName} was slain!");
+            }
         }
     }
 
