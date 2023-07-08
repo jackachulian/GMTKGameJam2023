@@ -26,6 +26,8 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     public Transform moveGridTransform, battleLogTransform;
 
+    private Vector2 battleLogStartPos, battleLogTargetPos;
+
     public GameObject logMessagePrefab;
 
     private List<MoveButton> moveButtons;
@@ -38,16 +40,30 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private StatusType poisonStatusType, burnStatusType;
 
+    // True while moves are shown and waiting for player to choose move
+    public bool selectingMove;
+
     // Start is called before the first frame update
     void Start()
     {
         Refresh();
+
+        battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
+
+        selectingMove = true;
     }
 
+    Vector2 logVel;
     // Update is called once per frame
     void Update()
     {
-        
+        battleLogTransform.localPosition = Vector2.SmoothDamp(battleLogTransform.localPosition, battleLogTargetPos, ref logVel, 0.125f);
+        battleLogTransform.localPosition = new Vector2(battleLogTargetPos.x, battleLogTransform.localPosition.y);
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            BattleMessage("Yahoo");
+        }
     }
 
     private void OnValidate()
@@ -71,10 +87,12 @@ public class BattleManager : MonoBehaviour
     /// <param name="move"></param>
     /// <returns>true if move was used successfully, false if use conditions not met (mana cost)</returns>
     public void SubmitMove(int moveIndex) {
+        if (!selectingMove) return;
         // if (move.manaCost > CurrentPlayer.mp) return false;
 
         if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return;
 
+        selectingMove = false;
         StartCoroutine(EvaluateTurn(moveIndex));
     }
 
@@ -239,7 +257,8 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
         yield return new WaitForSeconds(0.5f);
 
-        movesGridAnimator.SetBool("ShowMoves", true);        
+        movesGridAnimator.SetBool("ShowMoves", true);
+        selectingMove = true;
     }
 
     public void ClearBattleLog()
@@ -248,6 +267,8 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        battleLogTargetPos = battleLogStartPos;
     }
 
     public void BattleMessage(string text)
@@ -255,6 +276,12 @@ public class BattleManager : MonoBehaviour
         GameObject logMessage = Instantiate(logMessagePrefab, battleLogTransform);
 
         logMessage.GetComponentInChildren<TextMeshProUGUI>().text = text;
+
+        // If there are 5 or more lines, start scrolling the view
+        if (battleLogTransform.childCount >= 5)
+        {
+            battleLogTargetPos += Vector2.up * 48f;
+        }
     }
 
     /// <summary>
@@ -265,24 +292,30 @@ public class BattleManager : MonoBehaviour
         for (int i=0; i<battler.statusEffects.Count; i++)
         {
             StatusEffect statusEffect = battler.statusEffects[i];
-            bool delayAfter = true;
-            Debug.Log(statusEffect.type.name);
-            switch (statusEffect.type.name)
+            // Only tick damage effects and duration if not duration paused if this status was just inflicted this turn.
+            if (statusEffect.DurationPaused)
             {
-                case "Poison": StatusDamage(battler, statusEffect, 1); break;
-                case "Fire": StatusDamage(battler, statusEffect, statusEffect.duration); break;
-                default: delayAfter = false; break;
-            }
-
-            statusEffect.duration--;
-            if (statusEffect.duration <= 0)
+                statusEffect.DurationPaused = false;
+            } else
             {
-                battler.statusEffects.RemoveAt(i);
-                i--;
-            }
+                bool delayAfter = true;
+                switch (statusEffect.type.name)
+                {
+                    case "Poison": StatusDamage(battler, statusEffect, 1); break;
+                    case "Fire": StatusDamage(battler, statusEffect, statusEffect.duration); break;
+                    default: delayAfter = false; break;
+                }
 
-            RefreshBattlerDisplays();
-            if (delayAfter) yield return new WaitForSeconds(0.8f);
+                statusEffect.duration--;
+                if (statusEffect.duration <= 0)
+                {
+                    battler.statusEffects.RemoveAt(i);
+                    i--;
+                }
+
+                RefreshBattlerDisplays();
+                if (delayAfter) yield return new WaitForSeconds(0.8f);
+            } 
         }
 
         yield return new WaitForSeconds(0.2f);
