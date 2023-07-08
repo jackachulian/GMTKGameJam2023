@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BattleManager : MonoBehaviour
 {
@@ -25,11 +27,6 @@ public class BattleManager : MonoBehaviour
     public Transform moveGridTransform, battleLogTransform;
 
     public GameObject logMessagePrefab;
-
-    /// <summary>
-    /// Used for coloring text
-    /// </summary>
-    public Color[] battlerColors;
 
     private List<MoveButton> moveButtons;
 
@@ -95,12 +92,21 @@ public class BattleManager : MonoBehaviour
         attacker.moveUsesRemaining[moveIndex]--;
         Move move = attacker.moves[moveIndex];
 
-        BattleMessage($"{attacker.name} uses {move.name} on {target.name}");
+        BattleMessage($"{attacker.coloredName} uses {move.name} on {target.coloredName}");
 
         attacker.spriteAnimator.Play("Base Layer." + move.animStateName, 0);
 
+        StartCoroutine(DamageAfterAnimation(attacker, target, move));
+    }
+
+    IEnumerator DamageAfterAnimation(Battler attacker, Battler target, Move move)
+    {
+        yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
+
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;
+        BattleMessage($"{target.coloredName} took {move.damage} damage!");
+        Refresh();
     }
 
     IEnumerator EvaluateTurn(int playerMoveIndex)
@@ -113,14 +119,14 @@ public class BattleManager : MonoBehaviour
         ClearBattleLog();
         battleLogAnimator.SetBool("ShowLog", true);
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1.25f);
+        yield return new WaitForSeconds(0.5f);
 
         // Player uses their move
         UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
 
         // Wait for player animation
         yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.33f);
 
         // Enemy selects and uses a move
         // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
@@ -128,7 +134,7 @@ public class BattleManager : MonoBehaviour
 
         // Wait for enemy animation
         yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.33f);
 
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character

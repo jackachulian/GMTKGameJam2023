@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Battler : MonoBehaviour
@@ -12,6 +13,15 @@ public class Battler : MonoBehaviour
 
     public int maxMp;
     public int mp;
+
+    public string displayName {  get { return name; } }
+
+    public string coloredName { get { return $"<color=#{nameColor.ToHexString()}>{displayName}</color>"; } }
+
+    /// <summary>
+    /// For when this battler's name shows up in the log, what color it should be
+    /// </summary>
+    public Color nameColor;
 
     public Move[] moves;
 

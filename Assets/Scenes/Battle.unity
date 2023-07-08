@@ -583,6 +583,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 375598bd57b85d047b59278aad6b1269, type: 3}
     - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.b
+      value: 0.2704254
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.g
+      value: 0.31035843
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.r
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: portraitSprite
       value: 
       objectReference: {fileID: 21300000, guid: 946c13fd0dc30a84daa102c8955f0655, type: 3}
@@ -2141,6 +2157,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 375598bd57b85d047b59278aad6b1269, type: 3}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.b
+      value: 0.9245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.g
+      value: 0.5966817
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: nameColor.r
+      value: 0.18752226
+      objectReference: {fileID: 0}
     - target: {fileID: 5946640065057139876, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -2609,6 +2641,10 @@ PrefabInstance:
     - target: {fileID: 8234775319633523762, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_Name
       value: LeftBattlerDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 8234775319633523762, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9221006708305656208, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_AnchorMax.x
