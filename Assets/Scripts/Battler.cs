@@ -5,6 +5,7 @@ using UnityEngine;
 public class Battler : MonoBehaviour
 {
     public Sprite portraitSprite;
+    public Animator spriteAnimator;
 
     public int maxHp;
     public int hp;

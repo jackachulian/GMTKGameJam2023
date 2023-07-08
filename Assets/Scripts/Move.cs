@@ -16,4 +16,9 @@ public class Move : ScriptableObject {
     /// Count is reset to this base value at the start of a battle.
     /// </summary>
     public int baseUses;
+
+    /// <summary>
+    /// Name of the anim state to set to in the animator controller of the battler. ("Cast", etc.)
+    /// </summary>
+    public string animStateName;
 }

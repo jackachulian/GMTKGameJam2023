@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,23 +67,7 @@ public class BattleManager : MonoBehaviour
 
         if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return;
 
-        UseMove(CurrentPlayer, CurrentEnemy, moveIndex);
-
-        // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-
-        UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
-
-        // === SWAP BEGINS HERE ===
-        // Swap which battler is controlled by the character
-        currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
-
-        // may need to change this ode once more than 1 enemy is added
-        platformRotationAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
-        battlerDisplaysAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
-
-        Refresh();
-
-        return;
+        StartCoroutine(EvaluateTurn(moveIndex));
     }
 
     void Refresh()
@@ -101,8 +86,37 @@ public class BattleManager : MonoBehaviour
     void UseMove(Battler attacker, Battler target, int moveIndex) {
         attacker.moveUsesRemaining[moveIndex]--;
         Move move = attacker.moves[moveIndex];
+
         Debug.Log($"{attacker.name} uses {move.name} on {target.name}");
+
+        attacker.spriteAnimator.Play("Base Layer." + move.animStateName, 0);
+
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;
+    }
+
+    IEnumerator EvaluateTurn(int playerMoveIndex)
+    {
+        UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
+
+        // Wait for player animation
+        yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+
+        // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
+
+        UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
+
+        // Wait for enemy animation
+        yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+
+        // === SWAP BEGINS HERE ===
+        // Swap which battler is controlled by the character
+        currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
+
+        // may need to change this ode once more than 1 enemy is added
+        platformRotationAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
+        battlerDisplaysAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
+
+        Refresh();
     }
 }
