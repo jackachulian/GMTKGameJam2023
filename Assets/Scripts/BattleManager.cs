@@ -9,6 +9,8 @@ public class BattleManager : MonoBehaviour
 {
     public LevelList levelList;
 
+    public PostgameManager postgameManager;
+
     /// <summary>
     /// Holds the two battlers
     /// </summary>
@@ -399,10 +401,12 @@ public class BattleManager : MonoBehaviour
     void Win()
     {
         BattleMessage("YOU WON!");
+        postgameManager.Win();
     }
 
     void Lose()
     {
         BattleMessage("You were defeated...");
+        postgameManager.Lose();
     }
 }
