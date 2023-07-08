@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586c43c55123e164a82d5a6854612fac, type: 3}
   m_Name: Poison
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 73ca6dd11d74d0f45ba2ea3481dc76df, type: 3}
+  icon: {fileID: 21300000, guid: 93aef3306be23a64bb9432a106f1f2d0, type: 3}
