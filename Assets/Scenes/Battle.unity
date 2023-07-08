@@ -152,7 +152,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 958619515}
   - {fileID: 1244710918}
   - {fileID: 101801572}
   m_Father: {fileID: 1559162040}
@@ -1296,11 +1295,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3968295787248356898, guid: f28632de9b283da4280ee9861c89e966, type: 3}
   m_PrefabInstance: {fileID: 912428971}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &958619515 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 211592310909590820, guid: c034be1d3180d224bb6e5d3232023f44, type: 3}
-  m_PrefabInstance: {fileID: 904396902}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1002012835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +1973,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -8, y: -8}
+  m_SizeDelta: {x: -24, y: -24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1559162041
 MonoBehaviour:
@@ -2093,7 +2087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a3f3d831f39e0344b99e646ada998162, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6032893c9ab4e546820c0feb24934e5, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

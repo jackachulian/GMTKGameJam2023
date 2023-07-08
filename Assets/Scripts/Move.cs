@@ -13,6 +13,11 @@ public class Move : ScriptableObject {
     public int damage;
 
     /// <summary>
+    /// Damage taken is reduced by this value
+    /// </summary>
+    public int defense;
+
+    /// <summary>
     /// Status effect to inflict on self, if non-null and duration above 0
     /// </summary>
     public StatusEffect selfEffect;
@@ -38,4 +43,9 @@ public class Move : ScriptableObject {
     /// Name of the anim state of the target of this move when hit by it
     /// </summary>
     public string hitAnimState = "Hit";
+
+    /// <summary>
+    /// Will allow this move to activate before other moves with a lower priority
+    /// </summary>
+    public int priority = 0;
 }
