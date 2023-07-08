@@ -196,11 +196,17 @@ public class BattleManager : MonoBehaviour
         {
             target.hp -= move.damage;
 
-            // Play hit animation on target when damaged
-            if (move.hitAnimState.Length > 0)
+            if (target.hp <= 0)
             {
-                target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
-                if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
+                target.spriteAnimator.Play("Base Layer.defeat", 0);
+            } else
+            {
+                // Play hit animation on target when damaged
+                if (move.hitAnimState.Length > 0)
+                {
+                    target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
+                    if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
+                }
             }
 
             BattleMessage($"{target.coloredName} took {move.damage} damage!");
@@ -276,8 +282,8 @@ public class BattleManager : MonoBehaviour
             if (!battler.isTarget && !battler.isDead) lost = false;
         }
 
-        if (won) StartCoroutine(Win());
         if (lost) StartCoroutine(Lose());
+        else if (won) StartCoroutine(Win());
     }
 
     void AddStatus(Battler target, StatusType statusType, int duration)
@@ -496,9 +502,9 @@ public class BattleManager : MonoBehaviour
         foreach (string line in lines)
         {
             BattleMessage(line);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.75f);
         }
-        new WaitForSeconds(0.66f);
+        new WaitForSeconds(2f);
 
         battleLogAnimator.SetBool("ShowLog", false);
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
