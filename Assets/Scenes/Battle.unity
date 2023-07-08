@@ -1743,8 +1743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loseAnim: {fileID: 1687737807}
   winAnim: {fileID: 212651042}
-  loseContainer: {fileID: 1687737803}
-  winContainer: {fileID: 212651040}
+  winSFX: {fileID: 8300000, guid: 352985264961ae1429d842e2a46ea786, type: 3}
+  loseSFX: {fileID: 8300000, guid: dd8b567dc09525d409f056bb4becfa03, type: 3}
   battleManager: {fileID: 1002012836}
 --- !u!4 &1321345103
 Transform:
