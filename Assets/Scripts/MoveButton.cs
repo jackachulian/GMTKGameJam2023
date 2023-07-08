@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MoveButton : MonoBehaviour, IPointerClickHandler
+public class MoveButton : MonoBehaviour
 {
     private BattleManager battleManager;
 
@@ -39,10 +39,5 @@ public class MoveButton : MonoBehaviour, IPointerClickHandler
         displayedMove = battleManager.CurrentPlayer.moves[moveIndex];
         usesLabel.text = battleManager.CurrentPlayer.moveUsesRemaining[moveIndex]+"";
         nameLabel.text = displayedMove.name;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        battleManager.SubmitMove(moveIndex);
     }
 }

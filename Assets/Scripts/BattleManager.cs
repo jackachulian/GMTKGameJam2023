@@ -61,10 +61,10 @@ public class BattleManager : MonoBehaviour
     /// <param name="attacker"></param>
     /// <param name="move"></param>
     /// <returns>true if move was used successfully, false if use conditions not met (mana cost)</returns>
-    public bool SubmitMove(int moveIndex) {
+    public void SubmitMove(int moveIndex) {
         // if (move.manaCost > CurrentPlayer.mp) return false;
 
-        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return false;
+        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return;
 
         UseMove(CurrentPlayer, CurrentEnemy, moveIndex);
 
@@ -82,7 +82,7 @@ public class BattleManager : MonoBehaviour
 
         Refresh();
 
-        return true;
+        return;
     }
 
     void Refresh()
