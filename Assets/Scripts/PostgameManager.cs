@@ -7,18 +7,20 @@ public class PostgameManager : MonoBehaviour
 {
     public Animator loseAnim, winAnim;
 
-    public GameObject loseContainer, winContainer;
+    [SerializeField] private AudioClip winSFX, loseSFX;
 
     public BattleManager battleManager;
 
     public void Win()
     {
         winAnim.SetTrigger("Won");
+        SoundManager.Instance.PlaySound(winSFX);
     }
 
     public void Lose()
     {
         loseAnim.SetTrigger("Lost");
+        SoundManager.Instance.PlaySound(loseSFX);
     }
 
     public void SelectRetry()
