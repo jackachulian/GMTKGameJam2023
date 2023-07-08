@@ -184,8 +184,8 @@ public class BattleManager : MonoBehaviour
             string turnsStr = move.selfEffect.duration == 1 ? "turn" : "turns";
             switch (move.selfEffect.type.name)
             {
-                case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
-                case "Fire": BattleMessage($"{target.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
+                case "Poison": BattleMessage($"{attacker.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
+                case "Fire": BattleMessage($"{attacker.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
             }
 
             AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
