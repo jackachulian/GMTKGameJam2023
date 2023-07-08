@@ -54,13 +54,13 @@ public class BattleManager : MonoBehaviour
     {
         Level level = levelList.levels[Storage.currentLevel];
 
-        // Instantiate all battlers and set up values from level
-        foreach (Transform child in battlerTransform) Destroy(child.gameObject);
-        foreach (BattlerStats battlerStats in level.battlers)
+        battlers = new Battler[level.battlers.Length];
+        for (int i=0; i<level.battlers.Length; i++)
         {
-            GameObject battlerObject = Instantiate(battlerPrefab, battlerTransform);
-            battlerObject.name = "Battler" + battlerTransform.childCount;
-            battlerObject.GetComponent<Battler>().StatsSetup(battlerStats);
+            BattlerStats battlerStats = level.battlers[i];
+            Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
+            battlers[i] = battler;
+            battler.StatsSetup(battlerStats);
         }
 
 
@@ -139,7 +139,7 @@ public class BattleManager : MonoBehaviour
         // Only say "used on {opponent}" if dealing damage or inflicting a status effect onto them
         if (move.damage > 0 || move.opponentEffect.duration > 0)
         {
-            BattleMessage($"{attacker.coloredName} uses {move} on {target.coloredName}");
+            BattleMessage($"{attacker.coloredName} uses {move.displayName} on {target.coloredName}");
         } else
         {
             BattleMessage($"{attacker.coloredName} uses {move.displayName}");

@@ -56,6 +56,7 @@ public class Battler : MonoBehaviour
         maxHp = stats.hp;
         moves = stats.moves;
         nameColor = stats.nameColor;
+        portraitSprite = stats.portraitSprite;
 
         spriteAnimator.runtimeAnimatorController = stats.controller;
     }
