@@ -105,6 +105,7 @@ public class BattleManager : MonoBehaviour
 
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;
+        BattleMessage($"{target.coloredName} took {move.damage} damage!");
         Refresh();
     }
 
@@ -118,14 +119,14 @@ public class BattleManager : MonoBehaviour
         ClearBattleLog();
         battleLogAnimator.SetBool("ShowLog", true);
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1.25f);
+        yield return new WaitForSeconds(0.5f);
 
         // Player uses their move
         UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
 
         // Wait for player animation
         yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.33f);
 
         // Enemy selects and uses a move
         // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
@@ -133,7 +134,7 @@ public class BattleManager : MonoBehaviour
 
         // Wait for enemy animation
         yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.33f);
 
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
