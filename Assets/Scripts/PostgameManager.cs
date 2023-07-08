@@ -36,5 +36,10 @@ public class PostgameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.0f);
     }
+
+    public void SelectRetry()
+    {
+        SceneManager.LoadScene("Battle");
+    }
     
 }

@@ -1312,6 +1312,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5541573312661403465, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1321345102}
+    - target: {fileID: 5541573312661403465, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectRetry
+      objectReference: {fileID: 0}
+    - target: {fileID: 5541573312661403465, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PostgameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5541573312661403465, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
