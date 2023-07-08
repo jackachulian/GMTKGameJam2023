@@ -829,6 +829,7 @@ MonoBehaviour:
   mpImage: {fileID: 7759900007062531838}
   statusEffectsTransform: {fileID: 8429128312782525699}
   statusEffectPrefab: {fileID: 1742422379220473182, guid: eb90786ee5e52574fae9832e83dae3ae, type: 3}
+  targetDisp: {fileID: 7097711276588274529}
 --- !u!225 &3896940491172500849
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -907,7 +908,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 686f3989d8b368b40adfd19645b48333, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c8454f8d3df24442b2ce8066d598340, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
