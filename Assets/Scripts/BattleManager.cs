@@ -138,6 +138,12 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EvaluateTurn(int playerMoveIndex)
     {
+        // temporary only for move list visual to show that one use was used when selecting the move,
+        // actual decrement happens later in UseMove
+        CurrentPlayer.moveUsesRemaining[playerMoveIndex]--;
+        Refresh();
+        
+
         // Wait for the buttons to fade out before using move so that log can show use correctly
         movesGridAnimator.SetBool("ShowMoves", false);
         yield return new WaitUntil(() => movesGridAnimator.IsInTransition(0));
@@ -149,6 +155,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // Player uses their move
+        CurrentPlayer.moveUsesRemaining[playerMoveIndex]++; // (undo for temp change at start of this method)
         UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
 
         // Wait for player animation
