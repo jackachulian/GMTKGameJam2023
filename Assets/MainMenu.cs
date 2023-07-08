@@ -11,6 +11,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject playButton;
     [SerializeField] GameObject aboutButton;
     [SerializeField] GameObject aboutCloseButton;
+    // gear icon next to selected button
+    [SerializeField] GameObject cursor;
 
     public void SelectStart()
     {
@@ -33,5 +35,13 @@ public class MainMenu : MonoBehaviour
     {
         mainWindow.SetActive(!mainWindow.activeSelf);
         aboutWindow.SetActive(!aboutWindow.activeSelf);
+    }
+
+    public void UpdateCursor()
+    {
+        GameObject selected = EventSystem.current.currentSelectedGameObject;
+        // move cursor to button y value
+        cursor.transform.position = new Vector2(cursor.transform.position.x, selected.transform.position.y);
+        Debug.Log("cursor function call");
     }
 }
