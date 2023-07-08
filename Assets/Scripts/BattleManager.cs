@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -21,14 +22,16 @@ public class BattleManager : MonoBehaviour
     /// <summary>
     /// Transform that holds all the move button children to be updated when swapping battlers
     /// </summary>
-    public Transform moveGrid; 
+    public Transform moveGridTransform, battleLogTransform;
+
+    public GameObject logMessagePrefab;
 
     private List<MoveButton> moveButtons;
 
     [SerializeField] private BattlerDisplay[] battlerDisplays;
 
 
-    [SerializeField] private Animator platformRotationAnimator, battlerDisplaysAnimator, movesGridAnimator;
+    [SerializeField] private Animator platformRotationAnimator, battlerDisplaysAnimator, movesGridAnimator, battleLogAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +49,7 @@ public class BattleManager : MonoBehaviour
     {
         moveButtons = new List<MoveButton>();
 
-        foreach (Transform child in moveGrid)
+        foreach (Transform child in moveGridTransform)
         {
             moveButtons.Add(child.GetComponent<MoveButton>());
         }
@@ -87,7 +90,7 @@ public class BattleManager : MonoBehaviour
         attacker.moveUsesRemaining[moveIndex]--;
         Move move = attacker.moves[moveIndex];
 
-        Debug.Log($"{attacker.name} uses {move.name} on {target.name}");
+        BattleMessage($"{attacker.name} uses {move.name} on {target.name}");
 
         attacker.spriteAnimator.Play("Base Layer." + move.animStateName, 0);
 
@@ -97,17 +100,30 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EvaluateTurn(int playerMoveIndex)
     {
+        // Wait for the buttons to fade out before using move so that log can show use correctly
+        movesGridAnimator.SetBool("ShowMoves", false);
+        yield return new WaitUntil(() => movesGridAnimator.IsInTransition(0));
+        yield return new WaitForSeconds(0.5f);
+
+        ClearBattleLog();
+        battleLogAnimator.SetBool("ShowLog", true);
+        yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+        yield return new WaitForSeconds(1.25f);
+
+        // Player uses their move
         UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
 
         // Wait for player animation
         yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
+        yield return new WaitForSeconds(1f);
 
+        // Enemy selects and uses a move
         // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-        movesGridAnimator.SetBool("ShowMoves", false);
         UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
 
         // Wait for enemy animation
         yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.IsInTransition(0));
+        yield return new WaitForSeconds(1f);
 
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
@@ -121,6 +137,26 @@ public class BattleManager : MonoBehaviour
 
         // Wait until a lil bit through the animation to re show the moves
         yield return new WaitForSeconds(0.5f);
-        movesGridAnimator.SetBool("ShowMoves", true);
+
+        battleLogAnimator.SetBool("ShowLog", false);
+        yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+        yield return new WaitForSeconds(0.5f);
+
+        movesGridAnimator.SetBool("ShowMoves", true);        
+    }
+
+    public void ClearBattleLog()
+    {
+        foreach (Transform child in battleLogTransform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void BattleMessage(string text)
+    {
+        GameObject logMessage = Instantiate(logMessagePrefab, battleLogTransform);
+
+        logMessage.GetComponentInChildren<TextMeshProUGUI>().text = text;
     }
 }
