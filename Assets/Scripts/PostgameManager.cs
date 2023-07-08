@@ -11,30 +11,14 @@ public class PostgameManager : MonoBehaviour
 
     public BattleManager battleManager;
 
-    public IEnumerator Win()
+    public void Win()
     {
         winAnim.SetTrigger("Won");
-
-        yield return new WaitForSeconds(2.0f);
-
-        // go to next level or end game screen, depending on level
-        if (Storage.currentLevel >= battleManager.levelList.levels.Count)
-        {
-            Storage.currentLevel++;
-            SceneManager.LoadScene("Battle");
-        }
-        else
-        {
-            Debug.Log("Game won");
-        }
-        
     }
 
-    public IEnumerator Lose()
+    public void Lose()
     {
         loseAnim.SetTrigger("Lost");
-
-        yield return new WaitForSeconds(0.0f);
     }
 
     public void SelectRetry()
