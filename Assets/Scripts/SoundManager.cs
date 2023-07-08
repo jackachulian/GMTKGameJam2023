@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random=UnityEngine.Random;
+using UnityEngine.EventSystems;
 
 public class SoundManager : MonoBehaviour
 {   
@@ -76,6 +77,9 @@ public class SoundManager : MonoBehaviour
     // button sfx stuff
     public void ButtonHoverSFX(AudioClip clip)
     {
+        // quick fix for hover color bug
+        EventSystem.current.SetSelectedGameObject(null);
+
         PlaySound(clip, 0.25f, Random.Range(0.9f,1.1f));
     }
 
