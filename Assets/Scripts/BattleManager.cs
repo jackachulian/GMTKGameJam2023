@@ -133,6 +133,13 @@ public class BattleManager : MonoBehaviour
     }
 
     void UseMove(Battler attacker, Battler target, int moveIndex) {
+        // don't move if dead
+        if (attacker.isDead)
+        {
+            Refresh();
+            return;
+        }
+
         attacker.moveUsesRemaining[moveIndex]--;
         Move move = attacker.moves[moveIndex];
 
@@ -210,8 +217,32 @@ public class BattleManager : MonoBehaviour
             if (battler.hp <= 0)
             {
                 BattleMessage($"{battler.coloredName} was slain!");
+                battler.isDead = true;
+                
+                // check if all player or target battlers have died
+                CheckForPostgame();
             }
         }
+    }
+
+    void CheckForPostgame()
+    {
+        // check for win, all targets are dead
+        bool won = true;
+        foreach (Battler battler in battlers)
+        {
+            if (battler.isTarget && !battler.isDead) won = false;
+        }
+
+        // check for lose, all non-targets are dead
+        bool lost = true;
+        foreach (Battler battler in battlers)
+        {
+            if (!battler.isTarget && !battler.isDead) lost = false;
+        }
+
+        if (won) Win();
+        if (lost) Lose();
     }
 
     void AddStatus(Battler target, StatusType statusType, int duration)
@@ -363,5 +394,15 @@ public class BattleManager : MonoBehaviour
             case "Poison": BattleMessage($"{battler.coloredName} took {damage} poison damage"); break;
             case "Fire": BattleMessage($"{battler.coloredName} took {damage} burn damage"); break;
         }
+    }
+
+    void Win()
+    {
+        BattleMessage("YOU WON!");
+    }
+
+    void Lose()
+    {
+        BattleMessage("You were defeated...");
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class Battler : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class Battler : MonoBehaviour
     /// When true, this battler must be killed to win the level
     /// </summary>
     public bool isTarget = false;
+
+    [NonSerialized] public bool isDead = false;
 
     // Start is called before the first frame update
     void Start()

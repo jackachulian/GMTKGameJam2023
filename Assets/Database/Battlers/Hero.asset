@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hero
   m_EditorClassIdentifier: 
   displayName: Hero
-  hp: 40
+  hp: 3
   moves:
   - {fileID: 11400000, guid: fa483c01ff58e0f418ceb56aa22167ec, type: 2}
   - {fileID: 11400000, guid: 51f27ca10dbb6fa44a59fc71db3a019a, type: 2}
