@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BattleManager : MonoBehaviour
 {
@@ -25,11 +27,6 @@ public class BattleManager : MonoBehaviour
     public Transform moveGridTransform, battleLogTransform;
 
     public GameObject logMessagePrefab;
-
-    /// <summary>
-    /// Used for coloring text
-    /// </summary>
-    public Color[] battlerColors;
 
     private List<MoveButton> moveButtons;
 
@@ -95,12 +92,20 @@ public class BattleManager : MonoBehaviour
         attacker.moveUsesRemaining[moveIndex]--;
         Move move = attacker.moves[moveIndex];
 
-        BattleMessage($"{attacker.name} uses {move.name} on {target.name}");
+        BattleMessage($"{attacker.coloredName} uses {move.name} on {target.coloredName}");
 
         attacker.spriteAnimator.Play("Base Layer." + move.animStateName, 0);
 
+        StartCoroutine(DamageAfterAnimation(attacker, target, move));
+    }
+
+    IEnumerator DamageAfterAnimation(Battler attacker, Battler target, Move move)
+    {
+        yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
+
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;
+        Refresh();
     }
 
     IEnumerator EvaluateTurn(int playerMoveIndex)
