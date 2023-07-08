@@ -26,6 +26,11 @@ public class BattleManager : MonoBehaviour
 
     public GameObject logMessagePrefab;
 
+    /// <summary>
+    /// Used for coloring text
+    /// </summary>
+    public Color[] battlerColors;
+
     private List<MoveButton> moveButtons;
 
     [SerializeField] private BattlerDisplay[] battlerDisplays;
