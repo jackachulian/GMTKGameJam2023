@@ -81,7 +81,7 @@ public class BattleManager : MonoBehaviour
             StartCoroutine(PlayCutscene(level.levelStartDialogue, start: true));
         } else
         {
-            StartBattle();
+            StartCoroutine(StartBattle());
         }
     }
 
@@ -112,8 +112,14 @@ public class BattleManager : MonoBehaviour
         Refresh();
     }
 
-    void StartBattle()
+    IEnumerator StartBattle()
     {
+        if (platformRotationAnimator.GetBool("LowerPlatform"))
+        {
+            platformRotationAnimator.SetBool("LowerPlatform", false);
+            yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+        }
+
         battlerDisplaysAnimator.SetBool("Hidden", false);
         movesGridAnimator.SetBool("ShowMoves", true);
         Refresh();
@@ -503,8 +509,32 @@ public class BattleManager : MonoBehaviour
         string[] lines = text.Split('\n');
         foreach (string line in lines)
         {
-            BattleMessage(line);
-            yield return new WaitForSeconds(1.75f);
+            switch (line)
+            {
+                case "{RaisePlatform}":
+                    platformRotationAnimator.SetBool("LowerPlatform", false);
+                    break;
+
+                case "{LowerPlatform}":
+                    platformRotationAnimator.SetBool("LowerPlatform", true);
+                    break;
+
+                // time constraint moment
+                case "{Wait1}":
+                    yield return new WaitForSeconds(1);
+                    break;
+
+                case "{Wait0.5}":
+                    yield return new WaitForSeconds(0.5f);
+                    break;
+
+                default:
+                    BattleMessage(line);
+                    yield return new WaitForSeconds(1.5f);
+                    break;
+            }
+                
+            
         }
         new WaitForSeconds(2f);
 
@@ -513,7 +543,7 @@ public class BattleManager : MonoBehaviour
 
         if (start)
         {
-            StartBattle();
+            yield return StartBattle();
         }
 
         // TODO: if end, go to next level
