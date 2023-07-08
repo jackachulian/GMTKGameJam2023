@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d74929fedc6d23f4ba543f457af5a65c, type: 2}
   nameColor: {r: 0.9528302, g: 0.25618547, b: 0.25618547, a: 1}
   controller: {fileID: 9100000, guid: 1b636947df15b96408b9e174dd78e9f1, type: 2}
+  portraitSprite: {fileID: 21300000, guid: 946c13fd0dc30a84daa102c8955f0655, type: 3}
