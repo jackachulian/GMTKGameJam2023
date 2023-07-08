@@ -35,6 +35,9 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private Animator platformRotationAnimator, battlerDisplaysAnimator, movesGridAnimator, battleLogAnimator;
 
+
+    [SerializeField] private StatusType poisonStatusType, burnStatusType;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -106,7 +109,31 @@ public class BattleManager : MonoBehaviour
         attacker.mp -= move.manaCost;
         target.hp -= move.damage;
         BattleMessage($"{target.coloredName} took {move.damage} damage!");
+
+        if (move.name == "Magic")
+        {
+            AddStatus(target, burnStatusType, 2);
+        }
+
         Refresh();
+    }
+
+    void AddStatus(Battler target, StatusType statusType, int duration)
+    {
+        foreach (StatusEffect statusEffect in target.statusEffects)
+        {
+            if (statusEffect.type == statusType)
+            {
+                statusEffect.remainingDuration += duration;
+                return;
+            }
+        }
+
+        StatusEffect newStatusEffect = new StatusEffect();
+        newStatusEffect.type = statusType;
+        newStatusEffect.remainingDuration = duration;
+
+        target.statusEffects.Add(newStatusEffect);
     }
 
     IEnumerator EvaluateTurn(int playerMoveIndex)
