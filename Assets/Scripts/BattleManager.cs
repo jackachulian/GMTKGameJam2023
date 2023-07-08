@@ -72,11 +72,17 @@ public class BattleManager : MonoBehaviour
             if (i > level.playerAmount - 1) battler.isTarget = true;
         }
 
-
-        Refresh();
-        battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
-        selectingMove = true;
+        if (level.levelStartDialogue.Length > 0)
+        {
+            Refresh();
+            StartCoroutine(PlayCutscene(level.levelStartDialogue, start: true));
+        } else
+        {
+            StartBattle();
+        }
     }
+
+
 
     Vector2 logVel;
     // Update is called once per frame
@@ -101,6 +107,15 @@ public class BattleManager : MonoBehaviour
         }
 
         Refresh();
+    }
+
+    void StartBattle()
+    {
+        battlerDisplaysAnimator.SetBool("Hidden", false);
+        movesGridAnimator.SetBool("ShowMoves", true);
+        Refresh();
+        battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
+        selectingMove = true;
     }
 
     /// <summary>
@@ -422,18 +437,71 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
 
-        StartCoroutine(postgameManager.Win());
+        postgameManager.Win();
+
+        Level level = levelList.levels[Storage.currentLevel];
+
+        if (level.levelEndDialogue.Length > 0)
+        {
+            Debug.Log("Playing end cutsecne");
+            StartCoroutine(PlayCutscene(level.levelEndDialogue, end: true));
+        } else
+        {
+            // TODO: animate player out and go to next level, also do this at end of cutscene if there is one
+        }
+
     }
 
     private IEnumerator Lose()
     {
         
-        BattleMessage("You were defeated...");
+        BattleMessage("You were slain...");
         isPostgame = true;
-        
+
+        postgameManager.Lose();
+
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
+    }
 
-        StartCoroutine(postgameManager.Lose());
+    /// <summary>
+    /// Split the passed string into lines and display them one by one with delay between to the battle log.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="start">if battle should be started after cutscene</param>
+    /// <param name="end">if next level should be transitioned to after this battle</param>
+    /// <returns></returns>
+    IEnumerator PlayCutscene(string text, bool start = false, bool end = false)
+    {
+        battlerDisplaysAnimator.SetBool("Hidden", true);
+
+        if (movesGridAnimator.GetBool("ShowMoves"))
+        {
+            movesGridAnimator.SetBool("ShowMoves", false);
+            Debug.Log("waiting");
+            yield return new WaitUntil(() => movesGridAnimator.IsInTransition(0));
+        }
+        Debug.Log("clearing");
+        ClearBattleLog();
+        battleLogAnimator.SetBool("ShowLog", true);
+        yield return new WaitForSeconds(1f);
+
+        string[] lines = text.Split('\n');
+        foreach (string line in lines)
+        {
+            BattleMessage(line);
+            yield return new WaitForSeconds(2f);
+        }
+        new WaitForSeconds(0.66f);
+
+        battleLogAnimator.SetBool("ShowLog", false);
+        yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+
+        if (start)
+        {
+            StartBattle();
+        }
+
+        // TODO: if end, go to next level
     }
 }
