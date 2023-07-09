@@ -140,7 +140,7 @@ public class BattleManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator SetBattlersWhenLowered()
     {
-        yield return new WaitUntil(() => platformAnimator.GetCurrentAnimatorStateInfo(0).IsName("Lowered"));
+        yield return new WaitForSeconds(3f);
 
         if (level.battlers.Length >= 3)
         {
@@ -153,7 +153,6 @@ public class BattleManager : MonoBehaviour
             battlerDisplaysAnimator.runtimeAnimatorController = battlerDisplayController;
         }
 
-        platformAnimator.SetBool("LoweredPlatform", false);
         platformAnimator.SetInteger("PlayerIndex", 0);
         battlerDisplaysAnimator.SetInteger("PlayerIndex", 0);
 
@@ -677,8 +676,16 @@ public class BattleManager : MonoBehaviour
             {
                 // Enemy selects and uses a move
                 // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-                if (validMoves.Count == 0) UseMove(attacker, battlers[currentPlayerIndex], -1);
-                UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
+                try
+                {
+                    if (validMoves.Count == 0) UseMove(attacker, battlers[currentPlayerIndex], -1);
+                    UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
+                }
+                catch
+                {
+                    Debug.Log("Passed?");
+                }
+                
             }
         }
 
