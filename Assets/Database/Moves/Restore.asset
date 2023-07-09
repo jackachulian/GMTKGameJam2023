@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Restore
   manaCost: 5
-  damage: -20
+  damage: -10
   defense: 0
   selfEffect:
     type: {fileID: 0}
