@@ -628,7 +628,7 @@ public class BattleManager : MonoBehaviour
                 bool delayAfter = true;
                 switch (statusEffect.type.name)
                 {
-                    case "Poison": StatusDamage(battler, statusEffect, 1); break;
+                    case "Poison": StatusDamage(battler, statusEffect, 3); break;
                     case "Fire": StatusDamage(battler, statusEffect, statusEffect.duration); break;
                     default: delayAfter = false; break;
                 }
