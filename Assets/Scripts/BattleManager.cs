@@ -514,7 +514,7 @@ public class BattleManager : MonoBehaviour
         List<Battler> actionOrder = new List<Battler>(battlers);
         actionOrder.Sort((b1, b2) =>
         {
-            int priorityDifference = b2.selectedMove.priority - b1.selectedMove.priority;
+            int priorityDifference = b1.selectedMove.priority - b2.selectedMove.priority;
             if (priorityDifference != 0) return priorityDifference;
 
             if (b1.battlerIndex == currentPlayerIndex && b2.battlerIndex != currentPlayerIndex) return -1;
