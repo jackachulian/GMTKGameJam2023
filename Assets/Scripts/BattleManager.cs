@@ -723,6 +723,8 @@ public class BattleManager : MonoBehaviour
     /// </summary>
     IEnumerator TickStatusEffects(Battler battler)
     {
+        if (battler.isDead) yield break;
+
         for (int i=0; i<battler.statusEffects.Count; i++)
         {
             StatusEffect statusEffect = battler.statusEffects[i];
