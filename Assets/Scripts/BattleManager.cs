@@ -119,7 +119,7 @@ public class BattleManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator SetBattlersWhenLowered()
     {
-        yield return new WaitUntil(() => platformAnimator.GetCurrentAnimatorStateInfo(0).IsName("Lowered"));
+        yield return new WaitForSeconds(3f);
 
         if (level.battlers.Length >= 3)
         {
@@ -339,7 +339,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator DamageAfterAnimation(Battler attacker, Battler target, Move move)
     {
-        yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
+        yield return new WaitForSeconds(1f);
 
         // attacker.mp -= move.manaCost;
         
@@ -545,12 +545,13 @@ public class BattleManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             currentPlayerIndex = (currentPlayerIndex - 1 + battlers.Length) % battlers.Length;
+            // may need to change this ode once more than 1 enemy is added
+            battlerDisplaysAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
+            platformRotationAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
         }
 
-        // may need to change this ode once more than 1 enemy is added
         battlerDisplaysAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
         platformRotationAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
-
         Refresh();
 
         // Wait until a lil bit through the animation to re show the moves
@@ -566,24 +567,21 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator Act(Battler attacker)
     {
+        if (attacker.isDead) yield break;
+
         if (attacker == CurrentPlayer)
         {
             UseMove(CurrentPlayer, battlers[selectedBattlerIndex], selectedMoveIndex);
-            // Wait for player animation
-            yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
             
         } else
         {
             // Enemy selects and uses a move
             // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
             List<int> validMoves = attacker.GetValidMoves();
-            UseMove(attacker, CurrentPlayer, validMoves[Random.Range(0,validMoves.Count)]);
-
-            // Wait for enemy animation
-            yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
+            UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
         }
 
-        yield return new WaitForSeconds(1.33f);
+        yield return new WaitForSeconds(1.5f);
     }
 
     public void ClearBattleLog()
