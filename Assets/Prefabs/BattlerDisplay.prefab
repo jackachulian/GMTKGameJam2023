@@ -828,7 +828,7 @@ MonoBehaviour:
   hpImage: {fileID: 1161824365973363541}
   mpImage: {fileID: 7759900007062531838}
   statusEffectsTransform: {fileID: 8429128312782525699}
-  statusEffectPrefab: {fileID: 1742422379220473182, guid: eb90786ee5e52574fae9832e83dae3ae, type: 3}
+  statusEffectPrefab: {fileID: 286008364398733464}
   targetDisp: {fileID: 7097711276588274529}
 --- !u!225 &3896940491172500849
 CanvasGroup:

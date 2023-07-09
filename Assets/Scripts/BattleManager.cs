@@ -7,6 +7,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using Random=UnityEngine.Random;
 using System;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
@@ -108,7 +109,8 @@ public class BattleManager : MonoBehaviour
     void StartNextLevel()
     {
         Storage.currentLevel++;
-        StartLevel();
+        if (Storage.currentLevel >= levelList.levels.Count) SceneManager.LoadScene("End");
+        else StartLevel();
     }
 
     /// <summary>
@@ -176,6 +178,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator StartBattle()
     {
+        SoundManager.Instance.StopBGM();
         if (platformRotationAnimator.GetBool("LoweredPlatform"))
         {
             platformRotationAnimator.SetBool("LoweredPlatform", false);
@@ -189,6 +192,7 @@ public class BattleManager : MonoBehaviour
         selectingMove = true;
 
         SoundManager.Instance.SetBGM(level.bgm);
+        SoundManager.Instance.PlayBGM();
     }
 
     private List<Battler> possibleTargets;
@@ -662,6 +666,7 @@ public class BattleManager : MonoBehaviour
             case "Poison": BattleMessage($"{battler.coloredName} took {damage} poison damage"); break;
             case "Fire": BattleMessage($"{battler.coloredName} took {damage} burn damage"); break;
         }
+        CheckForDeaths();
     }
 
     private IEnumerator Win()
