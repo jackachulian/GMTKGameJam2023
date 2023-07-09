@@ -107,7 +107,7 @@ public class BattleManager : MonoBehaviour
 
         foreach (Battler battler in battlers)
         {
-            battler.ResetMoveUses();
+            // battler.ResetMoveUses();
         }
     }
 

@@ -77,7 +77,7 @@ public class Battler : MonoBehaviour
         portraitSprite = stats.portraitSprite;
 
         spriteAnimator.runtimeAnimatorController = stats.controller;
-
+        ResetMoveUses();
 
     }
 
