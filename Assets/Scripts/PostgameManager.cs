@@ -27,5 +27,10 @@ public class PostgameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Battle");
     }
+
+    public void SelectReturn()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     
 }

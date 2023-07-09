@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 8183236}
   - component: {fileID: 8183238}
   - component: {fileID: 8183237}
+  - component: {fileID: 8183239}
   m_Layer: 5
   m_Name: gearL
   m_TagString: Untagged
@@ -377,7 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.91764706, g: 0.20784314, b: 0.20784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -402,6 +403,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8183235}
   m_CullTransparentMesh: 1
+--- !u!114 &8183239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &54045907
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,6 +429,7 @@ GameObject:
   - component: {fileID: 54045908}
   - component: {fileID: 54045910}
   - component: {fileID: 54045909}
+  - component: {fileID: 54045911}
   m_Layer: 5
   m_Name: gearR
   m_TagString: Untagged
@@ -453,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.18431373, g: 0.29803923, b: 0.9372549, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -478,6 +495,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54045907}
   m_CullTransparentMesh: 1
+--- !u!114 &54045911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54045907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &67039618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,7 +2648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1248590877211020452, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
       propertyPath: m_Text
-      value: < return <
+      value: '[ Back ]'
       objectReference: {fileID: 0}
     - target: {fileID: 4044362343537840931, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
       propertyPath: m_Name
@@ -3247,11 +3279,11 @@ RectTransform:
   m_Father: {fileID: 928583254}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 792.97, y: 44.512}
-  m_SizeDelta: {x: 219.2081, y: 110.9761}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -50, y: 50}
+  m_SizeDelta: {x: 219.20813, y: 110.9761}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &1783943878
 MonoBehaviour:
   m_ObjectHideFlags: 0
