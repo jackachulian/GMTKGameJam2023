@@ -14,8 +14,41 @@ public class MainMenu : MonoBehaviour
     // gear icon next to selected button
     [SerializeField] GameObject cursor;
 
+    [SerializeField] AudioClip bgm;
+
+    // testing
+    [SerializeField] int startingLevel;
+
+    void Start()
+    {
+        SoundManager.Instance.SetBGM(bgm);
+        SoundManager.Instance.PlayBGM();
+        Storage.currentLevel = startingLevel;
+    }
     public void SelectStart()
     {
+        SoundManager.Instance.StopBGM();
+        SceneManager.LoadScene("Battle");
+    }
+
+    public void SelectL1()
+    {
+        SoundManager.Instance.StopBGM();
+        Storage.currentLevel = 0;
+        SceneManager.LoadScene("Battle");
+    }
+
+    public void SelectL2()
+    {
+        SoundManager.Instance.StopBGM();
+        Storage.currentLevel = 1;
+        SceneManager.LoadScene("Battle");
+    }
+
+    public void SelectL3()
+    {
+        SoundManager.Instance.StopBGM();
+        Storage.currentLevel = 2;
         SceneManager.LoadScene("Battle");
     }
 

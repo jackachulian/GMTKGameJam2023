@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
-using UnityEditor.Experimental.GraphView;
+// using UnityEditor.Animations;
+// using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using Random=UnityEngine.Random;
@@ -28,6 +28,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject battlerPrefab;
 
+    public GameObject youIcon;
+
     public Transform battlerTransform;
 
     /// <summary>
@@ -39,9 +41,9 @@ public class BattleManager : MonoBehaviour
     public Battler CurrentEnemy { get { return battlers[(currentPlayerIndex+1)%battlers.Length]; } }
 
     public Animator platformAnimator;
-    public AnimatorController platformController, triplePlatformController;
+    public RuntimeAnimatorController platformController, triplePlatformController;
 
-    public AnimatorController battlerDisplayController, triplebattlerDisplayController;
+    public RuntimeAnimatorController battlerDisplayController, triplebattlerDisplayController;
 
     /// <summary>
     /// Transform that holds all the move button children to be updated when swapping battlers
@@ -76,15 +78,28 @@ public class BattleManager : MonoBehaviour
 
     public bool isPostgame = false;
 
+    public Move struggle;
+
     // Start is called before the first frame update
     void Start()
     {
+        moveButtons = new List<MoveButton>();
+
+        foreach (Transform child in moveGridTransform)
+        {
+            moveButtons.Add(child.GetComponent<MoveButton>());
+        }
+
+        Refresh();
+
         StartLevel();
     }
 
     void StartLevel()
     {
         level = levelList.levels[Storage.currentLevel];
+
+        youIcon.SetActive(Storage.currentLevel == 0);
 
         currentPlayerIndex = 0;
         isPostgame = false;
@@ -103,6 +118,12 @@ public class BattleManager : MonoBehaviour
         else
         {
             StartCoroutine(StartBattle());
+        }
+
+        foreach (Battler battler in battlers)
+        {
+            // battler.ResetMoveUses();
+            battler.statusEffects = new List<StatusEffect>();
         }
     }
 
@@ -167,18 +188,6 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        moveButtons = new List<MoveButton>();
-
-        foreach (Transform child in moveGridTransform)
-        {
-            moveButtons.Add(child.GetComponent<MoveButton>());
-        }
-
-        Refresh();
-    }
-
     IEnumerator StartBattle()
     {
         SoundManager.Instance.StopBGM();
@@ -196,6 +205,7 @@ public class BattleManager : MonoBehaviour
 
         SoundManager.Instance.SetBGM(level.bgm);
         SoundManager.Instance.PlayBGM();
+        Refresh();
     }
 
     private List<Battler> possibleTargets;
@@ -214,7 +224,7 @@ public class BattleManager : MonoBehaviour
         if (!selectingMove) return;
         // if (move.manaCost > CurrentPlayer.mp) return false;
 
-        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return;
+        Move selectedMove = null;
 
         possibleTargets = new List<Battler>();
         foreach (Battler battler in battlers)
@@ -227,7 +237,13 @@ public class BattleManager : MonoBehaviour
 
         selectedMoveIndex = moveIndex;
         selectingMove = false;
-        Move selectedMove = CurrentPlayer.moves[selectedMoveIndex];
+        selectedMove = CurrentPlayer.moves[selectedMoveIndex];
+
+        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0)
+        {
+            selectedMove = struggle;
+            selectedMoveIndex = -1;
+        }
         if (possibleTargets.Count > 1 && (selectedMove.damage > 0 || selectedMove.opponentEffect.duration > 0))
         {
             selectingTarget = true;
@@ -320,8 +336,13 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        attacker.moveUsesRemaining[moveIndex]--;
-        Move move = attacker.moves[moveIndex];
+        Move move;
+        if (moveIndex != -1)
+        {
+            attacker.moveUsesRemaining[moveIndex]--;
+            move = attacker.moves[moveIndex];
+        }
+        else move = struggle;
 
         attacker.spriteAnimator.Play("Base Layer." + move.useAnimState, 0);
         if (move.useSFX != null) SoundManager.Instance.PlaySound(move.useSFX);
@@ -333,6 +354,14 @@ public class BattleManager : MonoBehaviour
         } else
         {
             BattleMessage($"{attacker.coloredName} uses {move.displayName}");
+        }
+        
+        // healing
+        if (move.damage < 0)
+        {
+            attacker.hp = Math.Min(attacker.hp-move.damage, attacker.maxHp);
+            BattleMessage($"{attacker.coloredName} heals {Math.Abs(move.damage)} HP.");
+            Refresh();
         }
 
         StartCoroutine(DamageAfterAnimation(attacker, target, move));
@@ -347,11 +376,12 @@ public class BattleManager : MonoBehaviour
         // only play hit animation and dispaly damage in battle log if this deals any damage
         if (move.damage > 0 && !target.HasStatus("Counter"))
         {
-            target.hp -= move.damage;
+            int finalDmg = (move.damage - (target.HasStatus("Block") ? 3 : 0));
+            target.hp -= finalDmg;
 
             if (target.hp <= 0)
             {
-                target.spriteAnimator.Play("Base Layer.defeat", 0);
+                
             } 
             else
             {
@@ -364,7 +394,7 @@ public class BattleManager : MonoBehaviour
             }
             if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
 
-            BattleMessage($"{target.coloredName} took {move.damage} damage!");
+            BattleMessage($"{target.coloredName} took {finalDmg} damage!");
         }
         // counter move if applicable
         else if (move.damage > 0 && target.HasStatus("Counter"))
@@ -382,35 +412,79 @@ public class BattleManager : MonoBehaviour
         // stop if in postgame
         if (isPostgame) yield break;
 
+        if (move.displayName.Equals("Purify"))
+        {
+            foreach (StatusEffect se in attacker.statusEffects)
+            {
+                
+            }
+
+            for (int i = 0; i < attacker.statusEffects.Count; i++)
+            {
+                if (attacker.statusEffects[i] != attacker.GetStatusOfName("Pure"))
+                {
+                    attacker.statusEffects.RemoveAt(i);
+                    i--;
+                } 
+            }
+        }
+
         // Inflict status effect on self
         if (move.selfEffect.duration > 0)
         {
-            yield return new WaitForSeconds(0.5f);
-
-            string turnsStr = move.selfEffect.duration == 1 ? "turn" : "turns";
-            switch (move.selfEffect.type.name)
+            if (!attacker.HasStatus("Pure") || move.selfEffect.type.statusName.Equals("Pure"))
             {
-                case "Poison": BattleMessage($"{attacker.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
-                case "Fire": BattleMessage($"{attacker.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
+                yield return new WaitForSeconds(0.5f);
+
+                string turnsStr = move.selfEffect.duration == 1 ? "turn" : "turns";
+                switch (move.selfEffect.type.name)
+                {
+                    case "Poison": BattleMessage($"{attacker.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
+                    case "Fire": BattleMessage($"{attacker.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
+                }
+
+                AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
+            }
+            else
+            {
+                // status blocked by pure
+                BattleMessage($"{attacker.coloredName} was purified of the status!");
             }
 
-            AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
             Refresh();
         }
+
+        // epic hard code moment
+        if (move.displayName.Equals("Status Swap"))
+        {
+            List<StatusEffect> temp = new List<StatusEffect>(attacker.statusEffects);
+            attacker.statusEffects = new List<StatusEffect>(target.statusEffects);
+            target.statusEffects = new List<StatusEffect>(temp);
+            BattleMessage($"Status effects have been swapped!");
+        }
+
+        Refresh();
 
         // Inflict status effect on opponent
         if (move.opponentEffect.duration > 0)
         {
-            yield return new WaitForSeconds(0.5f);
-
-            string turnsStr = move.opponentEffect.duration == 1 ? "turn" : "turns";
-            switch (move.opponentEffect.type.name)
+            if(!target.HasStatus("Pure"))
             {
-                case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.opponentEffect.duration} {turnsStr}!"); break;
-                case "Fire": BattleMessage($"{target.coloredName} was burned for {move.opponentEffect.duration} {turnsStr}!"); break;
-            }
+                yield return new WaitForSeconds(0.5f);
 
-            AddStatus(target, move.opponentEffect.type, move.opponentEffect.duration);
+                string turnsStr = move.opponentEffect.duration == 1 ? "turn" : "turns";
+                switch (move.opponentEffect.type.name)
+                {
+                    case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.opponentEffect.duration} {turnsStr}!"); break;
+                    case "Fire": BattleMessage($"{target.coloredName} was burned for {move.opponentEffect.duration} {turnsStr}!"); break;
+                }
+
+                AddStatus(target, move.opponentEffect.type, move.opponentEffect.duration);
+            }
+            else
+            {
+                BattleMessage($"{target.coloredName} was purified of the status!");
+            }
             Refresh();
         }
     }
@@ -424,6 +498,7 @@ public class BattleManager : MonoBehaviour
             {
                 BattleMessage($"{battler.coloredName} was slain!");
                 battler.isDead = true;
+                battler.spriteAnimator.Play("Base Layer.defeat", 0);
                 
                 // check if all player or target battlers have died
                 CheckForPostgame();
@@ -433,6 +508,7 @@ public class BattleManager : MonoBehaviour
 
     void CheckForPostgame()
     {
+        if (isPostgame) return;
         // check for win, all targets are dead
         bool won = true;
         foreach (Battler battler in battlers)
@@ -473,9 +549,9 @@ public class BattleManager : MonoBehaviour
     {
         // temporary only for move list visual to show that one use was used when selecting the move,
         // actual decrement happens later in UseMove
-        CurrentPlayer.moveUsesRemaining[selectedMoveIndex]--;
+
+        if (selectedMoveIndex > -1) CurrentPlayer.moveUsesRemaining[selectedMoveIndex]--;
         Refresh();
-        
 
         // Wait for the buttons to fade out before using move so that log can show use correctly
         movesGridAnimator.SetBool("ShowMoves", false);
@@ -487,27 +563,42 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
         yield return new WaitForSeconds(0.5f);
 
-        CurrentPlayer.moveUsesRemaining[selectedMoveIndex]++; // (undo for temp change at start of this method)
+        if (selectedMoveIndex > -1) CurrentPlayer.moveUsesRemaining[selectedMoveIndex]++; // (undo for temp change at start of this method)
 
         foreach (Battler battler in battlers)
         {
-            if (battler == CurrentPlayer)
+            if (selectedMoveIndex == -1)
             {
-                battler.selectedMove = battler.moves[selectedMoveIndex];
-            } else
+                battler.selectedMove = struggle;
+            }
+            else
             {
-                List<Move> usableMoves = new List<Move>();
-                for (int i = 0; i < battler.moves.Length; i++)
+                if (battler == CurrentPlayer)
                 {
-                    if (battler.moveUsesRemaining[i] > 0)
+                    battler.selectedMove = battler.moves[selectedMoveIndex];
+                } else
+                {
+                    List<Move> usableMoves = new List<Move>();
+                    for (int i = 0; i < battler.moves.Length; i++)
                     {
-                        usableMoves.Add(battler.moves[i]);
+                        if (battler.moveUsesRemaining[i] > 0)
+                        {
+                            usableMoves.Add(battler.moves[i]);
+                        }
                     }
+
+                    // enemy """"AI""""
+                    try{
+                        battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
+                    }
+                    catch
+                    {
+                        battler.selectedMove = struggle;
+                    }
+                    
+                }
                 }
 
-                // enemy """"AI""""
-                battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
-            }
         }
 
         // Sort act order by priority
@@ -524,7 +615,7 @@ public class BattleManager : MonoBehaviour
             return 0;
         });
 
-        foreach (Battler battler in actionOrder) yield return Act(battler);
+        foreach (Battler battler in actionOrder) yield return Act(battler, false);
         
         // Tick down status effects
         yield return TickStatusEffects(CurrentPlayer);
@@ -564,23 +655,33 @@ public class BattleManager : MonoBehaviour
 
         movesGridAnimator.SetBool("ShowMoves", true);
         selectingMove = true;
+        // StruggleCheck();
+        
     }
 
-    IEnumerator Act(Battler attacker)
+    // public void StruggleCheck()
+
+    IEnumerator Act(Battler attacker, bool useStruggle)
     {
         if (attacker.isDead) yield break;
 
-        if (attacker == CurrentPlayer)
+        List<int> validMoves = attacker.GetValidMoves();
+        if (useStruggle) UseMove(attacker, battlers[selectedBattlerIndex], -1);
+        else
         {
-            UseMove(CurrentPlayer, battlers[selectedBattlerIndex], selectedMoveIndex);
-            
-        } else
-        {
-            // Enemy selects and uses a move
-            // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-            List<int> validMoves = attacker.GetValidMoves();
-            UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
+            if (attacker == CurrentPlayer)
+            {
+                UseMove(CurrentPlayer, battlers[selectedBattlerIndex], selectedMoveIndex);
+                
+            } else
+            {
+                // Enemy selects and uses a move
+                // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
+                if (validMoves.Count == 0) UseMove(attacker, battlers[currentPlayerIndex], -1);
+                UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
+            }
         }
+
 
         yield return new WaitForSeconds(1.5f);
     }
@@ -627,7 +728,7 @@ public class BattleManager : MonoBehaviour
                 bool delayAfter = true;
                 switch (statusEffect.type.name)
                 {
-                    case "Poison": StatusDamage(battler, statusEffect, 1); break;
+                    case "Poison": StatusDamage(battler, statusEffect, 3); break;
                     case "Fire": StatusDamage(battler, statusEffect, statusEffect.duration); break;
                     default: delayAfter = false; break;
                 }

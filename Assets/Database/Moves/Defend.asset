@@ -17,12 +17,12 @@ MonoBehaviour:
   damage: 0
   defense: 0
   selfEffect:
-    type: {fileID: 0}
-    duration: 0
+    type: {fileID: 11400000, guid: 05573102aa50e7a439c32795ddd45dea, type: 2}
+    duration: 1
   opponentEffect:
     type: {fileID: 0}
     duration: 0
-  baseUses: 10
+  baseUses: 4
   useAnimState: Defend
   useSFX: {fileID: 0}
   hitAnimState: 

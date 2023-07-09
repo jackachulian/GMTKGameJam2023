@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d1e17d3885cda438b7ed4806e8337d, type: 3}
+  m_Name: HeroTest
+  m_EditorClassIdentifier: 
+  displayName: Hiro
+  hp: 30
+  moves:
+  - {fileID: 11400000, guid: e5c9021a377255c4e930c36e60cd3ec9, type: 2}
+  - {fileID: 11400000, guid: 804e97509be318d47a3a33546d3eb2fc, type: 2}
+  - {fileID: 11400000, guid: d25cb2c0d6561c3438bb52e98686af57, type: 2}
+  - {fileID: 11400000, guid: d5a43f9992d63a8479ca1f70806dc881, type: 2}
+  nameColor: {r: 0.11124954, g: 0.6792792, b: 0.9433962, a: 1}
+  controller: {fileID: 9100000, guid: 45d98fb20ae2aae4a963942e502ef35b, type: 2}
+  portraitSprite: {fileID: 21300000, guid: 686f3989d8b368b40adfd19645b48333, type: 3}

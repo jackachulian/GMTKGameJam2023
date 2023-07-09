@@ -27,7 +27,7 @@ public class BattlerDisplay : MonoBehaviour
 
     [SerializeField] private GameObject targetDisp, youDisp;
 
-    void OnValidate()
+    void Start()
     {
         battleManager = FindObjectOfType<BattleManager>();
         Refresh();

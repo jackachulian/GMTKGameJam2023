@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
+  m_Name: Acid
+  m_EditorClassIdentifier: 
+  displayName: Acid Rain
+  manaCost: 5
+  damage: 0
+  defense: 0
+  selfEffect:
+    type: {fileID: 11400000, guid: 11dc3c9221353aa4e95c67cc3fd9bc30, type: 2}
+    duration: 1
+  opponentEffect:
+    type: {fileID: 11400000, guid: 11dc3c9221353aa4e95c67cc3fd9bc30, type: 2}
+    duration: 2
+  baseUses: 4
+  useAnimState: Cast
+  useSFX: {fileID: 8300000, guid: 6a39df3e4370dfc468fb09824f88dfb3, type: 3}
+  hitAnimState: Hit
+  hitSFX: {fileID: 8300000, guid: 01606aedcda16f3498367b27b94323ee, type: 3}
+  priority: 0

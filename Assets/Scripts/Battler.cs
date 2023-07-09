@@ -47,19 +47,7 @@ public class Battler : MonoBehaviour
     public BattleManager battlerManager;
     public int battlerIndex;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnValidate()
+    private void Start()
     {
         ResetMoveUses();
     }
@@ -72,16 +60,16 @@ public class Battler : MonoBehaviour
         displayName = stats.displayName;
         hp = stats.hp;
         maxHp = stats.hp;
-        moves = stats.moves;
+        moves = (Move[]) stats.moves.Clone();
         nameColor = stats.nameColor;
         portraitSprite = stats.portraitSprite;
 
         spriteAnimator.runtimeAnimatorController = stats.controller;
-
+        ResetMoveUses();
 
     }
 
-    void ResetMoveUses()
+    public void ResetMoveUses()
     {
         moveUsesRemaining = new int[moves.Length];
 
@@ -121,7 +109,7 @@ public class Battler : MonoBehaviour
         List<int> valid = new List<int>();
         for (int i = 0; i < moveUsesRemaining.Length; i++)
         {
-            if (moveUsesRemaining[i] > 0) valid.Add(i);
+            if (moveUsesRemaining[i] > 0 && !moves[i].displayName.Equals("Status Swap") && !moves[i].displayName.Equals("Restore")) valid.Add(i);
         }
 
         return valid;
