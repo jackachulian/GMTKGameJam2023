@@ -76,6 +76,8 @@ public class BattleManager : MonoBehaviour
 
     public bool isPostgame = false;
 
+    public Move struggle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -220,7 +222,7 @@ public class BattleManager : MonoBehaviour
         if (!selectingMove) return;
         // if (move.manaCost > CurrentPlayer.mp) return false;
 
-        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return;
+        Move selectedMove = null;
 
         possibleTargets = new List<Battler>();
         foreach (Battler battler in battlers)
@@ -233,7 +235,13 @@ public class BattleManager : MonoBehaviour
 
         selectedMoveIndex = moveIndex;
         selectingMove = false;
-        Move selectedMove = CurrentPlayer.moves[selectedMoveIndex];
+        selectedMove = CurrentPlayer.moves[selectedMoveIndex];
+
+        if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0)
+        {
+            selectedMove = struggle;
+            selectedMoveIndex = -1;
+        }
         if (possibleTargets.Count > 1 && (selectedMove.damage > 0 || selectedMove.opponentEffect.duration > 0))
         {
             selectingTarget = true;
@@ -326,8 +334,14 @@ public class BattleManager : MonoBehaviour
             return;
         }
 
-        attacker.moveUsesRemaining[moveIndex]--;
-        Move move = attacker.moves[moveIndex];
+        Move move;
+        if (moveIndex != -1)
+        {
+            attacker.moveUsesRemaining[moveIndex]--;
+            move = attacker.moves[moveIndex];
+        }
+        else move = struggle;
+
 
         attacker.spriteAnimator.Play("Base Layer." + move.useAnimState, 0);
         if (move.useSFX != null) SoundManager.Instance.PlaySound(move.useSFX);
@@ -532,9 +546,9 @@ public class BattleManager : MonoBehaviour
     {
         // temporary only for move list visual to show that one use was used when selecting the move,
         // actual decrement happens later in UseMove
-        CurrentPlayer.moveUsesRemaining[selectedMoveIndex]--;
+
+        if (selectedMoveIndex > -1) CurrentPlayer.moveUsesRemaining[selectedMoveIndex]--;
         Refresh();
-        
 
         // Wait for the buttons to fade out before using move so that log can show use correctly
         movesGridAnimator.SetBool("ShowMoves", false);
@@ -546,27 +560,35 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
         yield return new WaitForSeconds(0.5f);
 
-        CurrentPlayer.moveUsesRemaining[selectedMoveIndex]++; // (undo for temp change at start of this method)
+        if (selectedMoveIndex > -1) CurrentPlayer.moveUsesRemaining[selectedMoveIndex]++; // (undo for temp change at start of this method)
 
         foreach (Battler battler in battlers)
         {
-            if (battler == CurrentPlayer)
+            if (selectedMoveIndex == -1)
             {
-                battler.selectedMove = battler.moves[selectedMoveIndex];
-            } else
+                battler.selectedMove = struggle;
+            }
+            else
             {
-                List<Move> usableMoves = new List<Move>();
-                for (int i = 0; i < battler.moves.Length; i++)
+                if (battler == CurrentPlayer)
                 {
-                    if (battler.moveUsesRemaining[i] > 0)
+                    battler.selectedMove = battler.moves[selectedMoveIndex];
+                } else
+                {
+                    List<Move> usableMoves = new List<Move>();
+                    for (int i = 0; i < battler.moves.Length; i++)
                     {
-                        usableMoves.Add(battler.moves[i]);
+                        if (battler.moveUsesRemaining[i] > 0)
+                        {
+                            usableMoves.Add(battler.moves[i]);
+                        }
                     }
+
+                    // enemy """"AI""""
+                    battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
+                }
                 }
 
-                // enemy """"AI""""
-                battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
-            }
         }
 
         // Sort act order by priority
@@ -583,7 +605,7 @@ public class BattleManager : MonoBehaviour
             return 0;
         });
 
-        foreach (Battler battler in actionOrder) yield return Act(battler);
+        foreach (Battler battler in actionOrder) yield return Act(battler, false);
         
         // Tick down status effects
         yield return TickStatusEffects(CurrentPlayer);
@@ -623,23 +645,33 @@ public class BattleManager : MonoBehaviour
 
         movesGridAnimator.SetBool("ShowMoves", true);
         selectingMove = true;
+        // StruggleCheck();
+        
     }
 
-    IEnumerator Act(Battler attacker)
+    // public void StruggleCheck()
+
+    IEnumerator Act(Battler attacker, bool useStruggle)
     {
         if (attacker.isDead) yield break;
 
-        if (attacker == CurrentPlayer)
+        List<int> validMoves = attacker.GetValidMoves();
+        if (useStruggle) UseMove(attacker, battlers[selectedBattlerIndex], -1);
+        else
         {
-            UseMove(CurrentPlayer, battlers[selectedBattlerIndex], selectedMoveIndex);
-            
-        } else
-        {
-            // Enemy selects and uses a move
-            // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-            List<int> validMoves = attacker.GetValidMoves();
-            UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
+            if (attacker == CurrentPlayer)
+            {
+                UseMove(CurrentPlayer, battlers[selectedBattlerIndex], selectedMoveIndex);
+                
+            } else
+            {
+                // Enemy selects and uses a move
+                // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
+                
+                UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
+            }
         }
+
 
         yield return new WaitForSeconds(1.5f);
     }

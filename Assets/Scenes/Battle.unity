@@ -1986,6 +1986,7 @@ MonoBehaviour:
   selectingMove: 0
   selectingTarget: 0
   isPostgame: 0
+  struggle: {fileID: 11400000, guid: 96ba6387bf5e0e04babe3cd7117dee80, type: 2}
 --- !u!4 &1002012837
 Transform:
   m_ObjectHideFlags: 0
