@@ -119,7 +119,7 @@ public class BattleManager : MonoBehaviour
     /// <returns></returns>
     IEnumerator SetBattlersWhenLowered()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitUntil(() => platformAnimator.GetCurrentAnimatorStateInfo(0).IsName("Lowered"));
 
         if (level.battlers.Length >= 3)
         {
@@ -132,6 +132,7 @@ public class BattleManager : MonoBehaviour
             battlerDisplaysAnimator.runtimeAnimatorController = battlerDisplayController;
         }
 
+        platformAnimator.SetBool("LoweredPlatform", false);
         platformAnimator.SetInteger("PlayerIndex", 0);
         battlerDisplaysAnimator.SetInteger("PlayerIndex", 0);
 
