@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public class Battler : MonoBehaviour
 {
@@ -40,6 +41,11 @@ public class Battler : MonoBehaviour
 
     [NonSerialized] public bool isDead = false;
 
+    [HideInInspector] public Move selectedMove;
+
+    public BattleManager battlerManager;
+    public int battlerIndex;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +65,9 @@ public class Battler : MonoBehaviour
 
     public void StatsSetup(BattlerStats stats)
     {
+        isTarget = false;
+        isDead = false;
+
         displayName = stats.displayName;
         hp = stats.hp;
         maxHp = stats.hp;
@@ -67,6 +76,8 @@ public class Battler : MonoBehaviour
         portraitSprite = stats.portraitSprite;
 
         spriteAnimator.runtimeAnimatorController = stats.controller;
+
+
     }
 
     void ResetMoveUses()
@@ -77,5 +88,11 @@ public class Battler : MonoBehaviour
         {
             moveUsesRemaining[i] = moves[i].baseUses;
         }
+    }
+
+    private void OnMouseDown()
+    {
+        Debug.Log(gameObject + " clicked");
+        battlerManager.SubmitTarget(battlerIndex);
     }
 }
