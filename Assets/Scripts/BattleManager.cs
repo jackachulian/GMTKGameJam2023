@@ -346,7 +346,8 @@ public class BattleManager : MonoBehaviour
         // only play hit animation and dispaly damage in battle log if this deals any damage
         if (move.damage > 0 && !target.HasStatus("Counter"))
         {
-            target.hp -= move.damage;
+            int finalDmg = (move.damage - (target.HasStatus("Block") ? 5 : 0));
+            target.hp -= finalDmg;
 
             if (target.hp <= 0)
             {
@@ -363,7 +364,7 @@ public class BattleManager : MonoBehaviour
             }
             if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
 
-            BattleMessage($"{target.coloredName} took {move.damage} damage!");
+            BattleMessage($"{target.coloredName} took {finalDmg} damage!");
         }
         // counter move if applicable
         else if (move.damage > 0 && target.HasStatus("Counter"))
