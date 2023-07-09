@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Poison
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 93aef3306be23a64bb9432a106f1f2d0, type: 3}
+  statusName: Poison
+  description: Deal damage each turn.
