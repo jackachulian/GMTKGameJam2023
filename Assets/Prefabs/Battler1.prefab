@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portraitSprite: {fileID: 21300000, guid: 8c8454f8d3df24442b2ce8066d598340, type: 3}
+  spriteRenderer: {fileID: 607089826180944442}
   spriteAnimator: {fileID: 6326506780730526019}
   maxHp: 40
   hp: 40

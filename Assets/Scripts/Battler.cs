@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 public class Battler : MonoBehaviour
 {
     public Sprite portraitSprite;
+    public SpriteRenderer spriteRenderer;
     public Animator spriteAnimator;
 
     public int maxHp;
