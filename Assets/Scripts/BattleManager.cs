@@ -397,10 +397,27 @@ public class BattleManager : MonoBehaviour
         // stop if in postgame
         if (isPostgame) yield break;
 
+        if (move.displayName.Equals("Purify"))
+        {
+            foreach (StatusEffect se in attacker.statusEffects)
+            {
+                
+            }
+
+            for (int i = 0; i < attacker.statusEffects.Count; i++)
+            {
+                if (attacker.statusEffects[i] != attacker.GetStatusOfName("Pure"))
+                {
+                    attacker.statusEffects.RemoveAt(i);
+                    i--;
+                } 
+            }
+        }
+
         // Inflict status effect on self
         if (move.selfEffect.duration > 0)
         {
-            if (!target.HasStatus("Pure"))
+            if (!attacker.HasStatus("Pure") || move.selfEffect.type.statusName.Equals("Pure"))
             {
                 yield return new WaitForSeconds(0.5f);
 
@@ -416,7 +433,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 // status blocked by pure
-                BattleMessage($"{target.coloredName} was purified of the status!");
+                BattleMessage($"{attacker.coloredName} was purified of the status!");
             }
 
             Refresh();
@@ -430,26 +447,29 @@ public class BattleManager : MonoBehaviour
             target.statusEffects = new List<StatusEffect>(temp);
             BattleMessage($"Status effects have been swapped!");
         }
-        if (move.displayName.Equals("Purify"))
-        {
-            attacker.statusEffects = new List<StatusEffect>();
-        }
 
         Refresh();
 
         // Inflict status effect on opponent
         if (move.opponentEffect.duration > 0)
         {
-            yield return new WaitForSeconds(0.5f);
-
-            string turnsStr = move.opponentEffect.duration == 1 ? "turn" : "turns";
-            switch (move.opponentEffect.type.name)
+            if(!target.HasStatus("Pure"))
             {
-                case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.opponentEffect.duration} {turnsStr}!"); break;
-                case "Fire": BattleMessage($"{target.coloredName} was burned for {move.opponentEffect.duration} {turnsStr}!"); break;
-            }
+                yield return new WaitForSeconds(0.5f);
 
-            AddStatus(target, move.opponentEffect.type, move.opponentEffect.duration);
+                string turnsStr = move.opponentEffect.duration == 1 ? "turn" : "turns";
+                switch (move.opponentEffect.type.name)
+                {
+                    case "Poison": BattleMessage($"{target.coloredName} was poisoned for {move.opponentEffect.duration} {turnsStr}!"); break;
+                    case "Fire": BattleMessage($"{target.coloredName} was burned for {move.opponentEffect.duration} {turnsStr}!"); break;
+                }
+
+                AddStatus(target, move.opponentEffect.type, move.opponentEffect.duration);
+            }
+            else
+            {
+                BattleMessage($"{target.coloredName} was purified of the status!");
+            }
             Refresh();
         }
     }
