@@ -57,7 +57,7 @@ public class BattlerDisplay : MonoBehaviour
             {
                 GameObject statusEffectObject = Instantiate(statusEffectPrefab, statusEffectsTransform);
 
-                statusEffectObject.transform.GetComponentInChildren<Image>().sprite = statusEffect.type.icon;
+                statusEffectObject.transform.GetChild(0).GetComponent<Image>().sprite = statusEffect.type.icon;
                 statusEffectObject.GetComponentInChildren<TextMeshProUGUI>().text = statusEffect.duration + "";
 
                 // set description text
