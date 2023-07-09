@@ -15,6 +15,7 @@ MonoBehaviour:
   displayName: Attack
   manaCost: 0
   damage: 5
+  defense: 0
   selfEffect:
     type: {fileID: 0}
     duration: 0
@@ -23,4 +24,7 @@ MonoBehaviour:
     duration: 0
   baseUses: 10
   useAnimState: Cast
+  useSFX: {fileID: 0}
   hitAnimState: Hit
+  hitSFX: {fileID: 8300000, guid: d6d8fa3b0dc525848ac576c37a89a0fe, type: 3}
+  priority: 0

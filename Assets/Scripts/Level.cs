@@ -9,5 +9,16 @@ public class Level
 
     // how many battlers in a level are "player team" / not targets
     public int playerAmount = 1;
+
+    // Lines of dialogue to display before the level begins
+    [TextArea]
+    public string levelStartDialogue;
+
+    // Lines of dialogue to display before the level begins
+    [TextArea]
+    public string levelEndDialogue;
+
+    // music played during battle
+    public AudioClip bgm;
 }
 

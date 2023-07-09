@@ -4,12 +4,18 @@ using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
+using Random=UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
     public LevelList levelList;
 
+    // current level
+    public Level level;
+
     public PostgameManager postgameManager;
+
+    [SerializeField] AudioClip messageSFX, swapSFX;
 
     /// <summary>
     /// Holds the two battlers
@@ -56,7 +62,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Level level = levelList.levels[Storage.currentLevel];
+        level = levelList.levels[Storage.currentLevel];
 
         battlers = new Battler[level.battlers.Length];
         for (int i=0; i<level.battlers.Length; i++)
@@ -69,11 +75,17 @@ public class BattleManager : MonoBehaviour
             if (i > level.playerAmount - 1) battler.isTarget = true;
         }
 
-
-        Refresh();
-        battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
-        selectingMove = true;
+        if (level.levelStartDialogue.Length > 0)
+        {
+            Refresh();
+            StartCoroutine(PlayCutscene(level.levelStartDialogue, start: true));
+        } else
+        {
+            StartCoroutine(StartBattle());
+        }
     }
+
+
 
     Vector2 logVel;
     // Update is called once per frame
@@ -98,6 +110,23 @@ public class BattleManager : MonoBehaviour
         }
 
         Refresh();
+    }
+
+    IEnumerator StartBattle()
+    {
+        if (platformRotationAnimator.GetBool("LowerPlatform"))
+        {
+            platformRotationAnimator.SetBool("LowerPlatform", false);
+            yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+        }
+
+        battlerDisplaysAnimator.SetBool("Hidden", false);
+        movesGridAnimator.SetBool("ShowMoves", true);
+        Refresh();
+        battleLogStartPos = battleLogTargetPos = battleLogTransform.localPosition;
+        selectingMove = true;
+
+        SoundManager.Instance.SetBGM(level.bgm);
     }
 
     /// <summary>
@@ -148,6 +177,7 @@ public class BattleManager : MonoBehaviour
         Move move = attacker.moves[moveIndex];
 
         attacker.spriteAnimator.Play("Base Layer." + move.useAnimState, 0);
+        if (move.useSFX != null) SoundManager.Instance.PlaySound(move.useSFX);
 
         // Only say "used on {opponent}" if dealing damage or inflicting a status effect onto them
         if (move.damage > 0 || move.opponentEffect.duration > 0)
@@ -172,8 +202,20 @@ public class BattleManager : MonoBehaviour
         {
             target.hp -= move.damage;
 
-            // Play hit animation on target when damaged
-            if (move.hitAnimState.Length > 0) target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
+            if (target.hp <= 0)
+            {
+                target.spriteAnimator.Play("Base Layer.defeat", 0);
+            } 
+            else
+            {
+                // Play hit animation on target when damaged
+                if (move.hitAnimState.Length > 0)
+                {
+                    target.spriteAnimator.Play("Base Layer." + move.hitAnimState, 0);
+                    
+                }
+            }
+            if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
 
             BattleMessage($"{target.coloredName} took {move.damage} damage!");
             CheckForDeaths();
@@ -248,8 +290,8 @@ public class BattleManager : MonoBehaviour
             if (!battler.isTarget && !battler.isDead) lost = false;
         }
 
-        if (won) StartCoroutine(Win());
         if (lost) StartCoroutine(Lose());
+        else if (won) StartCoroutine(Win());
     }
 
     void AddStatus(Battler target, StatusType statusType, int duration)
@@ -311,6 +353,7 @@ public class BattleManager : MonoBehaviour
 
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
+        SoundManager.Instance.PlaySound(swapSFX, pitch:1.05f);
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
         // may need to change this ode once more than 1 enemy is added
@@ -351,6 +394,8 @@ public class BattleManager : MonoBehaviour
         {
             battleLogTargetPos += Vector2.up * 48f;
         }
+
+        SoundManager.Instance.PlaySound(messageSFX, volume: 0.25f, pitch: Random.Range(0.9f,1.1f));
     }
 
     /// <summary>
@@ -408,22 +453,100 @@ public class BattleManager : MonoBehaviour
         // StopAllCoroutines();
         BattleMessage("YOU WON!");
         isPostgame = true;
+        SoundManager.Instance.StopBGM();
 
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
 
-        StartCoroutine(postgameManager.Win());
+        postgameManager.Win();
+
+        Level level = levelList.levels[Storage.currentLevel];
+
+        if (level.levelEndDialogue.Length > 0)
+        {
+            Debug.Log("Playing end cutsecne");
+            StartCoroutine(PlayCutscene(level.levelEndDialogue, end: true));
+        } else
+        {
+            // TODO: animate player out and go to next level, also do this at end of cutscene if there is one
+        }
+
     }
 
     private IEnumerator Lose()
     {
-        
-        BattleMessage("You were defeated...");
+        BattleMessage("You were slain...");
         isPostgame = true;
-        
+        SoundManager.Instance.StopBGM();
+
+        postgameManager.Lose();
+
         yield return new WaitForSeconds(1f);
         StopAllCoroutines();
+    }
 
-        StartCoroutine(postgameManager.Lose());
+    /// <summary>
+    /// Split the passed string into lines and display them one by one with delay between to the battle log.
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="start">if battle should be started after cutscene</param>
+    /// <param name="end">if next level should be transitioned to after this battle</param>
+    /// <returns></returns>
+    IEnumerator PlayCutscene(string text, bool start = false, bool end = false)
+    {
+        battlerDisplaysAnimator.SetBool("Hidden", true);
+
+        if (movesGridAnimator.GetBool("ShowMoves"))
+        {
+            movesGridAnimator.SetBool("ShowMoves", false);
+            Debug.Log("waiting");
+            yield return new WaitUntil(() => movesGridAnimator.IsInTransition(0));
+        }
+        Debug.Log("clearing");
+        ClearBattleLog();
+        battleLogAnimator.SetBool("ShowLog", true);
+        yield return new WaitForSeconds(1f);
+
+        string[] lines = text.Split('\n');
+        foreach (string line in lines)
+        {
+            switch (line)
+            {
+                case "{RaisePlatform}":
+                    platformRotationAnimator.SetBool("LowerPlatform", false);
+                    break;
+
+                case "{LowerPlatform}":
+                    platformRotationAnimator.SetBool("LowerPlatform", true);
+                    break;
+
+                // time constraint moment
+                case "{Wait1}":
+                    yield return new WaitForSeconds(1);
+                    break;
+
+                case "{Wait0.5}":
+                    yield return new WaitForSeconds(0.5f);
+                    break;
+
+                default:
+                    BattleMessage(line);
+                    yield return new WaitForSeconds(1.5f);
+                    break;
+            }
+                
+            
+        }
+        new WaitForSeconds(2f);
+
+        battleLogAnimator.SetBool("ShowLog", false);
+        yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+
+        if (start)
+        {
+            yield return StartBattle();
+        }
+
+        // TODO: if end, go to next level
     }
 }
