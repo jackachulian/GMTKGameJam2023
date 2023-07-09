@@ -360,7 +360,7 @@ public class BattleManager : MonoBehaviour
         // only play hit animation and dispaly damage in battle log if this deals any damage
         if (move.damage > 0 && !target.HasStatus("Counter"))
         {
-            int finalDmg = (move.damage - (target.HasStatus("Block") ? 5 : 0));
+            int finalDmg = (move.damage - (target.HasStatus("Block") ? 3 : 0));
             target.hp -= finalDmg;
 
             if (target.hp <= 0)
