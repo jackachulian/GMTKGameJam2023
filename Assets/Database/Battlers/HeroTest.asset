@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d1e17d3885cda438b7ed4806e8337d, type: 3}
   m_Name: HeroTest
   m_EditorClassIdentifier: 
-  displayName: Hero
+  displayName: Hiro
   hp: 30
   moves:
   - {fileID: 11400000, guid: e5c9021a377255c4e930c36e60cd3ec9, type: 2}
