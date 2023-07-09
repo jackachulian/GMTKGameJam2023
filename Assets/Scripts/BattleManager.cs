@@ -195,6 +195,7 @@ public class BattleManager : MonoBehaviour
 
         SoundManager.Instance.SetBGM(level.bgm);
         SoundManager.Instance.PlayBGM();
+        Refresh();
     }
 
     private List<Battler> possibleTargets;

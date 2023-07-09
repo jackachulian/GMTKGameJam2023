@@ -16,10 +16,14 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] AudioClip bgm;
 
+    // testing
+    [SerializeField] int startingLevel;
+
     void Start()
     {
         SoundManager.Instance.SetBGM(bgm);
         SoundManager.Instance.PlayBGM();
+        Storage.currentLevel = startingLevel;
     }
     public void SelectStart()
     {
