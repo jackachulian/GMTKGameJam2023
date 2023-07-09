@@ -78,4 +78,22 @@ public class Battler : MonoBehaviour
             moveUsesRemaining[i] = moves[i].baseUses;
         }
     }
+
+    public bool HasStatus(string statusName)
+    {
+        foreach (StatusEffect status in statusEffects)
+        {
+            if (status.type.statusName.Equals(statusName)) return true;
+        }
+        return false;
+    }
+
+    public StatusEffect GetStatusOfName(string statusName)
+    {
+        foreach (StatusEffect status in statusEffects)
+        {
+            if (status.type.statusName.Equals(statusName)) return status;
+        }
+        return null;
+    }
 }
