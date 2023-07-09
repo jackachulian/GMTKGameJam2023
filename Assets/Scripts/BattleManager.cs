@@ -103,8 +103,10 @@ public class BattleManager : MonoBehaviour
 
         currentPlayerIndex = 0;
         isPostgame = false;
+        selectingMove = false;
+        selectingTarget = false;
 
-        platformAnimator.SetInteger("PlayerIndex", 0);
+    platformAnimator.SetInteger("PlayerIndex", 0);
         platformAnimator.SetBool("LoweredPlatform", true);
         StartCoroutine(SetBattlersWhenLowered());
 
@@ -543,6 +545,7 @@ public class BattleManager : MonoBehaviour
         newStatusEffect.duration = duration;
 
         target.statusEffects.Add(newStatusEffect);
+        Refresh();
     }
 
     IEnumerator EvaluateTurn()
@@ -616,10 +619,9 @@ public class BattleManager : MonoBehaviour
         });
 
         foreach (Battler battler in actionOrder) yield return Act(battler, false);
-        
+
         // Tick down status effects
-        yield return TickStatusEffects(CurrentPlayer);
-        yield return TickStatusEffects(CurrentEnemy);
+        foreach (Battler battler in actionOrder) yield return TickStatusEffects(battler);
 
         CheckForPostgame();
         if (isPostgame) yield break;

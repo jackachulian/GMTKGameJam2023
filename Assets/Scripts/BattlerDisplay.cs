@@ -35,6 +35,7 @@ public class BattlerDisplay : MonoBehaviour
 
     public void Refresh()
     {
+        if (!gameObject.activeInHierarchy) return;
         if (!battleManager || battleManager.battlers == null ||battleManager.battlers.Length <= 0) return;
         // displayedBattler = battleManager.battlers[(battleManager.currentPlayerIndex + playerIndex) % battleManager.battlers.Length];
         displayedBattler = battleManager.battlers[playerIndex];

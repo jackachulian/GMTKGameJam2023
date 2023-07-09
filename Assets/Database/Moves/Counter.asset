@@ -27,4 +27,4 @@ MonoBehaviour:
   useSFX: {fileID: 8300000, guid: cb35578f718711e46b37b9c3d5130df7, type: 3}
   hitAnimState: Hit
   hitSFX: {fileID: 8300000, guid: 01606aedcda16f3498367b27b94323ee, type: 3}
-  priority: 0
+  priority: 1
