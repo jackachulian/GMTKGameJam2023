@@ -276,7 +276,7 @@ public class BattleManager : MonoBehaviour
         // attacker.mp -= move.manaCost;
         
         // only play hit animation and dispaly damage in battle log if this deals any damage
-        if (move.damage > 0)
+        if (move.damage > 0 && !target.HasStatus("Counter"))
         {
             target.hp -= move.damage;
 
@@ -296,9 +296,19 @@ public class BattleManager : MonoBehaviour
             if (move.hitSFX != null) SoundManager.Instance.PlaySound(move.hitSFX);
 
             BattleMessage($"{target.coloredName} took {move.damage} damage!");
-            CheckForDeaths();
-            Refresh();
         }
+        // counter move if applicable
+        else if (move.damage > 0 && target.HasStatus("Counter"))
+        {
+            BattleMessage($"{target.coloredName} counters {attacker.coloredName}'s attack!");
+            UseMove(target, attacker, 0);
+            target.GetStatusOfName("Counter").duration -= 1;
+            Refresh();
+            RefreshStatusEffects(target);
+        }
+
+        CheckForDeaths();
+        Refresh();
 
         // stop if in postgame
         if (isPostgame) yield break;
@@ -547,18 +557,27 @@ public class BattleManager : MonoBehaviour
                 }
 
                 statusEffect.duration--;
-                if (statusEffect.duration <= 0)
-                {
-                    battler.statusEffects.RemoveAt(i);
-                    i--;
-                }
 
+                RefreshStatusEffects(battler);
                 RefreshBattlerDisplays();
                 if (delayAfter) yield return new WaitForSeconds(0.8f);
             } 
         }
 
         yield return new WaitForSeconds(0.2f);
+    }
+
+    void RefreshStatusEffects(Battler battler)
+    {
+        for (int i = 0; i < battler.statusEffects.Count; i++)
+        {
+            StatusEffect statusEffect = battler.statusEffects[i];
+            if (statusEffect.duration <= 0)
+            {
+                battler.statusEffects.RemoveAt(i);
+                i--;
+            }
+        }
     }
 
     void StatusDamage(Battler battler, StatusEffect statusEffect, int damage)
