@@ -108,6 +108,7 @@ public class BattleManager : MonoBehaviour
         foreach (Battler battler in battlers)
         {
             // battler.ResetMoveUses();
+            battler.statusEffects = new List<StatusEffect>();
         }
     }
 
