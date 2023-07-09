@@ -19,24 +19,30 @@ MonoBehaviour:
     playerAmount: 1
     levelStartDialogue: 'I am Hiro, a popular gladiator.
 
-      So popular, that
-      I''ve been cloned to fight myself.
+      {Wait1}
+
+      So
+      popular, that I''ve been cloned.
 
       {RaisePlatform}
 
-      Our souls
-      will switch bodies every turn.
+      {Wait1}
+
+      Our
+      souls will switch bodies every turn. I need to defeat his body while keeping
+      mine alive.
 
       {Wait1}
 
       {Wait0.5}
 
-      I need
-      to defeat his body while keeping mine alive.
+      {Wait1}
 
       {Wait1}
 
-      {Wait0.5}'
+      {Wait0.5}
+
+      {Wait1}'
     levelEndDialogue: 'I did it, I slayed myself.
 
       But I don''t think it''s
