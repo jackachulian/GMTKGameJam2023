@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586c43c55123e164a82d5a6854612fac, type: 3}
   m_Name: Block
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 93aef3306be23a64bb9432a106f1f2d0, type: 3}
+  icon: {fileID: 21300000, guid: 486b8b87c3e9471498038071131438d7, type: 3}
   maxDuration: 1
   statusName: Block
   description: +5 DEF

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 586c43c55123e164a82d5a6854612fac, type: 3}
   m_Name: Counter
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 93aef3306be23a64bb9432a106f1f2d0, type: 3}
+  icon: {fileID: 21300000, guid: ddb2a43142b47b643b78a20a89d1e045, type: 3}
   maxDuration: 1
   statusName: Counter
   description: Counter the enemy's next physical attack.
