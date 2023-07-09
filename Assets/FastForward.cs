@@ -11,7 +11,7 @@ public class FastForward : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            Time.timeScale = 2f;
+            Time.timeScale = 3f;
             image.enabled = true;
         }
         else
