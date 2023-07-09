@@ -68,9 +68,38 @@ public class BattleManager : MonoBehaviour
         StartLevel();
     }
 
-    public void StartLevel()
+    void StartLevel()
     {
         level = levelList.levels[Storage.currentLevel];
+
+        platformAnimator.SetInteger("PlayerIndex", 0);
+        platformAnimator.SetBool("LoweredPlatform", true);
+        StartCoroutine(SetBattlersWhenLowered());
+
+        if (level.levelStartDialogue.Length > 0)
+        {
+            Refresh();
+            StartCoroutine(PlayCutscene(level.levelStartDialogue, start: true));
+        }
+        else
+        {
+            StartCoroutine(StartBattle());
+        }
+    }
+
+    void StartNextLevel()
+    {
+        Storage.currentLevel++;
+        StartLevel();
+    }
+
+    /// <summary>
+    /// Will wait until platforms are fully lowered to set the sprites
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator SetBattlersWhenLowered()
+    {
+        yield return new WaitUntil(() => platformAnimator.GetCurrentAnimatorStateInfo(0).IsName("Lowered"));
 
         if (level.battlers.Length >= 3)
         {
@@ -85,28 +114,15 @@ public class BattleManager : MonoBehaviour
         foreach (Transform child in battlerTransform) child.gameObject.SetActive(false);
 
         battlers = new Battler[level.battlers.Length];
-        for (int i = 0; i < battlerTransform.childCount; i++)
+        for (int i = 0; i < level.battlers.Length; i++)
         {
-            if (i < level.battlers.Length)
-            {
-                BattlerStats battlerStats = level.battlers[i];
-                Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
-                battler.gameObject.SetActive(true);
-                battlers[i] = battler;
-                battler.StatsSetup(battlerStats);
-                // sets all battlers above playerAmount as a target
-                if (i > level.playerAmount - 1) battler.isTarget = true;
-            }
-        }
-
-        if (level.levelStartDialogue.Length > 0)
-        {
-            Refresh();
-            StartCoroutine(PlayCutscene(level.levelStartDialogue, start: true));
-        }
-        else
-        {
-            StartCoroutine(StartBattle());
+            BattlerStats battlerStats = level.battlers[i];
+            Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
+            battler.gameObject.SetActive(true);
+            battlers[i] = battler;
+            battler.StatsSetup(battlerStats);
+            // sets all battlers above playerAmount as a target
+            if (i >= level.playerAmount) battler.isTarget = true;
         }
     }
 
@@ -372,6 +388,10 @@ public class BattleManager : MonoBehaviour
         // Tick down status effects
         yield return TickStatusEffects(CurrentPlayer);
         yield return TickStatusEffects(CurrentEnemy);
+
+        CheckForPostgame();
+        if (isPostgame) yield break;
+
         yield return new WaitForSeconds(1.25f);
 
         // === SWAP BEGINS HERE ===
@@ -380,7 +400,7 @@ public class BattleManager : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
         // may need to change this ode once more than 1 enemy is added
-        platformRotationAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
+        battlerDisplaysAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
         platformRotationAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
 
         Refresh();
@@ -487,11 +507,10 @@ public class BattleManager : MonoBehaviour
 
         if (level.levelEndDialogue.Length > 0)
         {
-            Debug.Log("Playing end cutsecne");
             StartCoroutine(PlayCutscene(level.levelEndDialogue, end: true));
         } else
         {
-            // TODO: animate player out and go to next level, also do this at end of cutscene if there is one
+            StartNextLevel();
         }
 
     }
@@ -522,10 +541,8 @@ public class BattleManager : MonoBehaviour
         if (movesGridAnimator.GetBool("ShowMoves"))
         {
             movesGridAnimator.SetBool("ShowMoves", false);
-            Debug.Log("waiting");
             yield return new WaitUntil(() => movesGridAnimator.IsInTransition(0));
         }
-        Debug.Log("clearing");
         ClearBattleLog();
         battleLogAnimator.SetBool("ShowLog", true);
         yield return new WaitForSeconds(1f);
@@ -570,6 +587,9 @@ public class BattleManager : MonoBehaviour
             yield return StartBattle();
         }
 
-        // TODO: if end, go to next level
+        if (end)
+        {
+            StartNextLevel();
+        }
     }
 }
