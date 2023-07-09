@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Animations;
-using UnityEditor.Experimental.GraphView;
+// using UnityEditor.Animations;
+// using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using Random=UnityEngine.Random;
@@ -39,9 +39,9 @@ public class BattleManager : MonoBehaviour
     public Battler CurrentEnemy { get { return battlers[(currentPlayerIndex+1)%battlers.Length]; } }
 
     public Animator platformAnimator;
-    public AnimatorController platformController, triplePlatformController;
+    public RuntimeAnimatorController platformController, triplePlatformController;
 
-    public AnimatorController battlerDisplayController, triplebattlerDisplayController;
+    public RuntimeAnimatorController battlerDisplayController, triplebattlerDisplayController;
 
     /// <summary>
     /// Transform that holds all the move button children to be updated when swapping battlers
@@ -341,7 +341,6 @@ public class BattleManager : MonoBehaviour
             move = attacker.moves[moveIndex];
         }
         else move = struggle;
-
 
         attacker.spriteAnimator.Play("Base Layer." + move.useAnimState, 0);
         if (move.useSFX != null) SoundManager.Instance.PlaySound(move.useSFX);
@@ -675,7 +674,7 @@ public class BattleManager : MonoBehaviour
             {
                 // Enemy selects and uses a move
                 // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-                
+                if (validMoves.Count == 0) UseMove(attacker, battlers[currentPlayerIndex], -1);
                 UseMove(attacker, battlers[currentPlayerIndex], validMoves[Random.Range(0,validMoves.Count)]);
             }
         }
