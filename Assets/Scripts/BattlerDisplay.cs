@@ -51,13 +51,13 @@ public class BattlerDisplay : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            foreach (Transform child in statusEffectsTransform) if ((statusEffectsTransform.GetChild(0) != null)) Destroy(statusEffectsTransform.GetChild(0).gameObject);
+            foreach (Transform child in statusEffectsTransform) if ((child != null)) Destroy(child.gameObject);
 
             foreach (StatusEffect statusEffect in displayedBattler.statusEffects)
             {
                 GameObject statusEffectObject = Instantiate(statusEffectPrefab, statusEffectsTransform);
 
-                statusEffectObject.transform.GetChild(0).GetComponent<Image>().sprite = statusEffect.type.icon;
+                statusEffectObject.transform.GetComponentInChildren<Image>().sprite = statusEffect.type.icon;
                 statusEffectObject.GetComponentInChildren<TextMeshProUGUI>().text = statusEffect.duration + "";
 
                 // set description text
