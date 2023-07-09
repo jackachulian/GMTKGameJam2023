@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
+  m_Name: Purify
+  m_EditorClassIdentifier: 
+  displayName: Purify
+  manaCost: 5
+  damage: 0
+  defense: 0
+  selfEffect:
+    type: {fileID: 11400000, guid: 08680f454be216344923916a21d92a12, type: 2}
+    duration: 2
+  opponentEffect:
+    type: {fileID: 0}
+    duration: 0
+  baseUses: 3
+  useAnimState: Cast
+  useSFX: {fileID: 8300000, guid: cb35578f718711e46b37b9c3d5130df7, type: 3}
+  hitAnimState: Cast
+  hitSFX: {fileID: 0}
+  priority: 0

@@ -400,16 +400,25 @@ public class BattleManager : MonoBehaviour
         // Inflict status effect on self
         if (move.selfEffect.duration > 0)
         {
-            yield return new WaitForSeconds(0.5f);
-
-            string turnsStr = move.selfEffect.duration == 1 ? "turn" : "turns";
-            switch (move.selfEffect.type.name)
+            if (!target.HasStatus("Pure"))
             {
-                case "Poison": BattleMessage($"{attacker.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
-                case "Fire": BattleMessage($"{attacker.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
+                yield return new WaitForSeconds(0.5f);
+
+                string turnsStr = move.selfEffect.duration == 1 ? "turn" : "turns";
+                switch (move.selfEffect.type.name)
+                {
+                    case "Poison": BattleMessage($"{attacker.coloredName} was poisoned for {move.selfEffect.duration} {turnsStr}!"); break;
+                    case "Fire": BattleMessage($"{attacker.coloredName} was burned for {move.selfEffect.duration} {turnsStr}!"); break;
+                }
+
+                AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
+            }
+            else
+            {
+                // status blocked by pure
+                BattleMessage($"{target.coloredName} was purified of the status!");
             }
 
-            AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
             Refresh();
         }
 
@@ -420,8 +429,13 @@ public class BattleManager : MonoBehaviour
             attacker.statusEffects = new List<StatusEffect>(target.statusEffects);
             target.statusEffects = new List<StatusEffect>(temp);
             BattleMessage($"Status effects have been swapped!");
-            Refresh();
         }
+        if (move.displayName.Equals("Purify"))
+        {
+            attacker.statusEffects = new List<StatusEffect>();
+        }
+
+        Refresh();
 
         // Inflict status effect on opponent
         if (move.opponentEffect.duration > 0)
