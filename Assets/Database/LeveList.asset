@@ -65,7 +65,7 @@ MonoBehaviour:
     levelEndDialogue: There goes my eye.
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
   - battlers:
-    - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
+    - {fileID: 11400000, guid: f6214afe622500b47ac1ff9979fe8d47, type: 2}
     - {fileID: 11400000, guid: c4859573ebe8b394090f0efb2882616a, type: 2}
     playerAmount: 1
     levelStartDialogue: 'I sense a powerful aura...
