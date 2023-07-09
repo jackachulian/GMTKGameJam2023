@@ -31,6 +31,27 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Battle");
     }
 
+    public void SelectL1()
+    {
+        SoundManager.Instance.StopBGM();
+        Storage.currentLevel = 0;
+        SceneManager.LoadScene("Battle");
+    }
+
+    public void SelectL2()
+    {
+        SoundManager.Instance.StopBGM();
+        Storage.currentLevel = 1;
+        SceneManager.LoadScene("Battle");
+    }
+
+    public void SelectL3()
+    {
+        SoundManager.Instance.StopBGM();
+        Storage.currentLevel = 2;
+        SceneManager.LoadScene("Battle");
+    }
+
     public void SelectAbout()
     {
         ToggleWindows();
