@@ -73,6 +73,9 @@ public class BattleManager : MonoBehaviour
     {
         level = levelList.levels[Storage.currentLevel];
 
+        currentPlayerIndex = 0;
+        isPostgame = false;
+
         platformAnimator.SetInteger("PlayerIndex", 0);
         platformAnimator.SetBool("LoweredPlatform", true);
         StartCoroutine(SetBattlersWhenLowered());
