@@ -585,7 +585,14 @@ public class BattleManager : MonoBehaviour
                     }
 
                     // enemy """"AI""""
-                    battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
+                    try{
+                        battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
+                    }
+                    catch
+                    {
+                        battler.selectedMove = struggle;
+                    }
+                    
                 }
                 }
 
