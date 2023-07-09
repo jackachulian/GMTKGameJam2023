@@ -820,11 +820,17 @@ MonoBehaviour:
     Credits:
 
     -
-    list font here
+    Font "Munro" created by Ten by Twenty from fontsquirrel.com
 
-    - list music here
+    - Song "Mechanum
+    Overdrive" (boss theme) created by Drozerix from modarchive.org
 
-    - list ui pack here
+    - UI asset
+    pack "Pixel Art GUI Elements" created by Mounir Tohami from itch.io
+
+
+    All
+    other assets created by InfinityJKA, Jackachulian, and Threehalves.
 
 '
   m_isRightToLeft: 0
@@ -856,7 +862,7 @@ MonoBehaviour:
   m_fontSize: 40
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 36
   m_fontStyle: 0
