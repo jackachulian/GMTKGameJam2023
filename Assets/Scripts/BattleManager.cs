@@ -169,6 +169,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator StartBattle()
     {
+        SoundManager.Instance.StopBGM();
         if (platformRotationAnimator.GetBool("LoweredPlatform"))
         {
             platformRotationAnimator.SetBool("LoweredPlatform", false);
@@ -182,6 +183,7 @@ public class BattleManager : MonoBehaviour
         selectingMove = true;
 
         SoundManager.Instance.SetBGM(level.bgm);
+        SoundManager.Instance.PlayBGM();
     }
 
     private List<Battler> possibleTargets;
