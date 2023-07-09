@@ -203,6 +203,7 @@ public class BattleManager : MonoBehaviour
         selectingMove = true;
 
         SoundManager.Instance.SetBGM(level.bgm);
+        SoundManager.Instance.SetBGMVolume(level.bgmVolume);
         SoundManager.Instance.PlayBGM();
         Refresh();
     }

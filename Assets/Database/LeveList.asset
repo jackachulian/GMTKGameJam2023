@@ -50,6 +50,7 @@ MonoBehaviour:
 
       {Wait1}'
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
+    bgmVolume: 1
   - battlers:
     - {fileID: 11400000, guid: 5fa8f788e18c7964f98939476fc1e071, type: 2}
     - {fileID: 11400000, guid: 17a677e914d66164dbf64a7c184a94e2, type: 2}
@@ -73,6 +74,7 @@ MonoBehaviour:
       {Wait0.5}'
     levelEndDialogue: There goes my eye.
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
+    bgmVolume: 1
   - battlers:
     - {fileID: 11400000, guid: f6214afe622500b47ac1ff9979fe8d47, type: 2}
     - {fileID: 11400000, guid: c4859573ebe8b394090f0efb2882616a, type: 2}
@@ -123,3 +125,4 @@ MonoBehaviour:
 
       {Wait0.5}'
     bgm: {fileID: 8300000, guid: 5c113b892d6354343a4e07883eab8e8f, type: 3}
+    bgmVolume: 0.8
