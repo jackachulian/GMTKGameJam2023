@@ -22,7 +22,7 @@ MonoBehaviour:
   opponentEffect:
     type: {fileID: 0}
     duration: 0
-  baseUses: 10
+  baseUses: 8
   useAnimState: Cast
   useSFX: {fileID: 0}
   hitAnimState: Hit

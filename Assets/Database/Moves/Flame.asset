@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Magic
+  m_Name: Flame
   m_EditorClassIdentifier: 
-  displayName: Magic
+  displayName: Flame
   manaCost: 5
   damage: 0
   defense: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   opponentEffect:
     type: {fileID: 11400000, guid: db50dde17b9ec3c4b86113067f3107d7, type: 2}
     duration: 3
-  baseUses: 5
+  baseUses: 4
   useAnimState: Cast
   useSFX: {fileID: 8300000, guid: 9fa7a5e4d0c4081498c2c79e6f9e5d11, type: 3}
   hitAnimState: Hit
