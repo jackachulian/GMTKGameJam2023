@@ -8,6 +8,7 @@ using static UnityEngine.GraphicsBuffer;
 using Random=UnityEngine.Random;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -58,6 +59,14 @@ public class BattleManager : MonoBehaviour
 
 
     [SerializeField] private StatusType poisonStatusType, burnStatusType;
+
+    /// <summary>
+    /// Color to dim everything else when selecting a battler.
+    /// </summary>
+    [SerializeField] private Color dimColor;
+
+    [SerializeField] private Graphic[] targetSelectDim;
+    [SerializeField] private SpriteRenderer[] targetSelectSpriteDim;
 
     // True while moves are shown and waiting for player to choose move
     public bool selectingMove;
@@ -204,9 +213,11 @@ public class BattleManager : MonoBehaviour
 
         selectedMoveIndex = moveIndex;
         selectingMove = false;
-        if (possibleTargets.Count > 1)
+        Move selectedMove = CurrentPlayer.moves[selectedMoveIndex];
+        if (possibleTargets.Count > 1 && (selectedMove.damage > 0 || selectedMove.opponentEffect.duration > 0))
         {
             selectingTarget = true;
+            SetDim(true);
         } else if (possibleTargets.Count > 0)
         {
             selectedBattlerIndex = (currentPlayerIndex + 1) % battlers.Length;
@@ -214,11 +225,49 @@ public class BattleManager : MonoBehaviour
         }        
     }
 
+    private Color[] originalColors;
+    private bool selectDim = false;
+    public void SetDim(bool dim)
+    {
+        if (dim == selectDim) return;
+        selectDim = dim;
+        Color targetColor = dim ? Color.Lerp(Color.white, dimColor, 0.5f) : Color.white;
+
+        if (dim) originalColors = new Color[targetSelectDim.Length];
+
+        for (int i = 0; i < targetSelectDim.Length; i++)
+        {
+            Graphic graphic = targetSelectDim[i];
+            if (dim)
+            {
+                originalColors[i] = graphic.color;
+                graphic.color = Color.Lerp(graphic.color, dimColor, 0.5f);
+            } else
+            {
+                graphic.color = originalColors[i];
+            }
+        }
+
+        foreach (SpriteRenderer renderer in targetSelectSpriteDim)
+        {
+            renderer.color = targetColor;
+        }
+
+        foreach (Battler battler in battlers)
+        {
+            if (dim && (battler == CurrentPlayer || battler.isDead))
+            {
+                battler.spriteRenderer.color = targetColor;
+            } else
+            {
+                battler.spriteRenderer.color = Color.white;
+            }
+        }
+    }
+
     private int selectedBattlerIndex;
     public void SubmitTarget(int battlerIndex)
     {
-        battlerIndex = (battlerIndex + currentPlayerIndex) % battlers.Length;
-
         if (!selectingTarget) return;
 
         Battler selectedTarget = battlers[battlerIndex];
@@ -226,6 +275,7 @@ public class BattleManager : MonoBehaviour
         {
             selectedBattlerIndex = battlerIndex;
             selectingTarget = false;
+            SetDim(false);
             StartCoroutine(EvaluateTurn());
         }
     }
@@ -356,7 +406,7 @@ public class BattleManager : MonoBehaviour
         foreach (Battler battler in battlers)
         {
             // battler has died
-            if (battler.hp <= 0)
+            if (battler.hp <= 0 && !battler.isDead)
             {
                 BattleMessage($"{battler.coloredName} was slain!");
                 battler.isDead = true;
@@ -474,7 +524,15 @@ public class BattleManager : MonoBehaviour
         // === SWAP BEGINS HERE ===
         // Swap which battler is controlled by the character
         SoundManager.Instance.PlaySound(swapSFX, pitch:1.05f);
-        currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
+
+        // skip dead players
+        currentPlayerIndex = (currentPlayerIndex - 1 + battlers.Length) % battlers.Length;
+
+        while (CurrentPlayer.isDead)
+        {
+            yield return new WaitForSeconds(1f);
+            currentPlayerIndex = (currentPlayerIndex - 1 + battlers.Length) % battlers.Length;
+        }
 
         // may need to change this ode once more than 1 enemy is added
         battlerDisplaysAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
@@ -486,7 +544,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         battleLogAnimator.SetBool("ShowLog", false);
-        yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
+        // yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
         yield return new WaitForSeconds(0.5f);
 
         movesGridAnimator.SetBool("ShowMoves", true);
