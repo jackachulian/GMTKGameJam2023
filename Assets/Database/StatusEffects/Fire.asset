@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Fire
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 448d542ff7ca1a743a6c387c62793d43, type: 3}
+  statusName: Fire
+  description: Deals damage based on duration.
