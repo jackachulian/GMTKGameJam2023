@@ -1164,6 +1164,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RightBottomBattlerDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 8234775319633523762, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9221006708305656208, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1962,6 +1966,7 @@ MonoBehaviour:
   battlerDisplays:
   - {fileID: 5763099096526659115}
   - {fileID: 1381427822}
+  - {fileID: 2135187159}
   platformRotationAnimator: {fileID: 2068895912}
   battlerDisplaysAnimator: {fileID: 1677845628}
   movesGridAnimator: {fileID: 158574433}
@@ -2885,7 +2890,7 @@ Animator:
   m_GameObject: {fileID: 1677845626}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3486b9fbddf3bd34c828530693bb319b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3b687c3761b43e54ba338423849312c5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3608,6 +3613,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
   m_PrefabInstance: {fileID: 535996816}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2135187159 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4349350439457305748, guid: b05e915892f479c479709190a9ebeab1, type: 3}
+  m_PrefabInstance: {fileID: 535996816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f448a0a913712ff4b87c64e55536e662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2618600499431604193
 PrefabInstance:
   m_ObjectHideFlags: 0

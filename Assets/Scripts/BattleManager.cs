@@ -137,6 +137,7 @@ public class BattleManager : MonoBehaviour
 
         // Hide un needed battlers
         foreach (Transform child in battlerTransform) child.gameObject.SetActive(false);
+        foreach (BattlerDisplay display in battlerDisplays) display.gameObject.SetActive(false);
 
         battlers = new Battler[level.battlers.Length];
         for (int i = 0; i < level.battlers.Length; i++)
@@ -145,6 +146,7 @@ public class BattleManager : MonoBehaviour
             Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
             battler.gameObject.SetActive(true);
             battlers[i] = battler;
+            battlerDisplays[i].gameObject.SetActive(true);
             battler.StatsSetup(battlerStats);
             // sets all battlers above playerAmount as a target
             if (i >= level.playerAmount) battler.isTarget = true;
