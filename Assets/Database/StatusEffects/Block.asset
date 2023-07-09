@@ -15,4 +15,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 486b8b87c3e9471498038071131438d7, type: 3}
   maxDuration: 1
   statusName: Block
-  description: +5 DEF
+  description: +3 DEF
