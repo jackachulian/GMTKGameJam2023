@@ -24,7 +24,7 @@ MonoBehaviour:
     duration: 2
   baseUses: 5
   useAnimState: Cast
-  useSFX: {fileID: 0}
+  useSFX: {fileID: 8300000, guid: 9fa7a5e4d0c4081498c2c79e6f9e5d11, type: 3}
   hitAnimState: Hit
   hitSFX: {fileID: 8300000, guid: 01606aedcda16f3498367b27b94323ee, type: 3}
   priority: 0

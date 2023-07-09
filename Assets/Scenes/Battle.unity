@@ -838,6 +838,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -919,82 +920,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &599952515
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 599952518}
-  - component: {fileID: 599952517}
-  - component: {fileID: 599952516}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &599952516
+--- !u!114 &519420033
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 599952515}
+  m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &599952517
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 599952515}
-  m_CullTransparentMesh: 1
---- !u!224 &599952518
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 599952515}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -6.3825502}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 455.89676, y: 280.8669}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 64
+  m_MaxRayIntersections: 0
 --- !u!1001 &690288456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1047,6 +988,14 @@ PrefabInstance:
       propertyPath: nameColor.r
       value: 0.9716981
       objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: battlerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: battlerManager
+      value: 
+      objectReference: {fileID: 1002012836}
     - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: portraitSprite
       value: 
@@ -1537,6 +1486,14 @@ PrefabInstance:
       value: 0.9716981
       objectReference: {fileID: 0}
     - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: battlerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: battlerManager
+      value: 
+      objectReference: {fileID: 1002012836}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: portraitSprite
       value: 
       objectReference: {fileID: 21300000, guid: 946c13fd0dc30a84daa102c8955f0655, type: 3}
@@ -1761,6 +1718,7 @@ MonoBehaviour:
   poisonStatusType: {fileID: 11400000, guid: 11dc3c9221353aa4e95c67cc3fd9bc30, type: 2}
   burnStatusType: {fileID: 11400000, guid: db50dde17b9ec3c4b86113067f3107d7, type: 2}
   selectingMove: 0
+  selectingTarget: 0
   isPostgame: 0
 --- !u!4 &1002012837
 Transform:
@@ -1989,7 +1947,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1381427820
 PrefabInstance:
@@ -2965,7 +2923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8834905219750988030, guid: be456a838b1eeb94a92b4609d1018867, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8834905219750988030, guid: be456a838b1eeb94a92b4609d1018867, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3386,6 +3344,10 @@ PrefabInstance:
       propertyPath: nameColor.r
       value: 0.18752226
       objectReference: {fileID: 0}
+    - target: {fileID: 3677334577628287832, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
+      propertyPath: battlerManager
+      value: 
+      objectReference: {fileID: 1002012836}
     - target: {fileID: 5946640065057139876, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_RootOrder
       value: -1

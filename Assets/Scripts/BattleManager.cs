@@ -60,6 +60,7 @@ public class BattleManager : MonoBehaviour
 
     // True while moves are shown and waiting for player to choose move
     public bool selectingMove;
+    public bool selectingTarget;
 
     public bool isPostgame = false;
 
@@ -172,6 +173,10 @@ public class BattleManager : MonoBehaviour
         SoundManager.Instance.SetBGM(level.bgm);
     }
 
+    private List<Battler> possibleTargets;
+
+    private int selectedMoveIndex;
+
     /// <summary>
     /// player submits their move and uses it.
     /// Afterwards, opponent will user their decided move,
@@ -186,8 +191,41 @@ public class BattleManager : MonoBehaviour
 
         if (CurrentPlayer.moveUsesRemaining[moveIndex] <= 0) return;
 
+        possibleTargets = new List<Battler>();
+        foreach (Battler battler in battlers)
+        {
+            if (battler != CurrentPlayer && !battler.isDead)
+            {
+                possibleTargets.Add(battler);
+            }
+        }
+
+        selectedMoveIndex = moveIndex;
         selectingMove = false;
-        StartCoroutine(EvaluateTurn(moveIndex));
+        if (possibleTargets.Count > 1)
+        {
+            selectingTarget = true;
+        } else if (possibleTargets.Count > 0)
+        {
+            selectedBattlerIndex = (currentPlayerIndex + 1) % battlers.Length;
+            StartCoroutine(EvaluateTurn());
+        }        
+    }
+
+    private int selectedBattlerIndex;
+    public void SubmitTarget(int battlerIndex)
+    {
+        battlerIndex = (battlerIndex + currentPlayerIndex) % battlers.Length;
+
+        if (!selectingTarget) return;
+
+        Battler selectedTarget = battlers[battlerIndex];
+        if (selectedTarget != CurrentPlayer && !selectedTarget.isDead)
+        {
+            selectedBattlerIndex = battlerIndex;
+            selectingTarget = false;
+            StartCoroutine(EvaluateTurn());
+        }
     }
 
     public void Refresh()
@@ -365,11 +403,11 @@ public class BattleManager : MonoBehaviour
         target.statusEffects.Add(newStatusEffect);
     }
 
-    IEnumerator EvaluateTurn(int playerMoveIndex)
+    IEnumerator EvaluateTurn()
     {
         // temporary only for move list visual to show that one use was used when selecting the move,
         // actual decrement happens later in UseMove
-        CurrentPlayer.moveUsesRemaining[playerMoveIndex]--;
+        CurrentPlayer.moveUsesRemaining[selectedMoveIndex]--;
         Refresh();
         
 
@@ -383,22 +421,45 @@ public class BattleManager : MonoBehaviour
         yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
         yield return new WaitForSeconds(0.5f);
 
-        // Player uses their move
-        CurrentPlayer.moveUsesRemaining[playerMoveIndex]++; // (undo for temp change at start of this method)
-        UseMove(CurrentPlayer, CurrentEnemy, playerMoveIndex);
+        CurrentPlayer.moveUsesRemaining[selectedMoveIndex]++; // (undo for temp change at start of this method)
 
-        // Wait for player animation
-        yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1.33f);
+        foreach (Battler battler in battlers)
+        {
+            if (battler == CurrentPlayer)
+            {
+                battler.selectedMove = battler.moves[selectedMoveIndex];
+            } else
+            {
+                List<Move> usableMoves = new List<Move>();
+                for (int i = 0; i < battler.moves.Length; i++)
+                {
+                    if (battler.moveUsesRemaining[i] > 0)
+                    {
+                        usableMoves.Add(battler.moves[i]);
+                    }
+                }
 
-        // Enemy selects and uses a move
-        // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-        UseMove(CurrentEnemy, CurrentPlayer, Random.Range(0, 4));
+                // enemy """"AI""""
+                battler.selectedMove = usableMoves[Random.Range(0, usableMoves.Count)];
+            }
+        }
 
-        // Wait for enemy animation
-        yield return new WaitUntil(() => CurrentEnemy.spriteAnimator.IsInTransition(0));
-        yield return new WaitForSeconds(1.33f);
+        // Sort act order by priority
+        // if tie, player will go first, or if both enemies, lower index in arr first (i think thats how the sort works)
+        List<Battler> actionOrder = new List<Battler>(battlers);
+        actionOrder.Sort((b1, b2) =>
+        {
+            int priorityDifference = b2.selectedMove.priority - b1.selectedMove.priority;
+            if (priorityDifference != 0) return priorityDifference;
 
+            if (b1.battlerIndex == currentPlayerIndex && b2.battlerIndex != currentPlayerIndex) return -1;
+            if (b2.battlerIndex == currentPlayerIndex && b1.battlerIndex != currentPlayerIndex) return 1;
+
+            return 0;
+        });
+
+        foreach (Battler battler in actionOrder) yield return Act(battler);
+        
         // Tick down status effects
         yield return TickStatusEffects(CurrentPlayer);
         yield return TickStatusEffects(CurrentEnemy);
@@ -428,6 +489,28 @@ public class BattleManager : MonoBehaviour
 
         movesGridAnimator.SetBool("ShowMoves", true);
         selectingMove = true;
+    }
+
+    IEnumerator Act(Battler attacker)
+    {
+        if (attacker == CurrentPlayer)
+        {
+            UseMove(CurrentPlayer, battlers[selectedBattlerIndex], selectedMoveIndex);
+            // Wait for player animation
+            yield return new WaitUntil(() => CurrentPlayer.spriteAnimator.IsInTransition(0));
+            
+        } else
+        {
+            // Enemy selects and uses a move
+            // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
+            List<int> validMoves = attacker.GetValidMoves();
+            UseMove(attacker, CurrentPlayer, validMoves[Random.Range(0,validMoves.Count)]);
+
+            // Wait for enemy animation
+            yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
+        }
+
+        yield return new WaitForSeconds(1.33f);
     }
 
     public void ClearBattleLog()
