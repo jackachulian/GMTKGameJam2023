@@ -28,6 +28,8 @@ public class BattleManager : MonoBehaviour
 
     public GameObject battlerPrefab;
 
+    public GameObject youIcon;
+
     public Transform battlerTransform;
 
     /// <summary>
@@ -96,6 +98,8 @@ public class BattleManager : MonoBehaviour
     void StartLevel()
     {
         level = levelList.levels[Storage.currentLevel];
+
+        youIcon.SetActive(Storage.currentLevel == 0);
 
         currentPlayerIndex = 0;
         isPostgame = false;
