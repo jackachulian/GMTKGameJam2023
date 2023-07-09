@@ -17,7 +17,7 @@ MonoBehaviour:
   moves:
   - {fileID: 11400000, guid: fa483c01ff58e0f418ceb56aa22167ec, type: 2}
   - {fileID: 11400000, guid: ce33612573169de4980bef8310586fe1, type: 2}
-  - {fileID: 11400000, guid: 24c8234672be27047a89216a5ebd4f8a, type: 2}
+  - {fileID: 11400000, guid: 3a4a24db92d603c4c87bf22bbb92947c, type: 2}
   - {fileID: 11400000, guid: b80d23facb7b0aa40adf0c79e7bece52, type: 2}
   nameColor: {r: 0.9528302, g: 0.25618547, b: 0.25618547, a: 1}
   controller: {fileID: 9100000, guid: 6d1ac92acdac42644b1fc3fee356df22, type: 2}

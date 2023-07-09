@@ -25,6 +25,6 @@ MonoBehaviour:
   baseUses: 4
   useAnimState: Defend
   useSFX: {fileID: 0}
-  hitAnimState: 
+  hitAnimState: Defend
   hitSFX: {fileID: 8300000, guid: 01606aedcda16f3498367b27b94323ee, type: 3}
   priority: 0
