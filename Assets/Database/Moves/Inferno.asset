@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Restore
+  m_Name: Inferno
   m_EditorClassIdentifier: 
-  displayName: Restore
+  displayName: Inferno
   manaCost: 5
-  damage: -10
+  damage: 5
   defense: 0
   selfEffect:
-    type: {fileID: 0}
-    duration: 0
+    type: {fileID: 11400000, guid: db50dde17b9ec3c4b86113067f3107d7, type: 2}
+    duration: 1
   opponentEffect:
-    type: {fileID: 0}
-    duration: 0
-  baseUses: 1
+    type: {fileID: 11400000, guid: db50dde17b9ec3c4b86113067f3107d7, type: 2}
+    duration: 4
+  baseUses: 4
   useAnimState: Cast
-  useSFX: {fileID: 8300000, guid: cb35578f718711e46b37b9c3d5130df7, type: 3}
-  hitAnimState: Cast
-  hitSFX: {fileID: 0}
+  useSFX: {fileID: 8300000, guid: 9fa7a5e4d0c4081498c2c79e6f9e5d11, type: 3}
+  hitAnimState: Hit
+  hitSFX: {fileID: 8300000, guid: 01606aedcda16f3498367b27b94323ee, type: 3}
   priority: 0

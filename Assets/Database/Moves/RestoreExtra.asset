@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Restore
+  m_Name: RestoreExtra
   m_EditorClassIdentifier: 
   displayName: Restore
   manaCost: 5
-  damage: -10
+  damage: -15
   defense: 0
   selfEffect:
     type: {fileID: 0}
@@ -22,7 +22,7 @@ MonoBehaviour:
   opponentEffect:
     type: {fileID: 0}
     duration: 0
-  baseUses: 1
+  baseUses: 3
   useAnimState: Cast
   useSFX: {fileID: 8300000, guid: cb35578f718711e46b37b9c3d5130df7, type: 3}
   hitAnimState: Cast

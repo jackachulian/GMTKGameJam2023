@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Eye
   m_EditorClassIdentifier: 
   displayName: Eye
-  hp: 40
+  hp: 50
   moves:
   - {fileID: 11400000, guid: 19defb78b107db348bf0abde3826cc87, type: 2}
   - {fileID: 11400000, guid: d74929fedc6d23f4ba543f457af5a65c, type: 2}

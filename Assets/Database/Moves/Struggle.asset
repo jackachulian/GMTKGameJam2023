@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Restore
+  m_Name: Struggle
   m_EditorClassIdentifier: 
-  displayName: Restore
-  manaCost: 5
-  damage: -10
+  displayName: Struggle
+  manaCost: 0
+  damage: 3
   defense: 0
   selfEffect:
     type: {fileID: 0}
@@ -22,9 +22,9 @@ MonoBehaviour:
   opponentEffect:
     type: {fileID: 0}
     duration: 0
-  baseUses: 1
+  baseUses: 999
   useAnimState: Cast
-  useSFX: {fileID: 8300000, guid: cb35578f718711e46b37b9c3d5130df7, type: 3}
-  hitAnimState: Cast
-  hitSFX: {fileID: 0}
+  useSFX: {fileID: 0}
+  hitAnimState: Hit
+  hitSFX: {fileID: 8300000, guid: d6d8fa3b0dc525848ac576c37a89a0fe, type: 3}
   priority: 0
