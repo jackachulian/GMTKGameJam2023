@@ -14,11 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Counter
   manaCost: 0
-<<<<<<< HEAD
   damage: 0
-=======
-  damage: 99999
->>>>>>> 8becf4ef2c77206dfe9738a975f86b416c0414bf
   defense: 0
   selfEffect:
     type: {fileID: 11400000, guid: e320c8ce8de684d45adda1b10c747406, type: 2}
