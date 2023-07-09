@@ -427,6 +427,9 @@ public class BattleManager : MonoBehaviour
                     i--;
                 } 
             }
+
+            Refresh();
+            yield return new WaitForSeconds(0.75f);
         }
 
         // Inflict status effect on self
@@ -452,6 +455,7 @@ public class BattleManager : MonoBehaviour
             }
 
             Refresh();
+            yield return new WaitForSeconds(0.75f);
         }
 
         // epic hard code moment
@@ -485,7 +489,9 @@ public class BattleManager : MonoBehaviour
             {
                 BattleMessage($"{target.coloredName} was purified of the status!");
             }
+
             Refresh();
+            yield return new WaitForSeconds(0.75f);
         }
     }
 
