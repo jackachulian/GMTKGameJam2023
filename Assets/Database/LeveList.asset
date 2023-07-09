@@ -21,7 +21,16 @@ MonoBehaviour:
 
       uh
 
-      yeah'
+      {RaisePlatform}
+
+      yeah
+
+      {Wait1}
+
+      {Wait0.5}
+
+      uh
+      oh'
     levelEndDialogue: 'woah
 
       i slayed myself :o'

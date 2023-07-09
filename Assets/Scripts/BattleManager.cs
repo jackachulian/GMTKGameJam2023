@@ -114,9 +114,9 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator StartBattle()
     {
-        if (platformRotationAnimator.GetBool("LowerPlatform"))
+        if (platformRotationAnimator.GetBool("LoweredPlatform"))
         {
-            platformRotationAnimator.SetBool("LowerPlatform", false);
+            platformRotationAnimator.SetBool("LoweredPlatform", false);
             yield return new WaitUntil(() => battleLogAnimator.IsInTransition(0));
         }
 
@@ -513,11 +513,11 @@ public class BattleManager : MonoBehaviour
             switch (line)
             {
                 case "{RaisePlatform}":
-                    platformRotationAnimator.SetBool("LowerPlatform", false);
+                    platformRotationAnimator.SetBool("LoweredPlatform", false);
                     break;
 
                 case "{LowerPlatform}":
-                    platformRotationAnimator.SetBool("LowerPlatform", true);
+                    platformRotationAnimator.SetBool("LoweredPlatform", true);
                     break;
 
                 // time constraint moment
