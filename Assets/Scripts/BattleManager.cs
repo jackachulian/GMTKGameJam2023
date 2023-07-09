@@ -380,7 +380,7 @@ public class BattleManager : MonoBehaviour
 
             if (target.hp <= 0)
             {
-                target.spriteAnimator.Play("Base Layer.defeat", 0);
+                
             } 
             else
             {
@@ -497,6 +497,7 @@ public class BattleManager : MonoBehaviour
             {
                 BattleMessage($"{battler.coloredName} was slain!");
                 battler.isDead = true;
+                battler.spriteAnimator.Play("Base Layer.defeat", 0);
                 
                 // check if all player or target battlers have died
                 CheckForPostgame();
