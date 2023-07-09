@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -18,9 +19,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] AudioClip messageSFX, swapSFX;
 
     /// <summary>
-    /// Holds the two battlers
+    /// Holds all battler monobehaviours
     /// </summary>
-    public Battler[] battlers;
+    [HideInInspector] public Battler[] battlers;
 
     public GameObject battlerPrefab;
 
@@ -34,6 +35,8 @@ public class BattleManager : MonoBehaviour
     public Battler CurrentPlayer { get {return battlers[currentPlayerIndex];}}
     public Battler CurrentEnemy { get { return battlers[(currentPlayerIndex+1)%battlers.Length]; } }
 
+    public Animator platformAnimator;
+    public AnimatorController platformController, triplePlatformController;
 
     /// <summary>
     /// Transform that holds all the move button children to be updated when swapping battlers
@@ -62,30 +65,50 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartLevel();
+    }
+
+    public void StartLevel()
+    {
         level = levelList.levels[Storage.currentLevel];
 
-        battlers = new Battler[level.battlers.Length];
-        for (int i=0; i<level.battlers.Length; i++)
+        if (level.battlers.Length >= 3)
         {
-            BattlerStats battlerStats = level.battlers[i];
-            Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
-            battlers[i] = battler;
-            battler.StatsSetup(battlerStats);
-            // sets all battlers above playerAmount as a target
-            if (i > level.playerAmount - 1) battler.isTarget = true;
+            platformAnimator.runtimeAnimatorController = triplePlatformController;
+        }
+        else
+        {
+            platformAnimator.runtimeAnimatorController = platformController;
+        }
+
+        // Hide un needed battlers
+        foreach (Transform child in battlerTransform) child.gameObject.SetActive(false);
+
+        battlers = new Battler[level.battlers.Length];
+        for (int i = 0; i < battlerTransform.childCount; i++)
+        {
+            if (i < level.battlers.Length)
+            {
+                BattlerStats battlerStats = level.battlers[i];
+                Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
+                battler.gameObject.SetActive(true);
+                battlers[i] = battler;
+                battler.StatsSetup(battlerStats);
+                // sets all battlers above playerAmount as a target
+                if (i > level.playerAmount - 1) battler.isTarget = true;
+            }
         }
 
         if (level.levelStartDialogue.Length > 0)
         {
             Refresh();
             StartCoroutine(PlayCutscene(level.levelStartDialogue, start: true));
-        } else
+        }
+        else
         {
             StartCoroutine(StartBattle());
         }
     }
-
-
 
     Vector2 logVel;
     // Update is called once per frame
@@ -357,9 +380,9 @@ public class BattleManager : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % battlers.Length;
 
         // may need to change this ode once more than 1 enemy is added
-        platformRotationAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
-        battlerDisplaysAnimator.SetBool("Player1OnRight", currentPlayerIndex == 1);
-        
+        platformRotationAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
+        platformRotationAnimator.SetInteger("PlayerIndex", currentPlayerIndex);
+
         Refresh();
 
         // Wait until a lil bit through the animation to re show the moves
