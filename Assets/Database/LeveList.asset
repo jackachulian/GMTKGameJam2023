@@ -36,7 +36,7 @@ MonoBehaviour:
       i slayed myself :o'
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
   - battlers:
-    - {fileID: 11400000, guid: 5fa8f788e18c7964f98939476fc1e071, type: 2}
+    - {fileID: 11400000, guid: f6214afe622500b47ac1ff9979fe8d47, type: 2}
     - {fileID: 11400000, guid: 17a677e914d66164dbf64a7c184a94e2, type: 2}
     playerAmount: 1
     levelStartDialogue: 'this is level 2

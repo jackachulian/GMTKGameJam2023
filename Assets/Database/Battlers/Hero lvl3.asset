@@ -15,9 +15,9 @@ MonoBehaviour:
   displayName: Hero
   hp: 30
   moves:
-  - {fileID: 11400000, guid: 5d5b99028792ec148b96516f964d888e, type: 2}
+  - {fileID: 11400000, guid: fa483c01ff58e0f418ceb56aa22167ec, type: 2}
   - {fileID: 11400000, guid: 5b1704d02b8f75b4fb3c06bdc7fda24e, type: 2}
-  - {fileID: 11400000, guid: a32be217ea2351146bebc2517b99bc66, type: 2}
+  - {fileID: 11400000, guid: d74929fedc6d23f4ba543f457af5a65c, type: 2}
   - {fileID: 11400000, guid: 24c8234672be27047a89216a5ebd4f8a, type: 2}
   nameColor: {r: 0.11124954, g: 0.6792792, b: 0.9433962, a: 1}
   controller: {fileID: 9100000, guid: 45d98fb20ae2aae4a963942e502ef35b, type: 2}
