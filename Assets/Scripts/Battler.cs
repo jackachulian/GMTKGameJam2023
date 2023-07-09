@@ -113,4 +113,16 @@ public class Battler : MonoBehaviour
         }
         return null;
     }
+
+    // return all moves that aren't used up. used with ai
+    public List<int> GetValidMoves()
+    {
+        List<int> valid = new List<int>();
+        for (int i = 0; i < moveUsesRemaining.Length; i++)
+        {
+            if (moveUsesRemaining[i] > 0) valid.Add(i);
+        }
+
+        return valid;
+    }
 }

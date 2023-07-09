@@ -503,7 +503,8 @@ public class BattleManager : MonoBehaviour
         {
             // Enemy selects and uses a move
             // TODO: if enemy has no moves left, have them do nothing, struggle, etc. we'll figure that out later
-            UseMove(attacker, CurrentPlayer, Random.Range(0, 4));
+            List<int> validMoves = attacker.GetValidMoves();
+            UseMove(attacker, CurrentPlayer, validMoves[Random.Range(0,validMoves.Count)]);
 
             // Wait for enemy animation
             yield return new WaitUntil(() => attacker.spriteAnimator.IsInTransition(0));
