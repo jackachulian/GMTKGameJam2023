@@ -32,11 +32,17 @@ MonoBehaviour:
       {Wait0.5}
 
       I need
-      to defeat his body while keeping mine alive.'
+      to defeat his body while keeping mine alive.
+
+      {Wait1}
+
+      {Wait0.5}'
     levelEndDialogue: 'I did it, I slayed myself.
 
       But I don''t think it''s
-      over yet.'
+      over yet.
+
+      {Wait1}'
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
   - battlers:
     - {fileID: 11400000, guid: 5fa8f788e18c7964f98939476fc1e071, type: 2}
@@ -64,20 +70,47 @@ MonoBehaviour:
     playerAmount: 1
     levelStartDialogue: 'I sense a powerful aura...
 
-      It''s me, but better in
-      every way...
+      {Wait0.5}
 
-      This is what the crowd has been waiting for, "Better You!"
+      It''s
+      me, but better in every way...
 
       {Wait0.5}
+
+      This is what the crowd
+      has been waiting for, "Better You!"
+
+      {Wait1}
+
+      {Wait1}
 
       {RaisePlatform}'
     levelEndDialogue: 'I did it...
 
-      I somehow did it...
+      {Wait0.5}
 
-      I''ve beaten
-      "Better You," the ultimate clone...
+      {Wait0.5}
 
-      Even against myself, I am the champion!'
+      I somehow
+      did it...
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      I''ve beaten "Better You,"
+      the ultimate clone...
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      Even against
+      myself, I am the champion!
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      {Wait0.5}'
     bgm: {fileID: 8300000, guid: 5c113b892d6354343a4e07883eab8e8f, type: 3}
