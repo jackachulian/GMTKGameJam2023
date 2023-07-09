@@ -32,7 +32,7 @@ Transform:
   - {fileID: 1932467226582720231}
   - {fileID: 3877709241659991791}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8601298544561020418
 MonoBehaviour:
@@ -222,7 +222,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
