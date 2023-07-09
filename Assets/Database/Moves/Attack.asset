@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Attack
   manaCost: 0
-  damage: 50
+  damage: 10
   defense: 0
   selfEffect:
     type: {fileID: 0}
