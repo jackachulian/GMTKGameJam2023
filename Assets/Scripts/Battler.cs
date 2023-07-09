@@ -121,7 +121,7 @@ public class Battler : MonoBehaviour
         List<int> valid = new List<int>();
         for (int i = 0; i < moveUsesRemaining.Length; i++)
         {
-            if (moveUsesRemaining[i] > 0 && !moves[i].displayName.Equals("Status Swap")) valid.Add(i);
+            if (moveUsesRemaining[i] > 0 && !moves[i].displayName.Equals("Status Swap") && !moves[i].displayName.Equals("Restore")) valid.Add(i);
         }
 
         return valid;

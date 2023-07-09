@@ -339,6 +339,14 @@ public class BattleManager : MonoBehaviour
         {
             BattleMessage($"{attacker.coloredName} uses {move.displayName}");
         }
+        
+        // healing
+        if (move.damage < 0)
+        {
+            attacker.hp = Math.Min(attacker.hp-move.damage, attacker.maxHp);
+            BattleMessage($"{attacker.coloredName} heals {Math.Abs(move.damage)} HP.");
+            Refresh();
+        }
 
         StartCoroutine(DamageAfterAnimation(attacker, target, move));
     }

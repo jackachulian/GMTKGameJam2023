@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Eye
   m_EditorClassIdentifier: 
   displayName: Eye
-  hp: 50
+  hp: 40
   moves:
   - {fileID: 11400000, guid: 19defb78b107db348bf0abde3826cc87, type: 2}
   - {fileID: 11400000, guid: d74929fedc6d23f4ba543f457af5a65c, type: 2}
   - {fileID: 11400000, guid: ea6aeb2581e737645b1cc92f08365a48, type: 2}
-  - {fileID: 11400000, guid: 51f27ca10dbb6fa44a59fc71db3a019a, type: 2}
+  - {fileID: 11400000, guid: a32be217ea2351146bebc2517b99bc66, type: 2}
   nameColor: {r: 0.9528302, g: 0.25618547, b: 0.25618547, a: 1}
   controller: {fileID: 9100000, guid: 17ae8c9e7005e8b4c9b5ab4022e0b13b, type: 2}
   portraitSprite: {fileID: 21300000, guid: a4fdb171405db4a49a91e14f9abb5dd5, type: 3}
