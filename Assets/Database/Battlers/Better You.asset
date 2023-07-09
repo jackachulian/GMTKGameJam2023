@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Better You
   m_EditorClassIdentifier: 
   displayName: Better You
-  hp: 70
+  hp: 65
   moves:
   - {fileID: 11400000, guid: fa483c01ff58e0f418ceb56aa22167ec, type: 2}
   - {fileID: 11400000, guid: ce33612573169de4980bef8310586fe1, type: 2}
