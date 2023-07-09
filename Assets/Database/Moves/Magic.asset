@@ -21,7 +21,7 @@ MonoBehaviour:
     duration: 0
   opponentEffect:
     type: {fileID: 11400000, guid: db50dde17b9ec3c4b86113067f3107d7, type: 2}
-    duration: 2
+    duration: 3
   baseUses: 5
   useAnimState: Cast
   useSFX: {fileID: 8300000, guid: 9fa7a5e4d0c4081498c2c79e6f9e5d11, type: 3}
