@@ -3719,7 +3719,7 @@ PrefabInstance:
     - target: {fileID: 6326506780730526019, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 6d1ac92acdac42644b1fc3fee356df22, type: 2}
+      objectReference: {fileID: 9100000, guid: 17ae8c9e7005e8b4c9b5ab4022e0b13b, type: 2}
     - target: {fileID: 7523985569855866711, guid: b9de405c4cd457642ab76c2823731d31, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3972,7 +3972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 116
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4720064386650326780, guid: b05e915892f479c479709190a9ebeab1, type: 3}
       propertyPath: m_LocalPosition.x
