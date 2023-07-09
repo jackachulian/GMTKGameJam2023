@@ -16,19 +16,13 @@ public class MoveButton : MonoBehaviour
 
     [SerializeField] private TMPro.TextMeshProUGUI usesLabel, nameLabel;
 
-    // Use this for initialization
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
 
     }
 
-    void OnValidate()
+    void Start()
     {
         battleManager = FindObjectOfType<BattleManager>();
     }

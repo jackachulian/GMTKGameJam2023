@@ -81,6 +81,15 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        moveButtons = new List<MoveButton>();
+
+        foreach (Transform child in moveGridTransform)
+        {
+            moveButtons.Add(child.GetComponent<MoveButton>());
+        }
+
+        Refresh();
+
         StartLevel();
     }
 
@@ -172,18 +181,6 @@ public class BattleManager : MonoBehaviour
         {
             BattleMessage("Yahoo");
         }
-    }
-
-    private void OnValidate()
-    {
-        moveButtons = new List<MoveButton>();
-
-        foreach (Transform child in moveGridTransform)
-        {
-            moveButtons.Add(child.GetComponent<MoveButton>());
-        }
-
-        Refresh();
     }
 
     IEnumerator StartBattle()
@@ -506,6 +503,7 @@ public class BattleManager : MonoBehaviour
 
     void CheckForPostgame()
     {
+        if (isPostgame) return;
         // check for win, all targets are dead
         bool won = true;
         foreach (Battler battler in battlers)
