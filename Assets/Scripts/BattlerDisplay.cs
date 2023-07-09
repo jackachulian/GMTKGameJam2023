@@ -51,7 +51,7 @@ public class BattlerDisplay : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            foreach (Transform child in statusEffectsTransform) Destroy(child.gameObject);
+            foreach (Transform child in statusEffectsTransform) if ((child != null)) Destroy(child.gameObject);
 
             foreach (StatusEffect statusEffect in displayedBattler.statusEffects)
             {

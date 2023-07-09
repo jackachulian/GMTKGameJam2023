@@ -41,6 +41,8 @@ public class BattleManager : MonoBehaviour
     public Animator platformAnimator;
     public AnimatorController platformController, triplePlatformController;
 
+    public AnimatorController battlerDisplayController, triplebattlerDisplayController;
+
     /// <summary>
     /// Transform that holds all the move button children to be updated when swapping battlers
     /// </summary>
@@ -91,6 +93,8 @@ public class BattleManager : MonoBehaviour
         platformAnimator.SetBool("LoweredPlatform", true);
         StartCoroutine(SetBattlersWhenLowered());
 
+        battlerDisplaysAnimator.SetInteger("PlayerIndex", 0);
+
         if (level.levelStartDialogue.Length > 0)
         {
             Refresh();
@@ -120,14 +124,20 @@ public class BattleManager : MonoBehaviour
         if (level.battlers.Length >= 3)
         {
             platformAnimator.runtimeAnimatorController = triplePlatformController;
+            battlerDisplaysAnimator.runtimeAnimatorController = triplebattlerDisplayController;
         }
         else
         {
             platformAnimator.runtimeAnimatorController = platformController;
+            battlerDisplaysAnimator.runtimeAnimatorController = battlerDisplayController;
         }
+
+        platformAnimator.SetInteger("PlayerIndex", 0);
+        battlerDisplaysAnimator.SetInteger("PlayerIndex", 0);
 
         // Hide un needed battlers
         foreach (Transform child in battlerTransform) child.gameObject.SetActive(false);
+        foreach (BattlerDisplay display in battlerDisplays) display.gameObject.SetActive(false);
 
         battlers = new Battler[level.battlers.Length];
         for (int i = 0; i < level.battlers.Length; i++)
@@ -136,6 +146,7 @@ public class BattleManager : MonoBehaviour
             Battler battler = battlerTransform.GetChild(i).GetComponent<Battler>();
             battler.gameObject.SetActive(true);
             battlers[i] = battler;
+            battlerDisplays[i].gameObject.SetActive(true);
             battler.StatsSetup(battlerStats);
             // sets all battlers above playerAmount as a target
             if (i >= level.playerAmount) battler.isTarget = true;
@@ -169,6 +180,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator StartBattle()
     {
+        SoundManager.Instance.StopBGM();
         if (platformRotationAnimator.GetBool("LoweredPlatform"))
         {
             platformRotationAnimator.SetBool("LoweredPlatform", false);
@@ -182,6 +194,7 @@ public class BattleManager : MonoBehaviour
         selectingMove = true;
 
         SoundManager.Instance.SetBGM(level.bgm);
+        SoundManager.Instance.PlayBGM();
     }
 
     private List<Battler> possibleTargets;
@@ -684,7 +697,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator Lose()
     {
-        BattleMessage("You were slain...");
+        BattleMessage("You slayed yourself...");
         isPostgame = true;
         SoundManager.Instance.StopBGM();
 
