@@ -36,6 +36,7 @@ public class MoveButton : MonoBehaviour
     // Re-display info about the player's current battler's move at this MoveButton's index.
     public void Refresh()
     {
+        if (battleManager == null) return;
         displayedMove = battleManager.CurrentPlayer.moves[moveIndex];
         usesLabel.text = battleManager.CurrentPlayer.moveUsesRemaining[moveIndex]+"";
         nameLabel.text = displayedMove.displayName;
