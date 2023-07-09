@@ -697,7 +697,7 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator Lose()
     {
-        BattleMessage("You were slain...");
+        BattleMessage("You slayed yourself...");
         isPostgame = true;
         SoundManager.Instance.StopBGM();
 
