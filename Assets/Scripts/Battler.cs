@@ -72,7 +72,7 @@ public class Battler : MonoBehaviour
         displayName = stats.displayName;
         hp = stats.hp;
         maxHp = stats.hp;
-        moves = stats.moves;
+        moves = (Move[]) stats.moves.Clone();
         nameColor = stats.nameColor;
         portraitSprite = stats.portraitSprite;
 
@@ -81,7 +81,7 @@ public class Battler : MonoBehaviour
 
     }
 
-    void ResetMoveUses()
+    public void ResetMoveUses()
     {
         moveUsesRemaining = new int[moves.Length];
 

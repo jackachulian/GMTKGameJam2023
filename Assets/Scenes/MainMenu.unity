@@ -1206,7 +1206,7 @@ MonoBehaviour:
   aboutCloseButton: {fileID: 4044362343747532409}
   cursor: {fileID: 353979753}
   bgm: {fileID: 8300000, guid: f73cef75214566040b2ee46b1762a917, type: 3}
-  startingLevel: 0
+  startingLevel: 1
 --- !u!1 &997981206 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4044362343537840931, guid: c9567601ed75fa146abfaa1790004e94, type: 3}

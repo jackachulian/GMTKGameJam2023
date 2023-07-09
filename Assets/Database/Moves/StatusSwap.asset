@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
-  m_Name: Attack
+  m_Name: StatusSwap
   m_EditorClassIdentifier: 
-  displayName: Attack
-  manaCost: 0
-  damage: 5
+  displayName: Status Swap
+  manaCost: 5
+  damage: 0
   defense: 0
   selfEffect:
     type: {fileID: 0}
@@ -22,9 +22,9 @@ MonoBehaviour:
   opponentEffect:
     type: {fileID: 0}
     duration: 0
-  baseUses: 8
+  baseUses: 2
   useAnimState: Cast
-  useSFX: {fileID: 0}
-  hitAnimState: Hit
-  hitSFX: {fileID: 8300000, guid: d6d8fa3b0dc525848ac576c37a89a0fe, type: 3}
+  useSFX: {fileID: 8300000, guid: 648c48e0b99759f4a8a79a38a42132cd, type: 3}
+  hitAnimState: Cast
+  hitSFX: {fileID: 0}
   priority: 0

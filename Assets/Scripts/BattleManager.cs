@@ -104,6 +104,11 @@ public class BattleManager : MonoBehaviour
         {
             StartCoroutine(StartBattle());
         }
+
+        foreach (Battler battler in battlers)
+        {
+            battler.ResetMoveUses();
+        }
     }
 
     void StartNextLevel()
@@ -396,6 +401,16 @@ public class BattleManager : MonoBehaviour
             }
 
             AddStatus(attacker, move.selfEffect.type, move.selfEffect.duration);
+            Refresh();
+        }
+
+        // epic hard code moment
+        if (move.displayName.Equals("Status Swap"))
+        {
+            List<StatusEffect> temp = new List<StatusEffect>(attacker.statusEffects);
+            attacker.statusEffects = new List<StatusEffect>(target.statusEffects);
+            target.statusEffects = new List<StatusEffect>(temp);
+            BattleMessage($"Status effects have been swapped!");
             Refresh();
         }
 
