@@ -20,5 +20,6 @@ public class Level
 
     // music played during battle
     public AudioClip bgm;
+    public float bgmVolume = 1f;
 }
 

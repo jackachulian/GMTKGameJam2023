@@ -63,6 +63,11 @@ public class SoundManager : MonoBehaviour
         Instance.musicSource.Stop();
     }
 
+    public void SetBGMVolume(float v)
+    {
+        Instance.musicSource.volume = v;
+    }
+
     public void UnloadBGM() {
         StopBGM();
         Instance.musicSource.clip = null;
