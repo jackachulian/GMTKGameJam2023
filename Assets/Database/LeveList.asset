@@ -59,7 +59,10 @@ MonoBehaviour:
     playerAmount: 1
     levelStartDialogue: 'this is level 3
 
-      {RaisePlatform}'
+      {RaisePlatform}
+
+
+      hm'
     levelEndDialogue: 'I beat the game
 
       neat'

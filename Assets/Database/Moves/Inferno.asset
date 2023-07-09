@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219b5e5ba5c2e7d49a1249fddae0319e, type: 3}
   m_Name: Inferno
   m_EditorClassIdentifier: 
-  displayName: Flame
+  displayName: Inferno
   manaCost: 5
   damage: 5
   defense: 0
