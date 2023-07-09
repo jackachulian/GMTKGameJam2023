@@ -54,18 +54,21 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5fa8f788e18c7964f98939476fc1e071, type: 2}
     - {fileID: 11400000, guid: 17a677e914d66164dbf64a7c184a94e2, type: 2}
     playerAmount: 1
-    levelStartDialogue: '{RaisePlatform}
+    levelStartDialogue: 'Oh...
 
-      Oh.
+      {Wait0.5}
 
-      So that''s what they did
-      with my eyes.
+      {RaisePlatform}
+
+      So
+      that''s what they did with my eyes.
 
       {Wait1}
 
       {Wait0.5}
 
-      Now let''s do this!
+      Now
+      let''s do this!
 
       {Wait0.5}'
     levelEndDialogue: There goes my eye.
