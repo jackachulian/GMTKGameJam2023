@@ -17,53 +17,100 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
     - {fileID: 11400000, guid: c6a57255bf9cf324b894be9bf7779270, type: 2}
     playerAmount: 1
-    levelStartDialogue: 'this is a game
+    levelStartDialogue: 'I am Hiro, a popular gladiator.
 
-      uh
+      So popular, that
+      I''ve been cloned to fight myself.
 
       {RaisePlatform}
 
-      yeah
+      Our souls
+      will switch bodies every turn.
 
       {Wait1}
 
       {Wait0.5}
 
-      uh
-      oh'
-    levelEndDialogue: 'woah
+      I need
+      to defeat his body while keeping mine alive.
 
-      i slayed myself :o'
+      {Wait1}
+
+      {Wait0.5}'
+    levelEndDialogue: 'I did it, I slayed myself.
+
+      But I don''t think it''s
+      over yet.
+
+      {Wait1}'
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
   - battlers:
-    - {fileID: 11400000, guid: f6214afe622500b47ac1ff9979fe8d47, type: 2}
+    - {fileID: 11400000, guid: 5fa8f788e18c7964f98939476fc1e071, type: 2}
     - {fileID: 11400000, guid: 17a677e914d66164dbf64a7c184a94e2, type: 2}
     playerAmount: 1
-    levelStartDialogue: 'this is level 2
+    levelStartDialogue: '{RaisePlatform}
 
-      {RaisePlatform}
+      Oh.
 
-      yeah
+      So that''s what they did
+      with my eyes.
 
       {Wait1}
 
       {Wait0.5}
 
-      uh
-      oh'
-    levelEndDialogue: i beat level 2
+      Now let''s do this!
+
+      {Wait0.5}'
+    levelEndDialogue: There goes my eye.
     bgm: {fileID: 8300000, guid: 6a6ed7fdfbd85f34aa610e989ab52f14, type: 3}
   - battlers:
     - {fileID: 11400000, guid: 0b127b38364313646a0ac83cda630f5c, type: 2}
     - {fileID: 11400000, guid: c4859573ebe8b394090f0efb2882616a, type: 2}
     playerAmount: 1
-    levelStartDialogue: 'this is level 3
+    levelStartDialogue: 'I sense a powerful aura...
 
-      {RaisePlatform}
+      {Wait0.5}
 
+      It''s
+      me, but better in every way...
 
-      hm'
-    levelEndDialogue: 'I beat the game
+      {Wait0.5}
 
-      neat'
+      This is what the crowd
+      has been waiting for, "Better You!"
+
+      {Wait1}
+
+      {Wait1}
+
+      {RaisePlatform}'
+    levelEndDialogue: 'I did it...
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      I somehow
+      did it...
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      I''ve beaten "Better You,"
+      the ultimate clone...
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      Even against
+      myself, I am the champion!
+
+      {Wait0.5}
+
+      {Wait0.5}
+
+      {Wait0.5}'
     bgm: {fileID: 8300000, guid: 5c113b892d6354343a4e07883eab8e8f, type: 3}
