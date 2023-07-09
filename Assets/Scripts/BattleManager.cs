@@ -207,6 +207,7 @@ public class BattleManager : MonoBehaviour
             selectingTarget = true;
         } else if (possibleTargets.Count > 0)
         {
+            selectedBattlerIndex = (currentPlayerIndex + 1) % battlers.Length;
             StartCoroutine(EvaluateTurn());
         }        
     }
@@ -214,6 +215,8 @@ public class BattleManager : MonoBehaviour
     private int selectedBattlerIndex;
     public void SubmitTarget(int battlerIndex)
     {
+        battlerIndex = (battlerIndex + currentPlayerIndex) % battlers.Length;
+
         if (!selectingTarget) return;
 
         Battler selectedTarget = battlers[battlerIndex];
@@ -449,8 +452,8 @@ public class BattleManager : MonoBehaviour
             int priorityDifference = b2.selectedMove.priority - b1.selectedMove.priority;
             if (priorityDifference != 0) return priorityDifference;
 
-            if (b1.isTarget && !b2.isTarget) return 1;
-            if (b2.isTarget && !b1.isTarget) return -1;
+            if (b1.battlerIndex == currentPlayerIndex && b2.battlerIndex != currentPlayerIndex) return -1;
+            if (b2.battlerIndex == currentPlayerIndex && b1.battlerIndex != currentPlayerIndex) return 1;
 
             return 0;
         });
