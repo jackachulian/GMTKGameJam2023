@@ -6,6 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using Random=UnityEngine.Random;
+using System;
 
 public class BattleManager : MonoBehaviour
 {
@@ -323,7 +324,7 @@ public class BattleManager : MonoBehaviour
         {
             if (statusEffect.type == statusType)
             {
-                statusEffect.duration += duration;
+                statusEffect.duration = Math.Min(duration+statusEffect.duration, statusEffect.type.maxDuration);
                 return;
             }
         }
