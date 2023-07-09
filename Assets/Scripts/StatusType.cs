@@ -4,6 +4,8 @@ using UnityEngine;
 public class StatusType : ScriptableObject {
     public Sprite icon;
 
+    public int maxDuration = 9;
+
     public string statusName;
     public string description;
 }
