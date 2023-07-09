@@ -2616,7 +2616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1248590877211020452, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
       propertyPath: m_Text
-      value: < return <
+      value: '[ Back ]'
       objectReference: {fileID: 0}
     - target: {fileID: 4044362343537840931, guid: c9567601ed75fa146abfaa1790004e94, type: 3}
       propertyPath: m_Name
